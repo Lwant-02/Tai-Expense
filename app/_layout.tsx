@@ -24,10 +24,11 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar />
+      <StatusBar barStyle="light-content" />
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        <Stack.Screen name="(welcome)" options={{ headerShown: false }} />
       </Stack>
     </>
   );

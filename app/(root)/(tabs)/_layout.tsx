@@ -1,7 +1,13 @@
-import React from "react";
+import { Tabs } from "expo-router";
 
-const RootLayout = () => {
-  return <div>RootLayout</div>;
-};
-
-export default RootLayout;
+export default function Layout() {
+  return (
+    <Tabs>
+      <Tabs.Screen name="home" />
+      <Tabs.Screen name="reminder" />
+      <Tabs.Screen name="create" />
+      <Tabs.Screen name="statistic" />
+      <Tabs.Screen name="setting" />r
+    </Tabs>
+  );
+}
