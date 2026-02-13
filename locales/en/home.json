@@ -1,0 +1,31 @@
+{
+  "greeting_morning": "Good morning,",
+  "greeting_afternoon": "Good afternoon,",
+  "greeting_evening": "Good evening,",
+  "current_balance": "Current Balance",
+  "income": "Income",
+  "expenses": "Expenses",
+  "transactions_history": "Transactions History",
+  "see_all": "See all",
+  "no_transactions": "No transactions yet",
+  "start_tracking": "Start tracking your income and expenses to see them listed here.",
+  "category": {
+    "salary": "Salary",
+    "freelance": "Freelance",
+    "gift": "Gift",
+    "investment": "Investment",
+    "food": "Food",
+    "transport": "Transport",
+    "shopping": "Shopping",
+    "entertainment": "Entertainment",
+    "bills": "Bills",
+    "health": "Health",
+    "education": "Education",
+    "other": "Other"
+  },
+  "date": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  }
+}

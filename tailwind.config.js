@@ -6,13 +6,16 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        KengTawng2: ["KengTawng2", "sans-serif"],
-        NamTengWebPro: ["NamTengWebPro", "sans-serif"],
+        GHKKengtung: ["GHKKengtung", "sans-serif"],
+        GHKTachileik: ["GHKTachileik", "sans-serif"],
       },
       colors: {
         primary: "#ffffff",
         background: "#000000",
         foreground: "#1c1c1c",
+        danger: "#F56565",
+        blue: "#2563EB",
+        green: "#22C55E",
       },
     },
   },

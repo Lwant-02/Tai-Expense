@@ -2,6 +2,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { StatusBar } from "react-native";
+import "../i18n";
 import "./global.css";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -9,8 +10,8 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    KengTawng2: require("../assets/fonts/KengTawng2.ttf"),
-    NamTengWebPro: require("../assets/fonts/NamTengWebPro.ttf"),
+    GHKKengtung: require("../assets/fonts/GHKKengtung.ttf"),
+    GHKTachileik: require("../assets/fonts/GHKTachileik.ttf"),
   });
   useEffect(() => {
     if (loaded) {

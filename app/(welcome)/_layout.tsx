@@ -1,12 +1,9 @@
-import React from "react";
-import { Text, View } from "react-native";
+import { Stack } from "expo-router";
 
-const WelcomeRootLayout = () => {
+export default function Layout() {
   return (
-    <View>
-      <Text>WelcomeRootLayout</Text>
-    </View>
+    <Stack>
+      <Stack.Screen name="welcome" options={{ headerShown: false }} />
+    </Stack>
   );
-};
-
-export default WelcomeRootLayout;
+}
