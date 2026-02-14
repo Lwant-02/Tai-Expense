@@ -31,3 +31,23 @@ export const loadSetup = async (): Promise<boolean | null> => {
   const value = await AsyncStorage.getItem(USER_SETUP_KEY);
   return value ? JSON.parse(value) : null;
 };
+
+export const CURRENCY_KEY = "user-currency";
+
+export const saveCurrency = async (currency: string): Promise<void> => {
+  await AsyncStorage.setItem(CURRENCY_KEY, currency);
+};
+
+export const loadCurrency = async (): Promise<string | null> => {
+  return await AsyncStorage.getItem(CURRENCY_KEY);
+};
+
+export const USERNAME_KEY = "user-name";
+
+export const saveUsername = async (name: string): Promise<void> => {
+  await AsyncStorage.setItem(USERNAME_KEY, name);
+};
+
+export const loadUsername = async (): Promise<string | null> => {
+  return await AsyncStorage.getItem(USERNAME_KEY);
+};

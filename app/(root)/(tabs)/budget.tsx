@@ -14,28 +14,27 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import BudgetAlert from "@/components/budget/budget-alert";
-import { EMPTY_BUDGET } from "@/components/budget/budget-data";
+import { SAMPLE_BUDGET } from "@/components/budget/budget-data";
 import BudgetRing from "@/components/budget/budget-ring";
 import BudgetStats from "@/components/budget/budget-stats";
 import CategoryBudgetList from "@/components/budget/category-budget-list";
 import SetBudgetForm from "@/components/budget/set-budget-form";
-import SetCategoryBudgetForm from "@/components/budget/set-category-budget-form";
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
-import { CategoryBudget, TransactionCategory } from "@/type";
+import { CategoryBudget } from "@/type";
 
-type FormType = "budget" | "category" | null;
+type FormType = "budget" | null;
 
 export default function BudgetPage() {
   const { t } = useTranslation("budget");
 
   // Budget state (using sample data for now)
   const [monthlyBudget, setMonthlyBudget] = useState(
-    EMPTY_BUDGET.monthlyBudget,
+    SAMPLE_BUDGET.monthlyBudget,
   );
-  const [totalSpent] = useState(EMPTY_BUDGET.totalSpent);
+  const [totalSpent] = useState(SAMPLE_BUDGET.totalSpent);
   const [categoryBudgets, setCategoryBudgets] = useState<CategoryBudget[]>(
-    EMPTY_BUDGET.categoryBudgets,
+    SAMPLE_BUDGET.categoryBudgets,
   );
 
   const remaining = monthlyBudget - totalSpent;
@@ -44,7 +43,7 @@ export default function BudgetPage() {
   // Bottom sheet
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [activeForm, setActiveForm] = useState<FormType>(null);
-  const snapPoints = useMemo(() => ["95%"], []);
+  const snapPoints = useMemo(() => ["70%"], []);
 
   const openForm = useCallback((type: FormType) => {
     bottomSheetRef.current?.snapToIndex(0);
@@ -60,16 +59,6 @@ export default function BudgetPage() {
     setMonthlyBudget(amount);
   }, []);
 
-  const handleAddCategoryBudget = useCallback(
-    (category: TransactionCategory, amount: number) => {
-      setCategoryBudgets((prev) => [
-        ...prev,
-        { category, budgeted: amount, spent: 0 },
-      ]);
-    },
-    [],
-  );
-
   const hasBudget = monthlyBudget > 0;
 
   return (
@@ -82,8 +71,17 @@ export default function BudgetPage() {
             showsVerticalScrollIndicator={false}
             contentContainerClassName="pb-32"
           >
-            {/* Arc Ring */}
-            <BudgetRing totalBudget={monthlyBudget} totalSpent={totalSpent} />
+            {/* Arc Ring + Edit Button */}
+            <View className="relative">
+              <BudgetRing totalBudget={monthlyBudget} totalSpent={totalSpent} />
+              <TouchableOpacity
+                onPress={() => openForm("budget")}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                className="absolute right-6 top-0 bg-primary/5 p-2.5 rounded-full border border-primary/10"
+              >
+                <Ionicons name="pencil" size={18} color="#2563EB" />
+              </TouchableOpacity>
+            </View>
 
             {/* Month pill */}
             <View className="items-center mb-5">
@@ -103,32 +101,11 @@ export default function BudgetPage() {
             {/* Alert */}
             <BudgetAlert percentage={percentage} />
 
-            {/* Action buttons */}
-            <View className="flex-row gap-3 px-6 mb-5">
-              <TouchableOpacity
-                onPress={() => openForm("budget")}
-                activeOpacity={0.8}
-                className="flex-1 border border-primary/10 rounded-2xl py-3 flex-row items-center justify-center gap-2"
-              >
-                <Ionicons name="pencil-outline" size={16} color="#2563EB" />
-                <Text className="text-blue font-GHKTachileik text-sm font-medium">
-                  {t("edit_budget")}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => openForm("category")}
-                activeOpacity={0.8}
-                className="flex-1 bg-blue rounded-2xl py-3 flex-row items-center justify-center gap-2"
-              >
-                <Ionicons name="add-circle-outline" size={16} color="white" />
-                <Text className="text-primary font-GHKTachileik text-sm font-medium">
-                  {t("add_category_budget")}
-                </Text>
-              </TouchableOpacity>
-            </View>
-
             {/* Category budgets */}
-            <CategoryBudgetList budgets={categoryBudgets} />
+            <CategoryBudgetList
+              budgets={categoryBudgets}
+              totalBudget={monthlyBudget}
+            />
           </ScrollView>
         ) : (
           <View className="flex-1 items-center justify-center">
@@ -140,7 +117,7 @@ export default function BudgetPage() {
             <TouchableOpacity
               onPress={() => openForm("budget")}
               activeOpacity={0.8}
-              className="bg-blue rounded-2xl px-8 py-4 mt-6 flex-row items-center gap-2"
+              className="bg-blue rounded-2xl px-8 py-4  flex-row items-center gap-2"
             >
               <Ionicons name="add-circle" size={20} color="white" />
               <Text className="text-primary font-GHKTachileik text-base font-semibold">
@@ -178,13 +155,6 @@ export default function BudgetPage() {
               <SetBudgetForm
                 currentBudget={monthlyBudget}
                 onSave={handleSetBudget}
-                onClose={closeForm}
-              />
-            )}
-            {activeForm === "category" && (
-              <SetCategoryBudgetForm
-                existingCategories={categoryBudgets.map((b) => b.category)}
-                onSave={handleAddCategoryBudget}
                 onClose={closeForm}
               />
             )}

@@ -7,28 +7,34 @@ import CategoryBudgetCard from "./category-budget-card";
 
 interface CategoryBudgetListProps {
   budgets: CategoryBudget[];
+  totalBudget: number;
 }
 
 export default function CategoryBudgetList({
   budgets,
+  totalBudget,
 }: CategoryBudgetListProps) {
   const { t } = useTranslation("budget");
 
   return (
     <View className="px-6 mb-8">
       <Text className="text-primary font-GHKTachileik text-lg font-semibold mb-4">
-        {t("category_budgets")}
+        {t("spending_breakdown")}
       </Text>
 
       {budgets.length === 0 ? (
         <EmptyState
           icon="wallet-outline"
-          title={t("no_category_budget")}
-          subtitle={t("no_category_budget_subtitle")}
+          title={t("no_spending")}
+          subtitle={t("no_spending_subtitle")}
         />
       ) : (
         budgets.map((item) => (
-          <CategoryBudgetCard key={item.category} item={item} />
+          <CategoryBudgetCard
+            key={item.category}
+            item={item}
+            totalBudget={totalBudget}
+          />
         ))
       )}
     </View>

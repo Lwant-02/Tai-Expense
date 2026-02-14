@@ -7,13 +7,17 @@ import { Text, View } from "react-native";
 
 interface CategoryBudgetCardProps {
   item: CategoryBudget;
+  totalBudget: number;
 }
 
-export default function CategoryBudgetCard({ item }: CategoryBudgetCardProps) {
+export default function CategoryBudgetCard({
+  item,
+  totalBudget,
+}: CategoryBudgetCardProps) {
   const { t: tHome } = useTranslation("home");
 
   const config = CATEGORY_CONFIG[item.category];
-  const percentage = item.budgeted > 0 ? (item.spent / item.budgeted) * 100 : 0;
+  const percentage = totalBudget > 0 ? (item.spent / totalBudget) * 100 : 0;
   const clampedPercent = Math.min(percentage, 100);
 
   const getBarColor = () => {
@@ -43,7 +47,7 @@ export default function CategoryBudgetCard({ item }: CategoryBudgetCardProps) {
             {tHome(`category.${item.category}`)}
           </Text>
           <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
-            ${item.spent.toLocaleString()} / ${item.budgeted.toLocaleString()}
+            ${item.spent.toLocaleString()}
           </Text>
         </View>
 

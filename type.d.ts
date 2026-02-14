@@ -56,7 +56,6 @@ interface Transaction {
 
 declare interface CategoryBudget {
   category: TransactionCategory;
-  budgeted: number;
   spent: number;
 }
 

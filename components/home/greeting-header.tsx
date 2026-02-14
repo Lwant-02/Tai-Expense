@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -6,6 +7,7 @@ import { getGreetingTime } from "@/utils/common";
 
 export default function GreetingHeader() {
   const { t } = useTranslation("home");
+  const router = useRouter();
   const greeting = `greeting_${getGreetingTime()}`;
 
   return (
@@ -18,7 +20,10 @@ export default function GreetingHeader() {
           ၸၢႆးၼေႃႇမိူင်း
         </Text>
       </View>
-      <TouchableOpacity className="bg-foreground/50 p-2 rounded-xl">
+      <TouchableOpacity
+        onPress={() => router.push("/(root)/notification")}
+        className="bg-foreground/50 p-2 rounded-xl"
+      >
         <Ionicons name="notifications-outline" size={24} color="white" />
       </TouchableOpacity>
     </View>

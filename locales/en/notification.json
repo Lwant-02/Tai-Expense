@@ -1,0 +1,23 @@
+{
+  "title": "Notifications",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "earlier": "Earlier",
+  "new_notifications": " {{count}} new notifications",
+  "mark_all_read": "Mark all read",
+  "no_notifications": "All Caught Up!",
+  "no_notifications_subtitle": "You have no notifications right now. We'll let you know when something important happens.",
+  "budget_alert_title": "Budget Alert",
+  "budget_alert_body": "You've spent over 80% of your monthly budget. Consider slowing down your spending.",
+  "daily_reminder_title": "Daily Reminder",
+  "daily_reminder_body": "Don't forget to log today's expenses! Keeping track helps you stay on budget.",
+  "welcome_title": "Welcome to TAI Expense!",
+  "welcome_body": "Start tracking your expenses and take control of your finances. Set up your budget to get started.",
+  "monthly_summary_title": "Monthly Summary Ready",
+  "monthly_summary_body": "Your January spending report is ready. Check your statistics to see the breakdown.",
+  "savings_tip_title": "Savings Tip",
+  "savings_tip_body": "Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings. Small steps lead to big results!",
+  "just_now": "Just now",
+  "minutes_ago": "{{count}} min ago",
+  "hours_ago": "{{count}}h ago"
+}

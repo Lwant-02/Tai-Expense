@@ -39,7 +39,7 @@ export default function BudgetStats({
     },
     {
       label: t("daily_left"),
-      value: `${daysLeft}`,
+      value: `${daysLeft}-${t("day")}`,
       color: "#2563EB",
       icon: "calendar-outline" as const,
       iconColor: "#2563EB",

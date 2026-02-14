@@ -11,6 +11,10 @@ export default function Layout() {
         name="transaction-detail"
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="settings/currency" options={{ headerShown: false }} />
+      <Stack.Screen name="settings/language" options={{ headerShown: false }} />
+      <Stack.Screen name="settings/about" options={{ headerShown: false }} />
+      <Stack.Screen name="notification" options={{ headerShown: false }} />
     </Stack>
   );
 }
