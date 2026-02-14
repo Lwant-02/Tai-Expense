@@ -21,11 +21,36 @@
     "bills": "Bills",
     "health": "Health",
     "education": "Education",
+    "rent": "Rent",
+    "travel": "Travel",
+    "insurance": "Insurance",
+    "pets": "Pets",
+    "subscriptions": "Subscriptions",
+    "groceries": "Groceries",
+    "donations": "Donations",
+    "savings": "Savings",
     "other": "Other"
   },
   "date": {
     "today": "Today",
     "yesterday": "Yesterday",
     "days": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
+  "banner": {
+    "section_title": "Financial Strategies",
+    "strategies": {
+      "rule_50_30_20": {
+        "title": "50/30/20 Rule",
+        "description": "Allocate 50% for needs, 30% for wants, and 20% for savings."
+      },
+      "emergency_fund": {
+        "title": "Build Emergency Fund",
+        "description": "Start small. Aim for 3-6 months of expenses for unexpected events."
+      },
+      "track_expenses": {
+        "title": "Track Every Expense",
+        "description": "Log daily spending to identify leaks and optimize your budget."
+      }
+    }
   }
 }

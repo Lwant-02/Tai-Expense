@@ -53,4 +53,86 @@ export const CATEGORY_CONFIG: Record<
     color: "#8E8E93",
     bg: "bg-[#8E8E93]/10",
   },
+  rent: { icon: "home-outline", color: "#F97316", bg: "bg-[#F97316]/10" },
+  travel: {
+    icon: "airplane-outline",
+    color: "#0EA5E9",
+    bg: "bg-[#0EA5E9]/10",
+  },
+  insurance: {
+    icon: "shield-checkmark-outline",
+    color: "#6366F1",
+    bg: "bg-[#6366F1]/10",
+  },
+  pets: { icon: "paw-outline", color: "#D97706", bg: "bg-[#D97706]/10" },
+  subscriptions: {
+    icon: "card-outline",
+    color: "#E11D48",
+    bg: "bg-[#E11D48]/10",
+  },
+  groceries: {
+    icon: "cart-outline",
+    color: "#16A34A",
+    bg: "bg-[#16A34A]/10",
+  },
+  donations: {
+    icon: "heart-half-outline",
+    color: "#DB2777",
+    bg: "bg-[#DB2777]/10",
+  },
+  savings: {
+    icon: "wallet-outline",
+    color: "#0D9488",
+    bg: "bg-[#0D9488]/10",
+  },
 };
+
+export const CATEGORIES: TransactionCategory[] = [
+  "food",
+  "transport",
+  "shopping",
+  "entertainment",
+  "bills",
+  "health",
+  "education",
+  "rent",
+  "travel",
+  "insurance",
+  "pets",
+  "subscriptions",
+  "groceries",
+  "donations",
+  "savings",
+  "salary",
+  "freelance",
+  "gift",
+  "investment",
+  "other",
+];
+
+export const BANNERS = [
+  {
+    id: "1",
+    title: "banner.strategies.rule_50_30_20.title",
+    description: "banner.strategies.rule_50_30_20.description",
+    icon: "pie-chart-outline",
+    color: "#22C55E",
+    bgColor: "bg-foreground",
+  },
+  {
+    id: "2",
+    title: "banner.strategies.emergency_fund.title",
+    description: "banner.strategies.emergency_fund.description",
+    icon: "shield-checkmark-outline",
+    color: "#F59E0B",
+    bgColor: "bg-foreground",
+  },
+  {
+    id: "3",
+    title: "banner.strategies.track_expenses.title",
+    description: "banner.strategies.track_expenses.description",
+    icon: "trending-up-outline",
+    color: "#2563EB",
+    bgColor: "bg-foreground",
+  },
+];

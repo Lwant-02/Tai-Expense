@@ -60,7 +60,7 @@ export default function WelcomePage() {
             onPress={async () => {
               if (isLastScreen) {
                 await saveOnboarding(true);
-                router.replace("/(root)/(tabs)/home");
+                router.replace("/(welcome)/get-started");
               } else {
                 swiperRef.current?.scrollBy(1);
               }
@@ -73,7 +73,7 @@ export default function WelcomePage() {
             textVariant="light"
             onPress={async () => {
               await saveOnboarding(true);
-              router.replace("/(root)/(tabs)/home");
+              router.replace("/(welcome)/get-started");
             }}
             className="w-full"
           />

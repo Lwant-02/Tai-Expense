@@ -19,6 +19,9 @@ interface EmptyStateProps {
 
 type TransactionType = "income" | "expense";
 
+type Period = "day" | "week" | "month" | "year";
+type FilterType = "expense" | "income";
+
 type TransactionCategory =
   | "salary"
   | "freelance"
@@ -31,6 +34,14 @@ type TransactionCategory =
   | "bills"
   | "health"
   | "education"
+  | "rent"
+  | "travel"
+  | "insurance"
+  | "pets"
+  | "subscriptions"
+  | "groceries"
+  | "donations"
+  | "savings"
   | "other";
 
 interface Transaction {
@@ -41,4 +52,16 @@ interface Transaction {
   type: TransactionType;
   date: string;
   note?: string;
+}
+
+declare interface CategoryBudget {
+  category: TransactionCategory;
+  budgeted: number;
+  spent: number;
+}
+
+declare interface BudgetData {
+  monthlyBudget: number;
+  totalSpent: number;
+  categoryBudgets: CategoryBudget[];
 }

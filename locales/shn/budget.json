@@ -1,0 +1,22 @@
+{
+  "title": "ငိုၼ်းတမ်း",
+  "monthly_budget": "ငိုၼ်းတမ်းလိူၼ်",
+  "spent": "ၸၢႆႇယဝ်ႉ",
+  "remaining": "ၵိုတ်းဝႆႉ",
+  "daily_left": "ဝၼ်းလႂ်ၵိုတ်း",
+  "category_budgets": "ငိုၼ်းတမ်းမဵဝ်းၶွင်ႈ",
+  "set_budget": "တင်ႈငိုၼ်းတမ်း",
+  "edit_budget": "မႄးငိုၼ်းတမ်း",
+  "budget_amount": "ႁူဝ်ၼပ်ႉငိုၼ်းတမ်း",
+  "save": "ၵဵပ်းသိမ်း",
+  "alert_warning": "ၸဝ်ႈၵဝ်ႇၸႂ်ႉတိုဝ်းယဝ်ႉ {{percent}}%",
+  "alert_danger": "ငိုၼ်းတမ်းၸမ်တေမူတ်း!",
+  "no_budget": "ပႆႇမီးငိုၼ်းတမ်း",
+  "no_budget_subtitle": "တင်ႈငိုၼ်းတမ်းလိူၼ်သေ တႄႇၵုမ်းၵမ်ငိုၼ်းၸၢႆႇ။",
+  "add_category_budget": "သႂ်ႇငိုၼ်းတမ်းမဵဝ်းၶွင်ႈ",
+  "of": "တႃႇ",
+  "category_amount": "ႁူဝ်ၼပ်ႉမဵဝ်းၶွင်ႈ",
+  "select_category": "လိူၵ်ႈမဵဝ်းၶွင်ႈ",
+  "no_category_budget": "ပႆႇမီးငိုၼ်းတမ်းမဵဝ်းၶွင်ႈ",
+  "no_category_budget_subtitle": "ၸဝ်ႈၵဝ်ႇပႆႇလႆႈတင်ႈငိုၼ်းတမ်းမဵဝ်းၶွင်ႈ။"
+}

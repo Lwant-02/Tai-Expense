@@ -56,7 +56,7 @@ export default function CustomBtn({
       {...props}
     >
       {isLoading ? (
-        <ActivityIndicator size="small" color="white" className="size-7" />
+        <ActivityIndicator size="small" color="#2563EB" className="size-7" />
       ) : (
         <>
           {IconLeft && <IconLeft />}

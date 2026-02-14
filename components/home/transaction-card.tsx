@@ -25,7 +25,7 @@ export default function TransactionCard({
       {/* Category Icon */}
       <View
         className={cn(
-          "size-12 rounded-2xl items-center justify-center",
+          "size-12 rounded-xl items-center justify-center ",
           config.bg,
         )}
       >

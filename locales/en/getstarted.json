@@ -1,0 +1,12 @@
+{
+  "title": "Set Up Your Wallet",
+  "subtitle": "Let's personalize your experience. Tell us a bit about yourself to get started.",
+  "name_label": "Your Name",
+  "name_placeholder": "Enter your name",
+  "balance_label": "Initial Balance",
+  "balance_placeholder": "0.00",
+  "currency_symbol": "$",
+  "button": "Let's Go! 🚀",
+  "error_name": "Please enter your name",
+  "error_balance": "Please enter a valid amount"
+}

@@ -20,3 +20,14 @@ export const loadOnboarding = async (): Promise<boolean | null> => {
   const value = await AsyncStorage.getItem(ONBOARDING_KEY);
   return value ? JSON.parse(value) : null;
 };
+
+export const USER_SETUP_KEY = "user-setup";
+
+export const saveSetup = async (value: boolean): Promise<void> => {
+  await AsyncStorage.setItem(USER_SETUP_KEY, value.toString());
+};
+
+export const loadSetup = async (): Promise<boolean | null> => {
+  const value = await AsyncStorage.getItem(USER_SETUP_KEY);
+  return value ? JSON.parse(value) : null;
+};

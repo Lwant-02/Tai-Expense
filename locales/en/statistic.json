@@ -1,0 +1,19 @@
+{
+  "title": "Statistics",
+  "period": {
+    "day": "Day",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year"
+  },
+  "filter": {
+    "expense": "Expense",
+    "income": "Income"
+  },
+  "top_spending": "Top Spending",
+  "top_income": "Top Income",
+  "most_expense": "Most Spending",
+  "most_income": "Most Income",
+  "no_data": "No data available",
+  "no_data_subtitle": "Start adding transactions to see your spending insights here."
+}

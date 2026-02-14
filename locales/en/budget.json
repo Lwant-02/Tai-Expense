@@ -1,0 +1,22 @@
+{
+  "title": "Budget",
+  "monthly_budget": "Monthly Budget",
+  "spent": "Spent",
+  "remaining": "Remaining",
+  "daily_left": "Daily Left",
+  "category_budgets": "Category Budgets",
+  "set_budget": "Set Budget",
+  "edit_budget": "Edit Budget",
+  "budget_amount": "Budget Amount",
+  "save": "Save",
+  "alert_warning": "You've used {{percent}}% of your budget",
+  "alert_danger": "Budget almost exceeded!",
+  "no_budget": "No budget set yet",
+  "no_budget_subtitle": "Set a monthly budget to start tracking your spending.",
+  "add_category_budget": "Add Category Budget",
+  "of": "of",
+  "category_amount": "Category Amount",
+  "select_category": "Select Category",
+  "no_category_budget": "No Category Budget",
+  "no_category_budget_subtitle": "You haven't set any category budgets yet."
+}

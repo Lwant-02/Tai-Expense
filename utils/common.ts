@@ -45,6 +45,18 @@ export const formatDate = (dateString: string, t?: any): string => {
   });
 };
 
+export const formatHeaderDate = (date: Date, t: any): string => {
+  const dayIndex = date.getDay();
+  const days = t("date.days", { returnObjects: true });
+  const dayName = Array.isArray(days) ? days[dayIndex] : days;
+
+  const day = date.getDate();
+  const month = date.toLocaleDateString("en-US", { month: "short" });
+  const year = date.getFullYear();
+
+  return `${dayName}, ${day} ${month} ${year}`;
+};
+
 export const getGreetingTime = () => {
   const currentHour = new Date().getHours();
   if (currentHour < 12) {
