@@ -23,6 +23,9 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <>
+            <TouchableOpacity onPress={() => router.push("/(root)/test")}>
+              <Text className="text-primary">Test</Text>
+            </TouchableOpacity>
             <GreetingHeader />
             <BalanceCard />
 

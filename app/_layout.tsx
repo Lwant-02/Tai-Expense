@@ -1,3 +1,7 @@
+import {
+  applyNotificationSchedules,
+  loadNotificationSettings,
+} from "@/notification";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
@@ -14,9 +18,14 @@ export default function RootLayout() {
     GHKKengtung: require("../assets/fonts/GHKKengtung.ttf"),
     GHKTachileik: require("../assets/fonts/GHKTachileik.ttf"),
   });
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      // Initialize notifications
+      loadNotificationSettings().then((settings) => {
+        applyNotificationSchedules(settings);
+      });
     }
   }, [loaded]);
 

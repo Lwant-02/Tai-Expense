@@ -39,5 +39,7 @@
   "support_description": "If you enjoy using TAI Expense and want to support the project, or if you have feedback, feel free to reach out!",
   "contact_email": "Email",
   "contact_facebook": "Facebook",
-  "contact_telegram": "Telegram"
+  "contact_telegram": "Telegram",
+  "notifications": "Notifications",
+  "notifications_subtitle": "Manage reminders and alerts"
 }

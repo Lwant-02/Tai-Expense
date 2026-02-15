@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import cn from "clsx";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -13,6 +14,7 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import AddBillForm from "@/components/budget/add-bill-form";
 import BudgetAlert from "@/components/budget/budget-alert";
 import { SAMPLE_BUDGET } from "@/components/budget/budget-data";
 import BudgetRing from "@/components/budget/budget-ring";
@@ -23,7 +25,7 @@ import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
 import { CategoryBudget } from "@/type";
 
-type FormType = "budget" | null;
+type FormType = "budget" | "bill" | null;
 
 export default function BudgetPage() {
   const { t } = useTranslation("budget");
@@ -61,70 +63,128 @@ export default function BudgetPage() {
 
   const hasBudget = monthlyBudget > 0;
 
+  // Tab state
+  const [activeTab, setActiveTab] = useState<"budget" | "bill">("budget");
+
   return (
     <GestureHandlerRootView className="flex-1">
       <SafeAreaView className="flex-1 bg-background">
         <Header title={t("title")} />
 
-        {hasBudget ? (
+        {/* Top Tabs */}
+        <View className="flex-row mx-6 mb-6 bg-foreground p-1 rounded-full border border-primary/5">
+          <TouchableOpacity
+            onPress={() => setActiveTab("budget")}
+            className={cn(
+              "flex-1 items-center py-2.5 rounded-full",
+              activeTab === "budget"
+                ? "bg-background shadow-sm"
+                : "bg-transparent",
+            )}
+          >
+            <Text
+              className={cn(
+                "font-GHKTachileik text-sm font-semibold",
+                activeTab === "budget" ? "text-primary" : "text-primary/50",
+              )}
+            >
+              {t("title")}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setActiveTab("bill")}
+            className={cn(
+              "flex-1 items-center py-2.5 rounded-full",
+              activeTab === "bill"
+                ? "bg-background shadow-sm"
+                : "bg-transparent",
+            )}
+          >
+            <Text
+              className={cn(
+                "font-GHKTachileik text-sm font-semibold",
+                activeTab === "bill" ? "text-primary" : "text-primary/50",
+              )}
+            >
+              {t("upcoming_bills")}
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        {activeTab === "budget" ? (
+          hasBudget ? (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              contentContainerClassName="pb-32"
+            >
+              {/* Arc Ring + Edit Button */}
+              <View className="relative">
+                <BudgetRing
+                  totalBudget={monthlyBudget}
+                  totalSpent={totalSpent}
+                />
+                <TouchableOpacity
+                  onPress={() => openForm("budget")}
+                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                  className="absolute right-6 top-0 bg-primary/5 p-2.5 rounded-full border border-primary/10"
+                >
+                  <Ionicons name="pencil" size={18} color="#2563EB" />
+                </TouchableOpacity>
+              </View>
+
+              {/* Month pill */}
+              <View className="items-center mb-5">
+                <View className="flex-row items-center bg-foreground px-4 py-2 rounded-full border border-primary/5">
+                  <Text className="text-primary/60 font-GHKTachileik text-xs mx-3">
+                    {new Date().toLocaleDateString("en-US", {
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </Text>
+                </View>
+              </View>
+
+              {/* Stats */}
+              <BudgetStats totalSpent={totalSpent} remaining={remaining} />
+
+              {/* Alert */}
+              <BudgetAlert percentage={percentage} />
+
+              {/* Category budgets */}
+              <CategoryBudgetList
+                budgets={categoryBudgets}
+                totalBudget={monthlyBudget}
+              />
+            </ScrollView>
+          ) : (
+            <View className="flex-1 items-center justify-center">
+              <EmptyState
+                icon="wallet-outline"
+                title={t("no_budget")}
+                subtitle={t("no_budget_subtitle")}
+              />
+              <TouchableOpacity
+                onPress={() => openForm("budget")}
+                activeOpacity={0.8}
+                className="bg-blue rounded-2xl px-8 py-4  flex-row items-center gap-2"
+              >
+                <Ionicons name="add-circle" size={20} color="white" />
+                <Text className="text-primary font-GHKTachileik text-base font-semibold">
+                  {t("set_budget")}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )
+        ) : (
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerClassName="pb-32"
           >
-            {/* Arc Ring + Edit Button */}
-            <View className="relative">
-              <BudgetRing totalBudget={monthlyBudget} totalSpent={totalSpent} />
-              <TouchableOpacity
-                onPress={() => openForm("budget")}
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                className="absolute right-6 top-0 bg-primary/5 p-2.5 rounded-full border border-primary/10"
-              >
-                <Ionicons name="pencil" size={18} color="#2563EB" />
-              </TouchableOpacity>
+            {/* <UpcomingBills onAddBill={() => openForm("bill")} /> */}
+            <View className="p-8 items-center">
+              <Text className="text-white">Upcoming Bills Placeholder</Text>
             </View>
-
-            {/* Month pill */}
-            <View className="items-center mb-5">
-              <View className="flex-row items-center bg-foreground px-4 py-2 rounded-full border border-primary/5">
-                <Text className="text-primary/60 font-GHKTachileik text-xs mx-3">
-                  {new Date().toLocaleDateString("en-US", {
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </Text>
-              </View>
-            </View>
-
-            {/* Stats */}
-            <BudgetStats totalSpent={totalSpent} remaining={remaining} />
-
-            {/* Alert */}
-            <BudgetAlert percentage={percentage} />
-
-            {/* Category budgets */}
-            <CategoryBudgetList
-              budgets={categoryBudgets}
-              totalBudget={monthlyBudget}
-            />
           </ScrollView>
-        ) : (
-          <View className="flex-1 items-center justify-center">
-            <EmptyState
-              icon="wallet-outline"
-              title={t("no_budget")}
-              subtitle={t("no_budget_subtitle")}
-            />
-            <TouchableOpacity
-              onPress={() => openForm("budget")}
-              activeOpacity={0.8}
-              className="bg-blue rounded-2xl px-8 py-4  flex-row items-center gap-2"
-            >
-              <Ionicons name="add-circle" size={20} color="white" />
-              <Text className="text-primary font-GHKTachileik text-base font-semibold">
-                {t("set_budget")}
-              </Text>
-            </TouchableOpacity>
-          </View>
         )}
       </SafeAreaView>
 
@@ -158,6 +218,7 @@ export default function BudgetPage() {
                 onClose={closeForm}
               />
             )}
+            {activeForm === "bill" && <AddBillForm onClose={closeForm} />}
           </BottomSheetScrollView>
         </KeyboardAvoidingView>
       </BottomSheet>

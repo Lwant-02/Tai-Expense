@@ -64,3 +64,12 @@ declare interface BudgetData {
   totalSpent: number;
   categoryBudgets: CategoryBudget[];
 }
+
+declare interface Bill {
+  id: string;
+  title: string;
+  amount: number;
+  dueDate: string; // ISO date string
+  remindMe: boolean;
+  frequency?: "monthly" | "one-time";
+}

@@ -19,5 +19,17 @@
   "savings_tip_body": "Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings. Small steps lead to big results!",
   "just_now": "Just now",
   "minutes_ago": "{{count}} min ago",
-  "hours_ago": "{{count}}h ago"
+  "hours_ago": "{{count}}h ago",
+  "notification_settings_title": "Notification Settings",
+  "reminders": "Reminders",
+  "daily_setting_subtitle": "Every day at {{time}}",
+  "bill_due_title": "Bill Due Reminder",
+  "bill_due_subtitle": "Notify 1 day before bill is due",
+  "summary_alerts": "Summary & Alerts",
+  "weekly_summary_title": "Weekly Summary",
+  "weekly_setting_subtitle": "Every {{day}} at {{time}}",
+  "budget_warning_title": "Budget Warning",
+  "budget_warning_subtitle": "Alert when spending exceeds {{threshold}}%",
+  "notification_info_title": "About Notifications",
+  "notification_info_body": "All notifications are local and work offline. No data is sent to any server. You can change the schedule anytime."
 }

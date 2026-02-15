@@ -14,7 +14,12 @@ export default function Layout() {
       <Stack.Screen name="settings/currency" options={{ headerShown: false }} />
       <Stack.Screen name="settings/language" options={{ headerShown: false }} />
       <Stack.Screen name="settings/about" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="settings/notification"
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="notification" options={{ headerShown: false }} />
+      <Stack.Screen name="test" options={{ headerShown: false }} />
     </Stack>
   );
 }

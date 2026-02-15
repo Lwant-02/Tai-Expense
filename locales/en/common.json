@@ -1,0 +1,9 @@
+{
+  "navigation": {
+    "home": "Home",
+    "statistic": "Statistic",
+    "create": "Create",
+    "budget": "Budget",
+    "setting": "Setting"
+  }
+}

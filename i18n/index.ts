@@ -5,6 +5,7 @@ import { loadLanguage } from "../utils/storage";
 
 // namespaces
 import en_budget from "../locales/en/budget.json";
+import en_common from "../locales/en/common.json";
 import en_create from "../locales/en/create.json";
 import en_getstarted from "../locales/en/getstarted.json";
 import en_home from "../locales/en/home.json";
@@ -13,6 +14,7 @@ import en_onboarding from "../locales/en/onboarding.json";
 import en_settings from "../locales/en/settings.json";
 import en_statistic from "../locales/en/statistic.json";
 import shn_budget from "../locales/shn/budget.json";
+import shn_common from "../locales/shn/common.json";
 import shn_create from "../locales/shn/create.json";
 import shn_getstarted from "../locales/shn/getstarted.json";
 import shn_home from "../locales/shn/home.json";
@@ -31,6 +33,7 @@ const resources = {
     budget: en_budget,
     settings: en_settings,
     notification: en_notification,
+    common: en_common,
   },
   shn: {
     onboarding: shn_onboarding,
@@ -41,6 +44,7 @@ const resources = {
     budget: shn_budget,
     settings: shn_settings,
     notification: shn_notification,
+    common: shn_common,
   },
 };
 
@@ -60,6 +64,7 @@ const initI18n = async () => {
       "budget",
       "settings",
       "notification",
+      "common",
     ],
     defaultNS: "onboarding",
     interpolation: {

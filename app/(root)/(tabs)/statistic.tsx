@@ -13,7 +13,7 @@ import {
 import ExpenseChart from "@/components/statistic/expense-chart";
 import FilterToggle from "@/components/statistic/filter-toggle";
 import PeriodTabs from "@/components/statistic/period-tabs";
-import TopTransactions from "@/components/statistic/top-transactions";
+import WeeklySummaryCard from "@/components/statistic/weekly-summary-card";
 import { FilterType, Period } from "@/type";
 
 export default function StatisticPage() {
@@ -23,7 +23,10 @@ export default function StatisticPage() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("expense");
 
   const chartData = CHART_DATA[activeFilter][activePeriod];
-  const topTransactions = activeFilter === "expense" ? TOP_EXPENSE : TOP_INCOME;
+  // Calculate transactions for the card based on filter
+  // In a real app, this would be filtered by activePeriod (week)
+  const summaryTransactions =
+    activeFilter === "expense" ? TOP_EXPENSE : TOP_INCOME;
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -45,15 +48,10 @@ export default function StatisticPage() {
 
         <ExpenseChart chartData={chartData} activeFilter={activeFilter} />
 
-        <TopTransactions
-          transactions={topTransactions}
+        <WeeklySummaryCard
+          transactions={summaryTransactions}
           activeFilter={activeFilter}
-          onTransactionPress={(item) =>
-            router.push({
-              pathname: "/(root)/transaction-detail",
-              params: { ...item },
-            })
-          }
+          onSeeAll={() => router.push("/(root)/all-transactions")}
         />
       </ScrollView>
     </SafeAreaView>

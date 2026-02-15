@@ -1,30 +1,39 @@
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { Text, View } from "react-native";
 
 const TabIcon = ({
   focused,
   icon,
+  title,
 }: {
   focused: boolean;
   icon: React.ReactNode;
+  title: string;
 }) => (
   <View
-    className={cn("flex flex-row justify-center items-center rounded-full")}
+    className={cn(
+      "flex items-center justify-center py-1.5 gap-0.5",
+      focused && "bg-blue w-20 rounded-full",
+    )}
   >
-    <View
+    {icon}
+    <Text
       className={cn(
-        "rounded-full size-12 items-center justify-center",
-        focused && "bg-blue",
+        "text-[10px] font-GHKTachileik font-medium",
+        focused ? "text-white" : "text-[#8E8E93]",
       )}
     >
-      {icon}
-    </View>
+      {title}
+    </Text>
   </View>
 );
 
 export default function Layout() {
+  const { t } = useTranslation("common");
+
   return (
     <Tabs
       initialRouteName="home"
@@ -32,25 +41,27 @@ export default function Layout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarIconStyle: {
-          marginTop: 20,
-          marginBottom: 0,
+          marginTop: 2,
+          height: 49,
+          width: 49,
         },
         tabBarStyle: {
           borderColor: "#2a2a2a",
+          paddingHorizontal: 6,
           borderWidth: 1,
           borderRadius: 50,
           marginHorizontal: 20,
-          height: 78,
+          height: 65,
           position: "absolute",
-          bottom: 40,
+          bottom: 30,
           backgroundColor: "#000000",
-          shadowColor: "#2a2a2a",
+          shadowColor: "#000000",
           shadowOffset: {
             width: 0,
-            height: 2,
+            height: 4,
           },
-          shadowOpacity: 0.2,
-          shadowRadius: 4,
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
           elevation: 5,
         },
         tabBarActiveTintColor: "#ffffff",
@@ -60,11 +71,12 @@ export default function Layout() {
       <Tabs.Screen
         name="home"
         options={{
-          title: "Home",
+          title: t("navigation.home"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="home" size={24} color={color} />}
+              icon={<Ionicons name="home" size={25} color={color} />}
+              title={t("navigation.home")}
             />
           ),
         }}
@@ -72,11 +84,12 @@ export default function Layout() {
       <Tabs.Screen
         name="statistic"
         options={{
-          title: "Statistic",
+          title: t("navigation.statistic"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="bar-chart" size={24} color={color} />}
+              icon={<Ionicons name="bar-chart" size={25} color={color} />}
+              title={t("navigation.statistic")}
             />
           ),
         }}
@@ -84,11 +97,12 @@ export default function Layout() {
       <Tabs.Screen
         name="create"
         options={{
-          title: "Create",
+          title: t("navigation.create"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="add-circle" size={24} color={color} />}
+              icon={<Ionicons name="add-circle" size={25} color={color} />}
+              title={t("navigation.create")}
             />
           ),
         }}
@@ -96,11 +110,12 @@ export default function Layout() {
       <Tabs.Screen
         name="budget"
         options={{
-          title: "Budget",
+          title: t("navigation.budget"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="wallet-outline" size={24} color={color} />}
+              icon={<Ionicons name="wallet-outline" size={25} color={color} />}
+              title={t("navigation.budget")}
             />
           ),
         }}
@@ -108,11 +123,12 @@ export default function Layout() {
       <Tabs.Screen
         name="setting"
         options={{
-          title: "Setting",
+          title: t("navigation.setting"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="settings" size={24} color={color} />}
+              icon={<Ionicons name="settings" size={25} color={color} />}
+              title={t("navigation.setting")}
             />
           ),
         }}
