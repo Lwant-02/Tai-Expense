@@ -1,7 +1,8 @@
 import { useTranslation } from "react-i18next";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 import { CategoryBudget } from "@/type";
+import { useRouter } from "expo-router";
 import EmptyState from "../empty-state";
 import CategoryBudgetCard from "./category-budget-card";
 
@@ -15,12 +16,20 @@ export default function CategoryBudgetList({
   totalBudget,
 }: CategoryBudgetListProps) {
   const { t } = useTranslation("budget");
+  const router = useRouter();
 
   return (
     <View className="px-6 mb-8">
-      <Text className="text-primary font-GHKTachileik text-lg font-semibold mb-4">
-        {t("spending_breakdown")}
-      </Text>
+      <View className="flex-row justify-between items-center mb-3">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
+          {t("spending_breakdown")}
+        </Text>
+        <TouchableOpacity onPress={() => router.push("/(root)/all-budget")}>
+          <Text className="text-primary/50 font-GHKTachileik text-sm">
+            See all
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       {budgets.length === 0 ? (
         <EmptyState

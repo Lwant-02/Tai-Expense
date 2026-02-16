@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { Period } from "@/type";
 
-const PERIODS: Period[] = ["day", "week", "month", "year"];
+const PERIODS: Period[] = ["day", "week", "month"];
 
 interface PeriodTabsProps {
   activePeriod: Period;

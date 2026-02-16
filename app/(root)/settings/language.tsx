@@ -9,7 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const LANGUAGES = [
   { code: "en", label: "english", flag: "🇬🇧" },
-  { code: "shn", label: "shan", flag: "🏳️" },
+  { code: "shn", label: "shan", flag: "🇱🇹" },
 ];
 
 export default function LanguagePage() {

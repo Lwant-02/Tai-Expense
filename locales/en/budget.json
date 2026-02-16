@@ -20,6 +20,7 @@
   "bill_title": "Bill Title",
   "amount": "Amount",
   "due_date": "Due Date",
+  "set_bill": "Set Bill",
   "save_bill": "Save Bill",
   "no_budget_subtitle": "Set a monthly budget to start tracking your spending.",
   "add_category_budget": "Add Category Budget",

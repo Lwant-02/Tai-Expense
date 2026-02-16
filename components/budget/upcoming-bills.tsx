@@ -1,50 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import cn from "clsx";
-import { differenceInDays, format, parseISO } from "date-fns";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Switch, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
+import BillCard from "@/components/budget/bill-card";
+import { SAMPLE_BILLS } from "@/components/budget/budget-data";
 import EmptyState from "@/components/empty-state";
 import { Bill } from "@/type";
-
-// UI-only sample data
-const SAMPLE_BILLS: Bill[] = [
-  {
-    id: "1",
-    title: "Apartment Rent",
-    amount: 1200,
-    dueDate: new Date(new Date().setDate(25)).toISOString(), // Due on 25th
-    remindMe: true,
-    frequency: "monthly",
-  },
-  {
-    id: "2",
-    title: "Internet",
-    amount: 55,
-    dueDate: new Date(new Date().setDate(15)).toISOString(), // Due on 15th
-    remindMe: true,
-    frequency: "monthly",
-  },
-  {
-    id: "3",
-    title: "Netflix",
-    amount: 15.99,
-    dueDate: new Date(new Date().setDate(5)).toISOString(), // Due on 5th
-    remindMe: false,
-    frequency: "monthly",
-  },
-  {
-    id: "4",
-    title: "Car Insurance",
-    amount: 145,
-    dueDate: new Date(
-      new Date().setDate(new Date().getDate() + 2),
-    ).toISOString(), // Due in 2 days
-    remindMe: true,
-    frequency: "monthly",
-  },
-];
 
 interface UpcomingBillsProps {
   onAddBill?: () => void;
@@ -52,6 +15,7 @@ interface UpcomingBillsProps {
 
 export default function UpcomingBills({ onAddBill }: UpcomingBillsProps) {
   const { t } = useTranslation("budget");
+  const router = useRouter();
 
   // Local state for UI toggles only
   const [bills, setBills] = useState<Bill[]>(
@@ -79,86 +43,27 @@ export default function UpcomingBills({ onAddBill }: UpcomingBillsProps) {
         </Text>
       </TouchableOpacity>
 
+      <View className="flex-row justify-between items-center mb-3">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
+          Upcoming Bills
+        </Text>
+        <TouchableOpacity onPress={() => router.push("/(root)/all-due-bill")}>
+          <Text className="text-primary/50 font-GHKTachileik text-sm">
+            See all
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       {/* Bill List */}
       {bills.length > 0 ? (
-        <View className="gap-3">
-          {bills.map((bill) => {
-            const daysLeft = differenceInDays(
-              parseISO(bill.dueDate),
-              new Date(),
-            );
-            const isOverdue = daysLeft < 0;
-            const isDueSoon = daysLeft >= 0 && daysLeft <= 3;
-
-            return (
-              <View
-                key={bill.id}
-                className="bg-foreground p-4 rounded-3xl border border-primary/5 shadow-sm"
-              >
-                <View className="flex-row justify-between items-start mb-3">
-                  <View className="flex-row items-center gap-3">
-                    <View className="size-10 rounded-xl bg-orange-500/10 items-center justify-center">
-                      <Ionicons
-                        name="receipt-outline"
-                        size={20}
-                        color="#F97316"
-                      />
-                    </View>
-                    <View>
-                      <Text className="text-primary font-GHKTachileik text-sm font-bold">
-                        {bill.title}
-                      </Text>
-                      <Text className="text-primary/50 font-GHKTachileik text-xs">
-                        {isOverdue
-                          ? `Overdue by ${Math.abs(daysLeft)} days`
-                          : daysLeft === 0
-                            ? "Due today"
-                            : `Due in ${daysLeft} days`}
-                      </Text>
-                    </View>
-                  </View>
-                  <Text className="text-primary font-GHKTachileik text-base font-semibold">
-                    ${bill.amount.toFixed(2)}
-                  </Text>
-                </View>
-
-                {/* Footer: Date & Toggle */}
-                <View className="flex-row justify-between items-center pt-3 border-t border-primary/5">
-                  <View className="flex-row items-center gap-1.5">
-                    <Ionicons
-                      name="calendar-outline"
-                      size={12}
-                      color={isDueSoon ? "#EF4444" : "rgba(0,0,0,0.4)"}
-                    />
-                    <Text
-                      className={cn(
-                        "font-GHKTachileik text-xs font-medium",
-                        isDueSoon || isOverdue
-                          ? "text-red-500"
-                          : "text-primary/40",
-                      )}
-                    >
-                      {format(parseISO(bill.dueDate), "MMM dd, yyyy")}
-                    </Text>
-                  </View>
-
-                  <View className="flex-row items-center gap-2">
-                    <Text className="text-primary/40 font-GHKTachileik text-[10px]">
-                      {t("remind_me", "Remind me")}
-                    </Text>
-                    <Switch
-                      value={bill.remindMe}
-                      onValueChange={(val) => toggleReminder(bill.id, val)}
-                      trackColor={{ false: "rgba(0,0,0,0.1)", true: "#2563EB" }}
-                      thumbColor="#FFFFFF"
-                      ios_backgroundColor="rgba(0,0,0,0.1)"
-                      style={{ transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }] }}
-                    />
-                  </View>
-                </View>
-              </View>
-            );
-          })}
+        <View>
+          {bills.map((bill) => (
+            <BillCard
+              key={bill.id}
+              bill={bill}
+              onToggleReminder={toggleReminder}
+            />
+          ))}
         </View>
       ) : (
         <EmptyState

@@ -15,7 +15,7 @@ const TabIcon = ({
 }) => (
   <View
     className={cn(
-      "flex items-center justify-center py-1.5 gap-0.5",
+      "flex items-center justify-center py-2 gap-0.5",
       focused && "bg-blue w-20 rounded-full",
     )}
   >
@@ -51,7 +51,7 @@ export default function Layout() {
           borderWidth: 1,
           borderRadius: 50,
           marginHorizontal: 20,
-          height: 65,
+          height: 64,
           position: "absolute",
           bottom: 30,
           backgroundColor: "#000000",

@@ -51,7 +51,7 @@ export default function StatisticPage() {
         <WeeklySummaryCard
           transactions={summaryTransactions}
           activeFilter={activeFilter}
-          onSeeAll={() => router.push("/(root)/all-transactions")}
+          onSeeAll={() => router.push("/(root)/all-weekly-spending")}
         />
       </ScrollView>
     </SafeAreaView>
