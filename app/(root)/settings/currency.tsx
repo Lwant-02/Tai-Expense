@@ -1,4 +1,5 @@
 import Header from "@/components/header";
+import { CURRENCIES } from "@/constants";
 import { loadCurrency, saveCurrency } from "@/utils/storage";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
@@ -7,12 +8,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const CURRENCIES = [
-  { code: "THB", symbol: "฿", label: "thb", flag: "🇹🇭" },
-  { code: "MMK", symbol: "Ks", label: "mmk", flag: "🇲🇲" },
-  { code: "USD", symbol: "$", label: "usd", flag: "🇺🇸" },
-];
 
 export default function CurrencyPage() {
   const { t } = useTranslation("settings");
@@ -73,7 +68,7 @@ export default function CurrencyPage() {
                     isSelected ? "text-blue" : "text-primary",
                   )}
                 >
-                  {t(curr.label)}
+                  {t(curr.name)}
                 </Text>
                 <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
                   {curr.code}

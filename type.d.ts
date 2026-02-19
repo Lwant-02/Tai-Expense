@@ -19,7 +19,7 @@ interface EmptyStateProps {
 
 type TransactionType = "income" | "expense";
 
-type Period = "day" | "week" | "month" | "year";
+type Period = "week" | "month" | "year";
 type FilterType = "expense" | "income";
 
 type TransactionCategory =

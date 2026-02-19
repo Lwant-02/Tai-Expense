@@ -2,8 +2,7 @@ import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import ActionButtons from "@/components/create/action-buttons";
@@ -34,7 +33,7 @@ export default function CreatePage() {
   }, []);
 
   return (
-    <GestureHandlerRootView className="flex-1">
+    <View className="flex-1">
       <SafeAreaView className="flex-1 bg-background">
         <Header title={t("title")} />
 
@@ -75,12 +74,25 @@ export default function CreatePage() {
         backgroundStyle={{ backgroundColor: "#1a1a1a" }}
         handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.3)" }}
       >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={{ flex: 1 }}
-        >
+        {Platform.OS === "ios" ? (
+          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+            <BottomSheetScrollView
+              contentContainerStyle={{
+                paddingBottom: Platform.OS === "ios" ? 70 : 0,
+              }}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              {sheetContent === "transaction" ? (
+                <TransactionForm type={formType} onClose={closeSheet} />
+              ) : (
+                <CategoryForm onClose={closeSheet} />
+              )}
+            </BottomSheetScrollView>
+          </KeyboardAvoidingView>
+        ) : (
           <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 100 }}
+            contentContainerStyle={{ paddingBottom: 200 }}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
@@ -90,8 +102,8 @@ export default function CreatePage() {
               <CategoryForm onClose={closeSheet} />
             )}
           </BottomSheetScrollView>
-        </KeyboardAvoidingView>
+        )}
       </BottomSheet>
-    </GestureHandlerRootView>
+    </View>
   );
 }

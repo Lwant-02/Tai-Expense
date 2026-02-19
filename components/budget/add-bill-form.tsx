@@ -2,7 +2,13 @@ import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 interface AddBillFormProps {
   onClose: () => void;
@@ -14,6 +20,7 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleSave = () => {
     if (onSave) {
@@ -39,7 +46,7 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
       <View className="gap-5">
         {/* Title Input */}
         <View>
-          <Text className="text-white/60 font-GHKTachileik text-sm mb-2">
+          <Text className="text-white/60 font-GHKTachileik text-base mb-2">
             {t("bill_title", "Bill Title")}
           </Text>
           <TextInput
@@ -53,7 +60,7 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
 
         {/* Amount Input */}
         <View>
-          <Text className="text-white/60 font-GHKTachileik text-sm mb-2">
+          <Text className="text-white/60 font-GHKTachileik text-base mb-2">
             {t("amount", "Amount")}
           </Text>
           <View className="relative">
@@ -73,22 +80,48 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
 
         {/* Due Date */}
         <View>
-          <Text className="text-white/60 font-GHKTachileik text-sm mb-2">
+          <Text className="text-white/60 font-GHKTachileik text-base mb-2">
             {t("due_date", "Due Date")}
           </Text>
-          <View className="bg-white/5 rounded-xl border border-white/10 overflow-hidden items-start">
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="spinner"
-              onChange={(event, selectedDate) => {
-                const currentDate = selectedDate || date;
-                setDate(currentDate);
-              }}
-              textColor="white"
-              style={{ height: 120, width: "100%" }}
-            />
-          </View>
+          {Platform.OS === "android" ? (
+            <>
+              <TouchableOpacity
+                onPress={() => setShowDatePicker(true)}
+                className="bg-white/5 rounded-xl border border-white/10 p-4"
+              >
+                <Text className="text-white font-GHKTachileik text-base">
+                  {date.toLocaleDateString()}
+                </Text>
+              </TouchableOpacity>
+              {showDatePicker && (
+                <DateTimePicker
+                  value={date}
+                  mode="date"
+                  display="default"
+                  onChange={(event, selectedDate) => {
+                    setShowDatePicker(false);
+                    if (selectedDate) {
+                      setDate(selectedDate);
+                    }
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <View className="bg-white/5 rounded-xl border border-white/10 overflow-hidden items-start">
+              <DateTimePicker
+                value={date}
+                mode="date"
+                display="spinner"
+                onChange={(event, selectedDate) => {
+                  const currentDate = selectedDate || date;
+                  setDate(currentDate);
+                }}
+                textColor="white"
+                style={{ height: 120, width: "100%" }}
+              />
+            </View>
+          )}
         </View>
 
         <TouchableOpacity
@@ -96,7 +129,7 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
           activeOpacity={0.8}
           className="bg-blue py-4 rounded-xl items-center mt-2"
         >
-          <Text className="text-white font-GHKTachileik text-base font-bold">
+          <Text className="text-white font-GHKTachileik text-base font-semibold">
             {t("save_bill", "Save Bill")}
           </Text>
         </TouchableOpacity>

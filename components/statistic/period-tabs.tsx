@@ -4,7 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 import { Period } from "@/type";
 
-const PERIODS: Period[] = ["day", "week", "month"];
+const PERIODS: Period[] = ["week", "month", "year"];
 
 interface PeriodTabsProps {
   activePeriod: Period;
@@ -30,7 +30,7 @@ export default function PeriodTabs({
         >
           <Text
             className={cn(
-              "font-GHKTachileik text-sm font-medium",
+              "font-GHKTachileik text-base font-medium",
               activePeriod === period ? "text-primary" : "text-primary/50",
             )}
           >

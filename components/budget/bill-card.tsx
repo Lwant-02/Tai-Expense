@@ -26,15 +26,18 @@ export default function BillCard({ bill, onToggleReminder }: BillCardProps) {
             <Ionicons name="receipt-outline" size={20} color="#F97316" />
           </View>
           <View>
-            <Text className="text-primary font-GHKTachileik text-sm font-bold">
+            <Text className="text-primary font-GHKTachileik text-base font-bold">
               {bill.title}
             </Text>
-            <Text className="text-primary/50 font-GHKTachileik text-xs">
+            <Text
+              className={cn(
+                "font-GHKTachileik text-xs font-medium",
+                isOverdue ? "text-green" : "text-orange-500",
+              )}
+            >
               {isOverdue
-                ? `Overdue by ${Math.abs(daysLeft)} days`
-                : daysLeft === 0
-                  ? "Due today"
-                  : `Due in ${daysLeft} days`}
+                ? "Status : Done"
+                : `Status : Pending (${daysLeft === 0 ? "Today" : daysLeft + " days"})`}
             </Text>
           </View>
         </View>
@@ -49,15 +52,15 @@ export default function BillCard({ bill, onToggleReminder }: BillCardProps) {
           <Ionicons
             name="calendar-outline"
             size={12}
-            color={isDueSoon || isOverdue ? "#EF4444" : "gray"}
+            color={isDueSoon ? "#EF4444" : "gray"}
           />
           <Text
             className={cn(
               "font-GHKTachileik text-xs font-medium",
-              isDueSoon || isOverdue ? "text-red-500" : "text-primary/40",
+              isDueSoon ? "text-red-500" : "text-primary/40",
             )}
           >
-            {format(parseISO(bill.dueDate), "MMM dd, yyyy")}
+            Due Date : {format(parseISO(bill.dueDate), "MMM dd, yyyy")}
           </Text>
         </View>
 

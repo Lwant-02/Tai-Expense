@@ -17,7 +17,7 @@ export default function BudgetRing({
   const clampedPercent = Math.min(percentage, 100);
 
   // Ring config
-  const size = 220;
+  const size = 240;
   const strokeWidth = 14;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -76,7 +76,7 @@ export default function BudgetRing({
           >
             $ {totalBudget.toLocaleString()}
           </Text>
-          <Text className="text-primary/40 font-GHKTachileik text-sm mt-1">
+          <Text className="text-primary/40 font-GHKTachileik text-base mt-1">
             {t("spent")} ${totalSpent.toLocaleString()} / $
             {totalBudget.toLocaleString()}
           </Text>

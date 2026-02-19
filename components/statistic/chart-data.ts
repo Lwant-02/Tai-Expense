@@ -4,14 +4,6 @@ import { Transaction } from "@/type";
 
 export const SAMPLE_CHART_DATA = {
   expense: {
-    day: [
-      { value: 15, label: "6am" },
-      { value: 45, label: "9am" },
-      { value: 80, label: "12pm" },
-      { value: 30, label: "3pm" },
-      { value: 65, label: "6pm" },
-      { value: 20, label: "9pm" },
-    ],
     week: [
       { value: 120, label: "Mon" },
       { value: 250, label: "Tue" },
@@ -40,14 +32,6 @@ export const SAMPLE_CHART_DATA = {
     ],
   },
   income: {
-    day: [
-      { value: 0, label: "6am" },
-      { value: 0, label: "9am" },
-      { value: 500, label: "12pm" },
-      { value: 0, label: "3pm" },
-      { value: 120, label: "6pm" },
-      { value: 0, label: "9pm" },
-    ],
     week: [
       { value: 0, label: "Mon" },
       { value: 350, label: "Tue" },
@@ -79,14 +63,6 @@ export const SAMPLE_CHART_DATA = {
 
 export const EMPTY_CHART_DATA = {
   expense: {
-    day: [
-      { value: 0, label: "6am" },
-      { value: 0, label: "9am" },
-      { value: 0, label: "12pm" },
-      { value: 0, label: "3pm" },
-      { value: 0, label: "6pm" },
-      { value: 0, label: "9pm" },
-    ],
     week: [
       { value: 0, label: "Mon" },
       { value: 0, label: "Tue" },
@@ -115,14 +91,6 @@ export const EMPTY_CHART_DATA = {
     ],
   },
   income: {
-    day: [
-      { value: 0, label: "6am" },
-      { value: 0, label: "9am" },
-      { value: 0, label: "12pm" },
-      { value: 0, label: "3pm" },
-      { value: 0, label: "6pm" },
-      { value: 0, label: "9pm" },
-    ],
     week: [
       { value: 0, label: "Mon" },
       { value: 0, label: "Tue" },

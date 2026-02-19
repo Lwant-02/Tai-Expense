@@ -59,7 +59,7 @@ export default function ExpenseChart({
             return (
               <View className="items-center" style={{ marginLeft: -40 }}>
                 <View className="bg-foreground rounded-xl px-3 min-w-[100px] py-1.5 border border-primary/10 items-center mb-1">
-                  <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+                  <Text className="text-primary font-GHKTachileik text-base font-semibold">
                     {"$" + point.value.toLocaleString()}
                   </Text>
                 </View>

@@ -63,7 +63,7 @@ export default function TransactionForm({
 
       {/* Amount */}
       <View className="mb-4">
-        <Text className="text-primary/80 text-sm font-GHKTachileik mb-2 ml-1">
+        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
           {t("amount")}
         </Text>
         <View className="flex-row items-center bg-foreground rounded-2xl px-4 py-1 border border-primary/10">
@@ -96,7 +96,7 @@ export default function TransactionForm({
 
       {/* Title */}
       <View className="mb-4">
-        <Text className="text-primary/80 text-sm font-GHKTachileik mb-2 ml-1">
+        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
           {t("title_label")}
         </Text>
         <View className="flex-row items-center bg-foreground rounded-2xl px-4 py-1 border border-primary/10">
@@ -117,7 +117,7 @@ export default function TransactionForm({
 
       {/* Category */}
       <View className="mb-4">
-        <Text className="text-primary/80 text-sm font-GHKTachileik mb-2 ml-1">
+        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
           {t("category_label")}
         </Text>
         <View className="flex-row flex-wrap gap-2">
@@ -159,7 +159,7 @@ export default function TransactionForm({
 
       {/* Note */}
       <View className="mb-6">
-        <Text className="text-primary/80 text-sm font-GHKTachileik mb-2 ml-1">
+        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
           {t("note_label")}
         </Text>
         <View className="flex-row bg-foreground rounded-2xl px-4 py-1 border border-primary/10">

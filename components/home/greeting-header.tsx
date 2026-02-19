@@ -13,7 +13,7 @@ export default function GreetingHeader() {
   return (
     <View className="flex-row justify-between items-center px-6 py-4 mt-2">
       <View>
-        <Text className="text-primary/80 font-GHKTachileik text-sm mb-1 font-semibold">
+        <Text className="text-primary/80 font-GHKTachileik text-base mb-1 font-semibold">
           {t(greeting)}
         </Text>
         <Text className="text-primary font-GHKTachileik text-xl font-semibold">

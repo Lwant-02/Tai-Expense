@@ -34,7 +34,7 @@ export const Banner = ({
         <Text className="text-primary font-GHKTachileik text-lg font-semibold mb-1">
           {title}
         </Text>
-        <Text className="text-primary/60 py-1 font-GHKTachileik text-sm leading-tight">
+        <Text className="text-primary/60 py-1 font-GHKTachileik text-base leading-tight">
           {description}
         </Text>
       </View>

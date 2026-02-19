@@ -31,7 +31,7 @@ export default function Header({
       )}
 
       {/* Title */}
-      <Text className="text-primary text-xl font-GHKKengtung font-semibold">
+      <Text className="text-primary text-2xl py-1 font-GHKKengtung font-semibold">
         {title}
       </Text>
 

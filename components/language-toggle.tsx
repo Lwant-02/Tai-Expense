@@ -20,7 +20,7 @@ export default function LanguageToggle() {
     >
       <Text
         className={cn(
-          "text-sm font-medium ml-1",
+          "text-base font-medium ml-1",
           currentLang === "shn" ? "text-primary font-bold" : "text-primary/50",
         )}
       >
@@ -29,7 +29,7 @@ export default function LanguageToggle() {
       <View className="h-3 w-[1px] bg-background/20 mx-1" />
       <Text
         className={cn(
-          "text-sm font-medium mr-1",
+          "text-base font-medium mr-1",
           currentLang === "en" ? "text-primary font-bold" : "text-primary/50",
         )}
       >

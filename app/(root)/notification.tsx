@@ -150,11 +150,11 @@ export default function NotificationPage() {
               <View className="mx-6 mb-4">
                 <View className="bg-blue/10 border border-blue/20 rounded-2xl px-4 py-3 flex-row items-center">
                   <View className="size-8 rounded-full bg-blue items-center justify-center mr-3">
-                    <Text className="text-white font-GHKTachileik text-sm font-semibold">
+                    <Text className="text-white font-GHKTachileik text-base font-semibold">
                       {unreadCount}
                     </Text>
                   </View>
-                  <Text className="text-primary/70 font-GHKTachileik text-sm flex-1">
+                  <Text className="text-primary/70 font-GHKTachileik text-base flex-1">
                     {t("new_notification", { count: unreadCount })}
                   </Text>
                   <TouchableOpacity onPress={markAllRead}>
@@ -246,7 +246,7 @@ function NotificationCard({
           <View className="flex-row items-center justify-between mb-1">
             <Text
               className={cn(
-                "font-GHKTachileik text-sm font-semibold flex-1",
+                "font-GHKTachileik text-base font-semibold flex-1",
                 notification.read ? "text-primary/70" : "text-primary",
               )}
             >

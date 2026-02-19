@@ -30,7 +30,7 @@ export default function BudgetAlert({ percentage }: BudgetAlertProps) {
         color={color}
       />
       <Text
-        className="flex-1 font-GHKTachileik text-sm font-medium"
+        className="flex-1 font-GHKTachileik text-base font-medium"
         style={{ color }}
       >
         {message}

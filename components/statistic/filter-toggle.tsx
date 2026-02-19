@@ -33,7 +33,7 @@ export default function FilterToggle({
           >
             <Text
               className={cn(
-                "font-GHKTachileik text-sm",
+                "font-GHKTachileik text-base",
                 activeFilter === filter
                   ? "text-primary font-semibold"
                   : "text-primary/40",

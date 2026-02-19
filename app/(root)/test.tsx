@@ -178,7 +178,7 @@ export default function NotificationTest() {
               <Ionicons name={test.icon} size={18} color={test.color} />
             </View>
             <View className="flex-1">
-              <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+              <Text className="text-primary font-GHKTachileik text-base font-semibold">
                 {test.title}
               </Text>
               <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
@@ -241,7 +241,7 @@ export default function NotificationTest() {
               Last Received
             </Text>
             <View className="bg-green/10 rounded-2xl p-4 border border-green/20">
-              <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+              <Text className="text-primary font-GHKTachileik text-base font-semibold">
                 {lastNotif.request.content.title}
               </Text>
               <Text className="text-primary/60 font-GHKTachileik text-xs mt-1">

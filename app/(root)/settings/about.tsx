@@ -58,14 +58,14 @@ export default function AboutPage() {
           <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
             TAI Expense
           </Text>
-          <Text className="text-primary/40 font-GHKTachileik text-sm mt-1">
+          <Text className="text-primary/40 font-GHKTachileik text-base mt-1">
             v1.0.0
           </Text>
         </View>
 
         {/* App Description */}
         <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-4">
-          <Text className="text-primary/60 font-GHKTachileik text-sm leading-6">
+          <Text className="text-primary/60 font-GHKTachileik text-base leading-6">
             {t("about_description")}
           </Text>
         </View>
@@ -80,7 +80,7 @@ export default function AboutPage() {
               {t("our_mission")}
             </Text>
           </View>
-          <Text className="text-primary/50 font-GHKTachileik text-sm leading-6">
+          <Text className="text-primary/50 font-GHKTachileik text-base leading-6">
             {t("mission_description")}
           </Text>
         </View>
@@ -110,7 +110,7 @@ export default function AboutPage() {
           {t("support_title")}
         </Text>
         <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-4">
-          <Text className="text-primary/50 font-GHKTachileik text-sm leading-6 mb-4">
+          <Text className="text-primary/50 font-GHKTachileik text-base leading-6 mb-4">
             {t("support_description")}
           </Text>
 
@@ -131,7 +131,7 @@ export default function AboutPage() {
                 <Text className="text-primary/40 font-GHKTachileik text-xs">
                   {t(contact.key)}
                 </Text>
-                <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+                <Text className="text-primary font-GHKTachileik text-base font-semibold">
                   {contact.value}
                 </Text>
               </View>

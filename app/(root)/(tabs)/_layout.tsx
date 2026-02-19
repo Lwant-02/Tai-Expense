@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { Tabs } from "expo-router";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Text, View } from "react-native";
+import { Keyboard, Platform, Text, View } from "react-native";
 
 const TabIcon = ({
   focused,
@@ -33,12 +34,32 @@ const TabIcon = ({
 
 export default function Layout() {
   const { t } = useTranslation("common");
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
+
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true),
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false),
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   return (
     <Tabs
       initialRouteName="home"
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarShowLabel: false,
         tabBarIconStyle: {
           marginTop: 2,
@@ -63,6 +84,7 @@ export default function Layout() {
           shadowOpacity: 0.3,
           shadowRadius: 8,
           elevation: 5,
+          display: isKeyboardVisible ? "none" : "flex",
         },
         tabBarActiveTintColor: "#ffffff",
         tabBarInactiveTintColor: "#8E8E93",

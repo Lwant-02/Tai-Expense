@@ -21,7 +21,7 @@ export default function CategoryList({ onSeeAll }: CategoryListProps) {
           {t("categories")}
         </Text>
         <TouchableOpacity onPress={onSeeAll}>
-          <Text className="text-blue font-GHKTachileik text-sm">
+          <Text className="text-blue font-GHKTachileik text-base">
             {t("see_all")}
           </Text>
         </TouchableOpacity>

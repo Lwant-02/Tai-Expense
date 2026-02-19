@@ -66,7 +66,7 @@ export default function WeeklySummaryCard({
         </Text>
         {onSeeAll && (
           <TouchableOpacity onPress={onSeeAll}>
-            <Text className="text-blue font-GHKTachileik text-sm">
+            <Text className="text-blue font-GHKTachileik text-base">
               {t("see_all")}
             </Text>
           </TouchableOpacity>

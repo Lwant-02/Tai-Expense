@@ -26,7 +26,7 @@ export default function RecentList({
           {t("recent_transactions")}
         </Text>
         <TouchableOpacity onPress={onSeeAll}>
-          <Text className="text-blue font-GHKTachileik text-sm">
+          <Text className="text-blue font-GHKTachileik text-base">
             {t("see_all")}
           </Text>
         </TouchableOpacity>

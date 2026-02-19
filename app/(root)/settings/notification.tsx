@@ -126,11 +126,11 @@ export default function NotificationSettings() {
         <View className="mt-6 bg-blue/5 rounded-2xl p-4 border border-blue/10">
           <View className="flex-row items-center mb-2">
             <Ionicons name="information-circle" size={16} color="#2563EB" />
-            <Text className="text-blue font-GHKTachileik text-xs font-semibold ml-2">
+            <Text className="text-blue font-GHKTachileik text-base font-semibold ml-2">
               {t("notification_info_title")}
             </Text>
           </View>
-          <Text className="text-primary/40 font-GHKTachileik text-xs leading-5">
+          <Text className="text-primary/40 font-GHKTachileik text-sm leading-5">
             {t("notification_info_body")}
           </Text>
         </View>
@@ -164,7 +164,7 @@ function SettingToggle({
         <Ionicons name={icon} size={18} color={iconColor} />
       </View>
       <View className="flex-1 mr-3">
-        <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+        <Text className="text-primary font-GHKTachileik text-base font-semibold">
           {title}
         </Text>
         <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">

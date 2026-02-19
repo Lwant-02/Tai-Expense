@@ -19,7 +19,7 @@ import { FilterType, Period } from "@/type";
 export default function StatisticPage() {
   const { t } = useTranslation("statistic");
   const router = useRouter();
-  const [activePeriod, setActivePeriod] = useState<Period>("month");
+  const [activePeriod, setActivePeriod] = useState<Period>("week");
   const [activeFilter, setActiveFilter] = useState<FilterType>("expense");
 
   const chartData = CHART_DATA[activeFilter][activePeriod];

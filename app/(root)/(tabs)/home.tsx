@@ -23,6 +23,11 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <>
+            <TouchableOpacity onPress={() => router.push("/(root)/test")}>
+              <Text className="text-primary font-GHKTachileik text-lg font-semibold px-6">
+                Test
+              </Text>
+            </TouchableOpacity>
             <GreetingHeader />
             <BalanceCard />
 
@@ -42,7 +47,7 @@ export default function Home() {
               <TouchableOpacity
                 onPress={() => router.push("/(root)/all-transactions")}
               >
-                <Text className="text-primary/50 font-GHKTachileik text-sm">
+                <Text className="text-primary/50 font-GHKTachileik text-base">
                   {t("see_all")}
                 </Text>
               </TouchableOpacity>

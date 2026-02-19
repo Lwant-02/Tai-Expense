@@ -58,7 +58,7 @@ export default function AllWeeklySpending() {
         }
         renderItem={({ item }) => (
           <View className="mb-6">
-            <Text className="text-primary/60 font-GHKTachileik text-sm font-semibold px-6 mb-[-10px]">
+            <Text className="text-primary/60 font-GHKTachileik text-base font-semibold px-6 mb-[-10px]">
               {item.weekLabel}
             </Text>
             <WeeklySummaryCard

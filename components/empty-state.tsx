@@ -15,7 +15,7 @@ export default function EmptyState({
       <Text className="text-primary/70 font-GHKTachileik text-lg font-semibold text-center mb-2">
         {title}
       </Text>
-      <Text className="text-primary/30 font-GHKTachileik text-sm text-center leading-5">
+      <Text className="text-primary/30 font-GHKTachileik text-base text-center leading-5">
         {subtitle}
       </Text>
     </View>

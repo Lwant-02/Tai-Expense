@@ -44,7 +44,7 @@ export default function SettingItem({
       {/* Title + Subtitle */}
       <View className="flex-1">
         <Text
-          className={`font-GHKTachileik text-sm font-semibold ${
+          className={`font-GHKTachileik text-base font-semibold ${
             isDestructive ? "text-red-500" : "text-primary"
           }`}
         >
@@ -60,7 +60,7 @@ export default function SettingItem({
       {/* Value + Arrow */}
       <View className="flex-row items-center gap-1">
         {value && (
-          <Text className="text-primary/50 font-GHKTachileik text-xs mr-1">
+          <Text className="text-primary/50 font-GHKTachileik text-base mr-1">
             {value}
           </Text>
         )}

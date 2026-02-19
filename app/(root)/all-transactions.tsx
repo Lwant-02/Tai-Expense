@@ -196,7 +196,7 @@ export default function AllTransactions() {
                   >
                     <Text
                       className={cn(
-                        "font-GHKTachileik text-sm font-semibold",
+                        "font-GHKTachileik text-base font-semibold",
                         currentPage === pageNum
                           ? "text-primary"
                           : "text-primary/50",

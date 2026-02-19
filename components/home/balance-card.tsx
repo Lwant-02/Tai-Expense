@@ -20,7 +20,6 @@ export default function BalanceCard() {
             <Text className="text-primary font-GHKTachileik font-medium">
               {t("current_balance")}
             </Text>
-            <Ionicons name="chevron-up" size={16} color="white" />
           </View>
           <Text className="text-primary font-GHKTachileik text-4xl font-semibold py-2">
             $ 2,548.00
@@ -38,7 +37,7 @@ export default function BalanceCard() {
             <View className="bg-primary/20 rounded-full p-1 items-center justify-center size-6">
               <Ionicons name="arrow-down" size={12} color="white" />
             </View>
-            <Text className="text-primary/70 font-GHKTachileik text-sm">
+            <Text className="text-primary/70 font-GHKTachileik text-base">
               {t("income")}
             </Text>
           </View>
@@ -53,7 +52,7 @@ export default function BalanceCard() {
             <View className="bg-primary/20 rounded-full p-1 items-center justify-center size-6">
               <Ionicons name="arrow-up" size={12} color="white" />
             </View>
-            <Text className="text-primary/70 font-GHKTachileik text-sm">
+            <Text className="text-primary/70 font-GHKTachileik text-base">
               {t("expenses")}
             </Text>
           </View>

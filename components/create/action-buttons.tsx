@@ -23,7 +23,7 @@ export default function ActionButtons({
         <View className="bg-white/20 rounded-full p-1.5">
           <Ionicons name="arrow-up" size={16} color="white" />
         </View>
-        <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+        <Text className="text-primary font-GHKTachileik text-base font-semibold">
           {t("create_expense")}
         </Text>
       </TouchableOpacity>
@@ -36,7 +36,7 @@ export default function ActionButtons({
         <View className="bg-white/20 rounded-full p-1.5">
           <Ionicons name="arrow-down" size={16} color="white" />
         </View>
-        <Text className="text-primary font-GHKTachileik text-sm font-semibold">
+        <Text className="text-primary font-GHKTachileik text-base font-semibold">
           {t("create_income")}
         </Text>
       </TouchableOpacity>

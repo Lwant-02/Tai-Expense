@@ -43,7 +43,7 @@ export default function CategoryBudgetCard({
 
         {/* Name + spent */}
         <View className="flex-1">
-          <Text className="text-primary font-GHKTachileik text-sm font-semibold capitalize">
+          <Text className="text-primary font-GHKTachileik text-base font-semibold capitalize">
             {tHome(`category.${item.category}`)}
           </Text>
           <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">

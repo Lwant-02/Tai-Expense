@@ -81,7 +81,7 @@ export default function TransactionDetail() {
         <View className="bg-foreground rounded-3xl p-5 border border-primary/5">
           {/* Category */}
           <View className="flex-row items-center justify-between py-3.5 border-b border-primary/5">
-            <Text className="text-primary/50 font-GHKTachileik text-sm">
+            <Text className="text-primary/50 font-GHKTachileik text-base">
               {t("category_label")}
             </Text>
             <View className="flex-row items-center gap-2">
@@ -93,7 +93,7 @@ export default function TransactionDetail() {
               >
                 <Ionicons name={config.icon} size={14} color={config.color} />
               </View>
-              <Text className="text-primary font-GHKTachileik text-sm font-medium capitalize">
+              <Text className="text-primary font-GHKTachileik text-base font-medium capitalize">
                 {tHome(`category.${transaction.category}`)}
               </Text>
             </View>
@@ -101,7 +101,7 @@ export default function TransactionDetail() {
 
           {/* Type */}
           <View className="flex-row items-center justify-between py-3.5 border-b border-primary/5">
-            <Text className="text-primary/50 font-GHKTachileik text-sm">
+            <Text className="text-primary/50 font-GHKTachileik text-base">
               {t("detail_type")}
             </Text>
             <View className="flex-row items-center gap-2">
@@ -116,7 +116,7 @@ export default function TransactionDetail() {
                 />
               </View>
               <Text
-                className="font-GHKTachileik text-sm font-medium capitalize"
+                className="font-GHKTachileik text-base font-medium capitalize"
                 style={{ color: accentColor }}
               >
                 {isIncome ? tHome("income") : tHome("expenses")}
@@ -126,20 +126,20 @@ export default function TransactionDetail() {
 
           {/* Date */}
           <View className="flex-row items-center justify-between py-3.5 border-b border-primary/5">
-            <Text className="text-primary/50 font-GHKTachileik text-sm">
+            <Text className="text-primary/50 font-GHKTachileik text-base">
               {t("detail_date")}
             </Text>
-            <Text className="text-primary font-GHKTachileik text-sm font-medium">
+            <Text className="text-primary font-GHKTachileik text-base font-medium">
               {formattedFullDate}
             </Text>
           </View>
 
           {/* Time */}
           <View className="flex-row items-center justify-between py-3.5 border-b border-primary/5">
-            <Text className="text-primary/50 font-GHKTachileik text-sm">
+            <Text className="text-primary/50 font-GHKTachileik text-base">
               {t("detail_time")}
             </Text>
-            <Text className="text-primary font-GHKTachileik text-sm font-medium">
+            <Text className="text-primary font-GHKTachileik text-base font-medium">
               {formattedTime}
             </Text>
           </View>
@@ -151,11 +151,11 @@ export default function TransactionDetail() {
               transaction.note ? "border-b border-primary/5" : "",
             )}
           >
-            <Text className="text-primary/50 font-GHKTachileik text-sm">
+            <Text className="text-primary/50 font-GHKTachileik text-base">
               {t("amount")}
             </Text>
             <Text
-              className="font-GHKTachileik text-sm font-semibold"
+              className="font-GHKTachileik text-base font-semibold"
               style={{ color: isIncome ? "#22C55E" : "#EF4444" }}
             >
               $ {transaction.amount.toFixed(2)}
@@ -165,10 +165,10 @@ export default function TransactionDetail() {
           {/* Note (if available) */}
           {transaction.note && (
             <View className="py-3.5">
-              <Text className="text-primary/50 font-GHKTachileik text-sm mb-2">
+              <Text className="text-primary/50 font-GHKTachileik text-base mb-2">
                 {t("note_label")}
               </Text>
-              <Text className="text-primary/80 font-GHKTachileik text-sm leading-5">
+              <Text className="text-primary/80 font-GHKTachileik text-base leading-5">
                 {transaction.note}
               </Text>
             </View>
