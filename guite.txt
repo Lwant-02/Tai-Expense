@@ -1,0 +1,196 @@
+# When rebuild the app using -  npx expo prebuild --clean
+# add this line to android/local.properties
+
+-> sdk.dir=/Users/apple/Library/Android/sdk
+
+# 📱 Building & Testing an Expo App (Development → Stand‑Alone)
+
+This guide explains **ALL ways** to run and test your Expo (React Native) app — from development to a real standalone installable app.
+
+---
+
+## 🧠 When Do You Use Each Method?
+
+| Method            | Use When                       | Standalone? |
+| ----------------- | ------------------------------ | ----------- |
+| Expo Go           | Fast UI & logic testing        | ❌           |
+| Development Build | Test native features           | ❌           |
+| EAS Build         | Real installable app & release | ✅           |
+
+---
+
+## 🧠 When Do You Need EAS Build?
+
+Use **EAS Build** if you want to:
+
+* Install the app like a real mobile app
+* Share the app with friends/testers
+* Test production behavior
+* Submit to Google Play Store
+
+You do **NOT** need EAS if you only test UI or logic using Expo Go.
+
+---
+
+## 🔎 Ways to Run an Expo App
+
+### 1️⃣ Expo Go
+
+**Best for:** quick development
+
+✔ Fast refresh
+✔ No build required
+❌ Not standalone
+❌ Cannot test native features
+
+---
+
+### 2️⃣ Development Build
+
+Command:
+
+```
+npx expo run:android
+```
+
+**Best for:** testing native modules locally
+
+✔ Runs on emulator/device
+✔ Native code support
+❌ Not production ready
+
+---
+
+### 3️⃣ ✅ EAS Build (Standalone App)
+
+**Best for:** real installable app
+
+✔ Generates APK/AAB
+✔ Production behavior
+✔ Play Store ready
+
+---
+
+## 🚀 Step-by-Step: Build Standalone APK
+
+### 1️⃣ Install EAS CLI
+
+```
+npm install -g eas-cli
+```
+
+---
+
+### 2️⃣ Login to Expo
+
+```
+eas login
+```
+
+---
+
+### 3️⃣ Configure EAS
+
+Run:
+
+```
+eas build:configure
+```
+
+This creates:
+
+* `eas.json`
+
+---
+
+### 4️⃣ Build APK (for testing)
+
+```
+eas build --platform android --profile preview
+```
+
+👉 Produces an **APK file** you can install directly.
+
+---
+
+### 5️⃣ Build AAB (for Play Store)
+
+```
+eas build --platform android --profile production
+```
+
+👉 Produces an **AAB file** required for Google Play submission.
+
+---
+
+## 📦 Installing the APK on Your Phone
+
+After build finishes:
+
+1. Open the build link provided in terminal
+2. Download the APK
+3. Transfer to your phone
+4. Tap the file and install
+
+You may need to enable **Install unknown apps** in Android settings.
+
+---
+
+## 🧾 Example Minimal `eas.json`
+
+```
+{
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  }
+}
+```
+
+---
+
+## ⏱ Build Time & Limits
+
+* Build time: 5–15 minutes
+* Free plan includes limited builds per month
+
+---
+
+## 🎯 Recommended Workflow
+
+1. Develop with Expo Go
+2. Test native features with `expo run:android`
+3. Build APK using **preview** profile
+4. Test on real device
+5. Build **production** version when ready to publish
+
+---
+
+## ❗ Common Issues
+
+**Build fails?**
+
+* Check app.json configuration
+* Ensure package name is set
+* Verify icon & splash images exist
+
+**APK not installing?**
+
+* Enable unknown app installs
+* Make sure CPU architecture matches device
+
+---
+
+## ✅ You’re Ready!
+
+
+---
