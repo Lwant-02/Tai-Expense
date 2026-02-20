@@ -1,0 +1,3 @@
+//When rebuild the app using -  npx expo prebuild --clean
+//add this line to android/local.properties
+-> sdk.dir=/Users/apple/Library/Android/sdk

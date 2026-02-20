@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   FlatList,
+  Image,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -19,7 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import CustomBtn from "@/components/custom-btn";
 import LanguageToggle from "@/components/language-toggle";
-import { CURRENCIES } from "@/constants";
+import { APP_ICON, CURRENCIES } from "@/constants";
 import { saveSetup } from "@/utils/storage";
 
 export default function GetStarted() {
@@ -82,8 +83,12 @@ export default function GetStarted() {
                 {/* Icon Header */}
                 <View className="items-center mb-8">
                   <View className="bg-blue/10 rounded-full p-6 mb-6">
-                    <View className="bg-blue/20 rounded-full p-5">
-                      <Ionicons name="wallet" size={48} color="#2563EB" />
+                    <View className="bg-blue/20 rounded-full size-20 flex justify-center items-center overflow-hidden">
+                      <Image
+                        source={APP_ICON}
+                        className="size-full"
+                        resizeMode="contain"
+                      />
                     </View>
                   </View>
 

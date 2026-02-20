@@ -1,8 +1,10 @@
 import Header from "@/components/header";
+import { APP_ICON } from "@/constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import {
+  Image,
   Linking,
   ScrollView,
   Text,
@@ -52,8 +54,8 @@ export default function AboutPage() {
       >
         {/* App Icon + Name */}
         <View className="items-center mb-8 mt-4">
-          <View className="size-24 rounded-3xl bg-blue/10 items-center justify-center mb-4 border border-blue/20">
-            <Text className="text-5xl">💰</Text>
+          <View className="size-24 rounded-3xl overflow-hidden items-center justify-center mb-4 border border-primary/30">
+            <Image source={APP_ICON} className="size-full" />
           </View>
           <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
             TAI Expense

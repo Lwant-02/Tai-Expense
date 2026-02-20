@@ -1,3 +1,4 @@
+import appIcon from "@/assets/icons/ios-light.png";
 import onboardingOne from "@/assets/images/onboarding-one.png";
 import onboardingThree from "@/assets/images/onboarding-three.png";
 import onboardingTwo from "@/assets/images/onboarding-two.png";
@@ -24,6 +25,8 @@ export const ONBOARDING_SCREEN = [
     description: "description_3",
   },
 ];
+
+export const APP_ICON = appIcon;
 
 export const CATEGORY_CONFIG: Record<
   TransactionCategory,
