@@ -21,14 +21,14 @@ export default function BalanceCard() {
       <View className="flex-row justify-between items-start mb-4">
         <View>
           <View className="flex-row items-center gap-1 mb-1">
-            <Text className="text-primary font-GHKTachileik font-medium">
+            <Text className="text-primary font-GHKTachileik font-medium text-lg">
               {t("current_balance")}
             </Text>
           </View>
           <Text className="text-primary font-GHKTachileik text-4xl font-semibold pt-2">
             {formatCurrency(currentBalance, user?.currency!)}
           </Text>
-          <Text className="text-primary/60 capitalize font-GHKTachileik text-sm font-semibold">
+          <Text className="text-primary/60 capitalize font-GHKTachileik text-base font-semibold">
             {convertWord(currentBalance, i18n.language)}
           </Text>
         </View>
@@ -45,7 +45,7 @@ export default function BalanceCard() {
               <Ionicons name="arrow-down" size={12} color="white" />
             </View>
             <Text className="text-primary/70 font-GHKTachileik text-base">
-              {t("income")}
+              {t("this_month_income")}
             </Text>
           </View>
           <Text className="text-green font-GHKTachileik text-xl font-semibold">
@@ -63,7 +63,7 @@ export default function BalanceCard() {
               <Ionicons name="arrow-up" size={12} color="white" />
             </View>
             <Text className="text-primary/70 font-GHKTachileik text-base">
-              {t("expenses")}
+              {t("this_month_expenses")}
             </Text>
           </View>
           <Text className="text-danger font-GHKTachileik text-xl font-semibold">

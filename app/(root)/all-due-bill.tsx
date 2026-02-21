@@ -47,7 +47,7 @@ export default function AllDueBill() {
       />
 
       <View className="flex-1">
-        <Text className="text-primary/40 font-GHKTachileik text-xs px-6 mb-2">
+        <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
           {bills.length} {t("upcoming_bills", "Upcoming Bills")}
         </Text>
 

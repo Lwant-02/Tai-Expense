@@ -52,7 +52,7 @@ export default function BalanceAdjustForm({
 
       {/* Current balance display */}
       <View className="bg-primary/5 rounded-2xl p-4 mb-6 border border-primary/10">
-        <Text className="text-primary/40 font-GHKTachileik text-xs mb-1">
+        <Text className="text-primary/40 font-GHKTachileik text-sm mb-1">
           {t("current_balance")}
         </Text>
         <Text className="text-primary font-GHKTachileik text-lg font-semibold">

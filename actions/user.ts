@@ -52,6 +52,23 @@ export const updateUserBalance = async (
   }
 };
 
+//Update user currency
+export const updateUserCurrency = async (
+  db: SQLiteDatabase,
+  userId: number,
+  newCurrency: string,
+): Promise<void> => {
+  try {
+    await db.runAsync("UPDATE user SET currency = ? WHERE id = ?", [
+      newCurrency,
+      userId,
+    ]);
+  } catch (error) {
+    console.error("Error updating user currency:", error);
+    throw error;
+  }
+};
+
 // Delete user for development only
 export const deleteUser = async (db: SQLiteDatabase): Promise<void> => {
   try {

@@ -150,15 +150,15 @@ export default function NotificationPage() {
               <View className="mx-6 mb-4">
                 <View className="bg-blue/10 border border-blue/20 rounded-2xl px-4 py-3 flex-row items-center">
                   <View className="size-8 rounded-full bg-blue items-center justify-center mr-3">
-                    <Text className="text-white font-GHKTachileik text-base font-semibold">
+                    <Text className="text-white font-GHKTachileik text-lg font-semibold">
                       {unreadCount}
                     </Text>
                   </View>
-                  <Text className="text-primary/70 font-GHKTachileik text-base flex-1">
+                  <Text className="text-primary/70 font-GHKTachileik text-lg flex-1">
                     {t("new_notification", { count: unreadCount })}
                   </Text>
                   <TouchableOpacity onPress={markAllRead}>
-                    <Text className="text-blue font-GHKTachileik text-xs font-semibold">
+                    <Text className="text-blue font-GHKTachileik text-sm font-semibold">
                       {t("mark_all_read")}
                     </Text>
                   </TouchableOpacity>
@@ -169,7 +169,7 @@ export default function NotificationPage() {
             {/* Today section */}
             {todayNotifications.length > 0 && (
               <View className="mb-4">
-                <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-7">
+                <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-7">
                   {t("today")}
                 </Text>
                 {todayNotifications.map((notif) => (
@@ -186,7 +186,7 @@ export default function NotificationPage() {
             {/* Earlier section */}
             {earlierNotifications.length > 0 && (
               <View className="mb-4">
-                <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-7">
+                <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-7">
                   {t("earlier")}
                 </Text>
                 {earlierNotifications.map((notif) => (
@@ -230,7 +230,7 @@ function NotificationCard({
         {/* Icon */}
         <View
           className={cn(
-            "size-11 rounded-xl items-center justify-center mr-3",
+            "size-14 rounded-xl items-center justify-center mr-3",
             notification.bg,
           )}
         >
@@ -246,7 +246,7 @@ function NotificationCard({
           <View className="flex-row items-center justify-between mb-1">
             <Text
               className={cn(
-                "font-GHKTachileik text-base font-semibold flex-1",
+                "font-GHKTachileik text-lg font-semibold flex-1",
                 notification.read ? "text-primary/70" : "text-primary",
               )}
             >
@@ -257,12 +257,12 @@ function NotificationCard({
             )}
           </View>
           <Text
-            className="text-primary/40 font-GHKTachileik text-xs leading-5 mb-2"
+            className="text-primary/40 font-GHKTachileik text-base py-1 leading-5 mb-2"
             numberOfLines={2}
           >
             {t(notification.bodyKey)}
           </Text>
-          <Text className="text-primary/25 font-GHKTachileik text-[10px]">
+          <Text className="text-primary/25 font-GHKTachileik text-sm">
             {getTimeLabel(notification.time, t)}
           </Text>
         </View>

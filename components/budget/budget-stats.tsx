@@ -54,7 +54,7 @@ export default function BudgetStats({
           className="flex-1 bg-foreground rounded-2xl p-3.5 border border-primary/5"
         >
           <View className="flex-row items-center justify-between mb-2">
-            <Text className="text-primary/40 font-GHKTachileik text-xs">
+            <Text className="text-primary/40 font-GHKTachileik text-sm">
               {stat.label}
             </Text>
             <Ionicons name={stat.icon} size={14} color={stat.iconColor} />

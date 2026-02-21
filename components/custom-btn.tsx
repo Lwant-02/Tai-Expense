@@ -14,6 +14,10 @@ const getBgVariantStyle = (bgVariant: ButtonProps["bgVariant"]) => {
       return "bg-white";
     case "dark":
       return "bg-background";
+    case "blue":
+      return "bg-blue";
+    case "green":
+      return "bg-green";
     default:
       return "bg-primary";
   }
@@ -49,7 +53,7 @@ export default function CustomBtn({
     <TouchableOpacity
       onPress={onPress}
       className={cn(
-        "w-full rounded-full flex-row justify-center p-3 items-center shadow-md shadow-primary/20",
+        "w-full rounded-full flex-row justify-center p-3  items-center shadow-md shadow-primary/20",
         getBgVariantStyle(bgVariant),
         className,
       )}
@@ -59,7 +63,7 @@ export default function CustomBtn({
         <ActivityIndicator size="small" color="#2563EB" className="size-7" />
       ) : (
         <>
-          {IconLeft && <IconLeft />}
+          {IconLeft && IconLeft}
           <Text
             className={cn(
               "text-lg font-semibold font-GHKKengtung",
@@ -68,7 +72,7 @@ export default function CustomBtn({
           >
             {title}
           </Text>
-          {IconRight && <IconRight />}
+          {IconRight && IconRight}
         </>
       )}
     </TouchableOpacity>

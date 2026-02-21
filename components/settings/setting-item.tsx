@@ -44,14 +44,14 @@ export default function SettingItem({
       {/* Title + Subtitle */}
       <View className="flex-1">
         <Text
-          className={`font-GHKTachileik text-base font-semibold ${
+          className={`font-GHKTachileik text-lg font-semibold ${
             isDestructive ? "text-red-500" : "text-primary"
           }`}
         >
           {title}
         </Text>
         {subtitle && (
-          <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
+          <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
             {subtitle}
           </Text>
         )}

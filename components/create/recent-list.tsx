@@ -22,7 +22,7 @@ export default function RecentList({
   return (
     <View className="mb-4">
       <View className="flex-row justify-between items-center px-6 mb-2">
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           {t("recent_transactions")}
         </Text>
         <TouchableOpacity onPress={onSeeAll}>

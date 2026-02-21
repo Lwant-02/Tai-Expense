@@ -46,7 +46,7 @@ export default function NotificationSettings() {
         contentContainerClassName="pb-32 px-6"
       >
         {/* Daily Reminder */}
-        <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+        <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
           {t("reminders")}
         </Text>
 
@@ -85,7 +85,7 @@ export default function NotificationSettings() {
         <View className="mb-5" />
 
         {/* Summary & Alerts */}
-        <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+        <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
           {t("summary_alerts")}
         </Text>
 
@@ -128,11 +128,11 @@ export default function NotificationSettings() {
         <View className="mt-6 bg-blue/5 rounded-2xl p-4 border border-blue/10">
           <View className="flex-row items-center mb-2">
             <Ionicons name="information-circle" size={16} color="#2563EB" />
-            <Text className="text-blue font-GHKTachileik text-base font-semibold ml-2">
+            <Text className="text-blue font-GHKTachileik text-lg font-semibold ml-2">
               {t("notification_info_title")}
             </Text>
           </View>
-          <Text className="text-primary/40 font-GHKTachileik text-sm leading-5">
+          <Text className="text-primary/40 font-GHKTachileik text-base leading-5">
             {t("notification_info_body")}
           </Text>
         </View>
@@ -166,10 +166,10 @@ function SettingToggle({
         <Ionicons name={icon} size={18} color={iconColor} />
       </View>
       <View className="flex-1 mr-3">
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           {title}
         </Text>
-        <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
+        <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
           {subtitle}
         </Text>
       </View>

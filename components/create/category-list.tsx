@@ -17,7 +17,7 @@ export default function CategoryList({ onSeeAll }: CategoryListProps) {
   return (
     <View className="mb-6">
       <View className="flex-row justify-between items-center px-6 mb-3">
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           {t("categories")}
         </Text>
         <TouchableOpacity onPress={onSeeAll}>
@@ -46,7 +46,7 @@ export default function CategoryList({ onSeeAll }: CategoryListProps) {
                 <Ionicons name={config.icon} size={24} color={config.color} />
               </View>
               <Text
-                className="text-primary/70 font-GHKTachileik text-[10px] text-center"
+                className="text-primary/70 font-GHKTachileik text-sm text-center"
                 numberOfLines={1}
               >
                 {tHome(`category.${category}`)}

@@ -71,8 +71,8 @@ export default function SetBudgetForm({
         onPress={handleSave}
         title={t("save")}
         disabled={!amount}
-        bgVariant="dark"
-        textVariant="light"
+        bgVariant="light"
+        textVariant="dark"
       />
     </View>
   );

@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useSQLiteContext } from "expo-sqlite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Keyboard,
@@ -15,22 +15,25 @@ import {
   createTransaction,
   getTransactions,
   getTransactionSummary,
+  updateTransaction,
 } from "@/actions";
 import { CATEGORIES, CATEGORY_CONFIG } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore } from "@/store/user.store";
-import { TransactionCategory, TransactionType } from "@/type";
+import { Transaction, TransactionCategory, TransactionType } from "@/type";
 import { getCurrencySymbol } from "@/utils/common";
 import CustomBtn from "../custom-btn";
 
 interface TransactionFormProps {
   type: TransactionType;
   onClose: () => void;
+  initialData?: Transaction;
 }
 
 export default function TransactionForm({
   type,
   onClose,
+  initialData,
 }: TransactionFormProps) {
   const { t } = useTranslation("create");
   const { t: tHome } = useTranslation("home");
@@ -47,6 +50,8 @@ export default function TransactionForm({
   const db = useSQLiteContext();
   const { setTransactions, setSummary } = useTransactionStore();
   const { user } = useUserStore();
+  const isUpdate = initialData !== null;
+  const isExpenseUpdate = initialData !== null && type === "expense";
 
   const handleSubmit = async () => {
     Keyboard.dismiss();
@@ -54,14 +59,25 @@ export default function TransactionForm({
     try {
       if (!isValid) return;
 
-      await createTransaction(db, {
-        title: title.trim(),
-        type,
-        amount: parseFloat(amount),
-        category: selectedCategory as string,
-        transactionDate: new Date().toISOString(),
-        note: note.trim(),
-      });
+      if (isUpdate) {
+        await updateTransaction(db, initialData?.id!, {
+          title: title.trim(),
+          type,
+          amount: parseFloat(amount),
+          category: selectedCategory as string,
+          transactionDate: new Date().toISOString(),
+          note: note.trim(),
+        });
+      } else {
+        await createTransaction(db, {
+          title: title.trim(),
+          type,
+          amount: parseFloat(amount),
+          category: selectedCategory as string,
+          transactionDate: new Date().toISOString(),
+          note: note.trim(),
+        });
+      }
 
       // Instantly refresh global stores so all screens reflect new balance/transactions automatically
       const [updatedTransactions, updatedSummary] = await Promise.all([
@@ -84,12 +100,28 @@ export default function TransactionForm({
 
   const isValid = title.trim() && amount.trim() && selectedCategory;
 
+  // If initialData is provided, prefill the form
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setAmount(initialData.amount.toString());
+      setSelectedCategory(initialData.category as TransactionCategory);
+      setNote(initialData.note || "");
+    }
+  }, [initialData]);
+
   return (
     <View className="px-6 pt-2 pb-8">
       {/* Sheet Header */}
       <View className="flex-row justify-between items-center mb-6">
         <Text className="text-primary font-GHKTachileik text-xl font-semibold">
-          {isExpense ? t("create_expense") : t("create_income")}
+          {isUpdate
+            ? isExpense
+              ? t("update_expense")
+              : t("update_income")
+            : isExpense
+              ? t("create_expense")
+              : t("create_income")}
         </Text>
         <TouchableOpacity
           onPress={onClose}
@@ -221,14 +253,21 @@ export default function TransactionForm({
       </View>
 
       {/* Submit */}
-
       <CustomBtn
         onPress={handleSubmit}
         activeOpacity={0.8}
         disabled={!isValid}
-        bgVariant="dark"
-        textVariant="light"
-        title={isExpense ? t("create_expense") : t("create_income")}
+        bgVariant="light"
+        textVariant="dark"
+        title={
+          isUpdate
+            ? isExpense
+              ? t("update_expense")
+              : t("update_income")
+            : isExpense
+              ? t("create_expense")
+              : t("create_income")
+        }
       />
     </View>
   );

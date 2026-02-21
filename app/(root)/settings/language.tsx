@@ -58,7 +58,7 @@ export default function LanguagePage() {
               <View className="flex-1">
                 <Text
                   className={cn(
-                    "font-GHKTachileik text-base font-semibold",
+                    "font-GHKTachileik text-lg font-semibold",
                     isSelected ? "text-blue" : "text-primary",
                   )}
                 >

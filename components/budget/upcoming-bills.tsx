@@ -8,6 +8,7 @@ import BillCard from "@/components/budget/bill-card";
 import { SAMPLE_BILLS } from "@/components/budget/budget-data";
 import EmptyState from "@/components/empty-state";
 import { Bill } from "@/type";
+import CustomBtn from "../custom-btn";
 
 interface UpcomingBillsProps {
   onAddBill?: () => void;
@@ -33,24 +34,22 @@ export default function UpcomingBills({ onAddBill }: UpcomingBillsProps) {
   return (
     <View className="mt-4 px-6">
       {/* Header - now just the Add button, title is in the tab */}
-      <TouchableOpacity
+
+      <CustomBtn
+        title={t("add_bill", "Add Bill")}
         onPress={onAddBill}
-        className="flex-row items-center justify-center gap-2 bg-blue py-3 rounded-2xl mb-6"
-      >
-        <Ionicons name="add-circle" size={20} color="white" />
-        <Text className="text-white font-GHKTachileik text-base font-semibold">
-          {t("add_bill", "Add Bill")}
-        </Text>
-      </TouchableOpacity>
+        IconLeft={<Ionicons name="add-circle" size={20} color="white" />}
+        bgVariant="blue"
+        className="mb-6 gap-2"
+        textVariant="light"
+      />
 
       <View className="flex-row justify-between items-center mb-3">
         <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           Upcoming Bills
         </Text>
         <TouchableOpacity onPress={() => router.push("/(root)/all-due-bill")}>
-          <Text className="text-primary/50 font-GHKTachileik text-base">
-            See all
-          </Text>
+          <Text className="text-blue font-GHKTachileik text-base">See all</Text>
         </TouchableOpacity>
       </View>
 

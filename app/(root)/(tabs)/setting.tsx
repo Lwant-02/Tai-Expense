@@ -104,13 +104,13 @@ export default function SettingPage() {
                 />
               </View>
               <View className="flex-1 gap-1">
-                <Text className="text-primary/40  font-GHKTachileik text-xs">
+                <Text className="text-primary/40  font-GHKTachileik text-sm">
                   {t("greeting")} 👋
                 </Text>
-                <Text className="text-primary font-GHKTachileik text-lg font-semibold mt-0.5">
+                <Text className="text-primary font-GHKTachileik text-xl font-semibold mt-0.5">
                   {user?.name}
                 </Text>
-                <Text className="text-primary/40 font-GHKTachileik text-sm">
+                <Text className="text-primary/40 font-GHKTachileik text-base">
                   {t("joined_date")} :{" "}
                   {formatJoinDate(new Date(user?.createdAt!), tHome)}
                 </Text>
@@ -119,7 +119,7 @@ export default function SettingPage() {
           </View>
 
           {/* General Section */}
-          <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+          <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
             {t("general")}
           </Text>
 
@@ -166,7 +166,7 @@ export default function SettingPage() {
           <View className="mb-5" />
 
           {/* Data Section */}
-          <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+          <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
             {t("data")}
           </Text>
 
@@ -184,7 +184,7 @@ export default function SettingPage() {
           <View className="mb-5" />
 
           {/* App Info Section */}
-          <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+          <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
             {t("app_info")}
           </Text>
 

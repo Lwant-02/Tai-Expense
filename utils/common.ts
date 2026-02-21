@@ -1,5 +1,4 @@
 import { CURRENCIES } from "@/constants";
-import { TransactionType } from "@/type";
 import converter from "number-to-words";
 
 const SHAN_UNITS = ["", "သိပ်း", "ပၢၵ်ႇ", "ႁဵင်", "မိုၼ်ႇ", "သႅၼ်", "လၢၼ်ႉ"];
@@ -15,12 +14,6 @@ const SHAN_DIGITS = [
   "ပႅတ်ႇ",
   "ၵဝ်ႈ",
 ];
-
-// format amount with currency
-export const formatAmount = (amount: number, type: TransactionType): string => {
-  const prefix = type === "income" ? "+ " : "- ";
-  return `${prefix}$ ${amount.toFixed(2)}`;
-};
 
 // format date with i18next for transaction card
 export const formatDate = (dateString: string, t?: any): string => {

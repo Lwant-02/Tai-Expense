@@ -59,7 +59,7 @@ export default function WeeklySummaryCard({
     <View className="mt-6">
       {/* Header */}
       <View className="flex-row justify-between items-center px-6 mb-3">
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           {activeFilter === "expense"
             ? t("weekly_expense")
             : t("weekly_income")}

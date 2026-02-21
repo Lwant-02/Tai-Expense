@@ -22,16 +22,16 @@ export default function BillCard({ bill, onToggleReminder }: BillCardProps) {
     <View className="bg-foreground p-4 rounded-3xl border border-primary/5 shadow-sm mb-3">
       <View className="flex-row justify-between items-start mb-3">
         <View className="flex-row items-center gap-3">
-          <View className="size-10 rounded-xl bg-orange-500/10 items-center justify-center">
+          <View className="size-14 rounded-xl bg-orange-500/10 items-center justify-center">
             <Ionicons name="receipt-outline" size={20} color="#F97316" />
           </View>
           <View>
-            <Text className="text-primary font-GHKTachileik text-base font-bold">
+            <Text className="text-primary font-GHKTachileik text-lg font-bold">
               {bill.title}
             </Text>
             <Text
               className={cn(
-                "font-GHKTachileik text-xs font-medium",
+                "font-GHKTachileik text-base font-medium",
                 isOverdue ? "text-green" : "text-orange-500",
               )}
             >
@@ -41,22 +41,17 @@ export default function BillCard({ bill, onToggleReminder }: BillCardProps) {
             </Text>
           </View>
         </View>
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
+        <Text className="text-primary font-GHKTachileik text-lg font-semibold">
           ${bill.amount.toFixed(2)}
         </Text>
       </View>
 
       {/* Footer: Date & Toggle */}
       <View className="flex-row justify-between items-center pt-3 border-t border-primary/5">
-        <View className="flex-row items-center gap-1.5">
-          <Ionicons
-            name="calendar-outline"
-            size={12}
-            color={isDueSoon ? "#EF4444" : "gray"}
-          />
+        <View className="flex-row justify-center items-center gap-1.5">
           <Text
             className={cn(
-              "font-GHKTachileik text-xs font-medium",
+              "font-GHKTachileik text-sm font-medium",
               isDueSoon ? "text-red-500" : "text-primary/40",
             )}
           >
@@ -65,7 +60,7 @@ export default function BillCard({ bill, onToggleReminder }: BillCardProps) {
         </View>
 
         <View className="flex-row items-center gap-2">
-          <Text className="text-primary/40 font-GHKTachileik text-[10px]">
+          <Text className="text-primary/40 font-GHKTachileik text-base">
             {t("remind_me", "Remind me")}
           </Text>
           <Switch

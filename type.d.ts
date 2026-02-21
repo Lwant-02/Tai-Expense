@@ -13,10 +13,17 @@ interface User {
 //Button Type
 declare interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  bgVariant?: "danger" | "outline" | "success" | "light" | "dark";
+  bgVariant?:
+    | "danger"
+    | "outline"
+    | "success"
+    | "light"
+    | "dark"
+    | "blue"
+    | "green";
   textVariant?: "danger" | "success" | "light" | "dark";
-  IconLeft?: React.ComponentType<any>;
-  IconRight?: React.ComponentType<any>;
+  IconLeft?: React.ReactNode;
+  IconRight?: React.ReactNode;
   className?: string;
   isLoading?: boolean;
 }

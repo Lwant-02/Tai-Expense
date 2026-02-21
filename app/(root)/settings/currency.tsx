@@ -1,11 +1,12 @@
+import { updateUserCurrency } from "@/actions";
 import Header from "@/components/header";
 import { CURRENCIES } from "@/constants";
 import { useUserStore } from "@/store/user.store";
-import { loadCurrency, saveCurrency } from "@/utils/storage";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,20 +14,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function CurrencyPage() {
   const { t } = useTranslation("settings");
   const router = useRouter();
-  const { user } = useUserStore();
+  const { user, setUser } = useUserStore();
+  const db = useSQLiteContext();
 
   const [selected, setSelected] = useState(user?.currency!);
 
-  useEffect(() => {
-    (async () => {
-      const saved = await loadCurrency();
-      if (saved) setSelected(saved);
-    })();
-  }, []);
-
   const handleSelect = async (code: string) => {
     setSelected(code);
-    await saveCurrency(code);
+    await updateUserCurrency(db, user?.id!, code);
+    setUser({ ...user!, currency: code });
   };
 
   return (
@@ -66,13 +62,13 @@ export default function CurrencyPage() {
               <View className="flex-1">
                 <Text
                   className={cn(
-                    "font-GHKTachileik text-base font-semibold",
+                    "font-GHKTachileik text-lg font-semibold",
                     isSelected ? "text-blue" : "text-primary",
                   )}
                 >
                   {t(curr.name)}
                 </Text>
-                <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
+                <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
                   {curr.code}
                 </Text>
               </View>

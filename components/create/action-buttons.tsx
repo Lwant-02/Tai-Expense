@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
-import { Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
+import CustomBtn from "../custom-btn";
 
 interface ActionButtonsProps {
   onCreateExpense: () => void;
@@ -15,31 +16,23 @@ export default function ActionButtons({
 
   return (
     <View className="flex-row gap-3 px-6 mb-6">
-      <TouchableOpacity
+      <CustomBtn
+        title={t("create_expense")}
         onPress={onCreateExpense}
-        activeOpacity={0.8}
-        className="flex-1 bg-blue rounded-2xl p-4 flex-row items-center justify-center gap-2"
-      >
-        <View className="bg-white/20 rounded-full p-1.5">
-          <Ionicons name="arrow-up" size={16} color="white" />
-        </View>
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
-          {t("create_expense")}
-        </Text>
-      </TouchableOpacity>
+        IconLeft={<Ionicons name="arrow-up" size={20} color="white" />}
+        bgVariant="blue"
+        className="flex-1 gap-2"
+        textVariant="light"
+      />
 
-      <TouchableOpacity
+      <CustomBtn
+        title={t("create_income")}
         onPress={onCreateIncome}
-        activeOpacity={0.8}
-        className="flex-1 bg-green rounded-2xl p-4 flex-row items-center justify-center gap-2"
-      >
-        <View className="bg-white/20 rounded-full p-1.5">
-          <Ionicons name="arrow-down" size={16} color="white" />
-        </View>
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
-          {t("create_income")}
-        </Text>
-      </TouchableOpacity>
+        IconLeft={<Ionicons name="arrow-down" size={20} color="white" />}
+        bgVariant="green"
+        className="flex-1 gap-2"
+        textVariant="light"
+      />
     </View>
   );
 }

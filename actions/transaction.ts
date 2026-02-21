@@ -82,15 +82,27 @@ export const getTransactions = async (
   }
 };
 
-// Delete transaction
-export const deleteTransaction = async (
+// Update transaction
+export const updateTransaction = async (
   db: SQLiteDatabase,
   id: string,
+  params: CreateTransactionParams,
 ): Promise<void> => {
   try {
-    await db.runAsync("DELETE FROM transactions WHERE id = ?", [id]);
+    await db.runAsync(
+      `UPDATE transactions SET title = ?, type = ?, amount = ?, category = ?, transactionDate = ?, note = ? WHERE id = ?;`,
+      [
+        params.title,
+        params.type,
+        params.amount,
+        params.category,
+        params.transactionDate,
+        params.note || "",
+        id,
+      ],
+    );
   } catch (error) {
-    console.error("Error deleting transaction:", error);
+    console.error("Error updating transaction:", error);
     throw error;
   }
 };

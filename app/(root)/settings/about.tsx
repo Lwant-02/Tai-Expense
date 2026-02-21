@@ -54,8 +54,12 @@ export default function AboutPage() {
       >
         {/* App Icon + Name */}
         <View className="items-center mb-8 mt-4">
-          <View className="size-24 rounded-3xl overflow-hidden items-center justify-center mb-4 border border-primary/30">
-            <Image source={APP_ICON} className="size-full" />
+          <View className="size-24 rounded-full overflow-hidden bg-blue/10 items-center justify-center mb-4">
+            <Image
+              source={APP_ICON}
+              className="size-full"
+              resizeMode="contain"
+            />
           </View>
           <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
             TAI Expense
@@ -78,7 +82,7 @@ export default function AboutPage() {
             <View className="size-9 rounded-xl bg-green/10 items-center justify-center mr-3">
               <Ionicons name="heart" size={18} color="#22C55E" />
             </View>
-            <Text className="text-primary font-GHKTachileik text-base font-semibold">
+            <Text className="text-primary font-GHKTachileik text-lg font-semibold">
               {t("our_mission")}
             </Text>
           </View>
@@ -88,7 +92,7 @@ export default function AboutPage() {
         </View>
 
         {/* Developer */}
-        <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+        <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
           {t("developer")}
         </Text>
         <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-6">
@@ -100,7 +104,7 @@ export default function AboutPage() {
               <Text className="text-primary font-GHKTachileik text-lg font-semibold">
                 {t("developer_name")}
               </Text>
-              <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
+              <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
                 {t("developer_role")}
               </Text>
             </View>
@@ -108,7 +112,7 @@ export default function AboutPage() {
         </View>
 
         {/* Support & Contact */}
-        <Text className="text-primary/40 font-GHKTachileik text-xs uppercase tracking-widest mb-3 ml-1">
+        <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
           {t("support_title")}
         </Text>
         <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-4">
@@ -130,10 +134,10 @@ export default function AboutPage() {
                 <Ionicons name={contact.icon} size={18} color={contact.color} />
               </View>
               <View className="flex-1">
-                <Text className="text-primary/40 font-GHKTachileik text-xs">
+                <Text className="text-primary/40 font-GHKTachileik text-sm">
                   {t(contact.key)}
                 </Text>
-                <Text className="text-primary font-GHKTachileik text-base font-semibold">
+                <Text className="text-primary font-GHKTachileik text-lg font-semibold">
                   {contact.value}
                 </Text>
               </View>

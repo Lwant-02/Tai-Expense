@@ -129,8 +129,8 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
           disabled={!title || !amount || !date}
           onPress={handleSave}
           title={t("save_bill", "Save Bill")}
-          bgVariant="dark"
-          textVariant="light"
+          bgVariant="light"
+          textVariant="dark"
         />
       </View>
     </View>

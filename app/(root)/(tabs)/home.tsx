@@ -43,7 +43,7 @@ export default function Home() {
               <TouchableOpacity
                 onPress={() => router.push("/(root)/all-transactions")}
               >
-                <Text className="text-primary/50 font-GHKTachileik text-base">
+                <Text className="font-GHKTachileik text-base text-blue">
                   {t("see_all")}
                 </Text>
               </TouchableOpacity>

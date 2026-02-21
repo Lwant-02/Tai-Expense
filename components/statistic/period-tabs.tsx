@@ -30,7 +30,7 @@ export default function PeriodTabs({
         >
           <Text
             className={cn(
-              "font-GHKTachileik text-base font-medium",
+              "font-GHKTachileik text-lg font-medium",
               activePeriod === period ? "text-primary" : "text-primary/50",
             )}
           >

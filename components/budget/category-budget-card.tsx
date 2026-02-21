@@ -34,7 +34,7 @@ export default function CategoryBudgetCard({
         {/* Icon */}
         <View
           className={cn(
-            "size-10 rounded-xl items-center justify-center mr-3",
+            "size-14 rounded-xl items-center justify-center mr-3",
             config.bg,
           )}
         >
@@ -43,17 +43,17 @@ export default function CategoryBudgetCard({
 
         {/* Name + spent */}
         <View className="flex-1">
-          <Text className="text-primary font-GHKTachileik text-base font-semibold capitalize">
+          <Text className="text-primary font-GHKTachileik text-lg font-semibold capitalize">
             {tHome(`category.${item.category}`)}
           </Text>
-          <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5">
+          <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
             ${item.spent.toLocaleString()}
           </Text>
         </View>
 
         {/* Percentage */}
         <Text
-          className="font-GHKTachileik text-base font-semibold"
+          className="font-GHKTachileik text-lg font-semibold"
           style={{ color: barColor }}
         >
           {Math.round(percentage)}%

@@ -6,6 +6,8 @@
   "title": "Create",
   "create_expense": "Create Expense",
   "create_income": "Create Income",
+  "update_expense": "Update Expense",
+  "update_income": "Update Income",
   "create_category": "Create Category",
   "categories": "Categories",
   "recent_transactions": "Recent Transactions",

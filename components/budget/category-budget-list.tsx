@@ -25,9 +25,7 @@ export default function CategoryBudgetList({
           {t("spending_breakdown")}
         </Text>
         <TouchableOpacity onPress={() => router.push("/(root)/all-budget")}>
-          <Text className="text-primary/50 font-GHKTachileik text-base">
-            See all
-          </Text>
+          <Text className="font-GHKTachileik text-base text-blue">See all</Text>
         </TouchableOpacity>
       </View>
 

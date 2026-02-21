@@ -1,6 +1,7 @@
 import { CATEGORY_CONFIG } from "@/constants";
+import { useUserStore } from "@/store/user.store";
 import { Transaction } from "@/type";
-import { formatAmount, formatDate } from "@/utils/common";
+import { formatCurrency, formatDate } from "@/utils/common";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
@@ -14,6 +15,7 @@ export default function TransactionCard({
   onPress?: () => void;
 }) {
   const { t } = useTranslation("home");
+  const { user } = useUserStore();
   const config = CATEGORY_CONFIG[transaction.category];
 
   return (
@@ -25,7 +27,7 @@ export default function TransactionCard({
       {/* Category Icon */}
       <View
         className={cn(
-          "size-12 rounded-xl items-center justify-center ",
+          "size-14 rounded-xl items-center justify-center ",
           config.bg,
         )}
       >
@@ -35,12 +37,12 @@ export default function TransactionCard({
       {/* Title & Category */}
       <View className="flex-1 ml-4">
         <Text
-          className="text-primary font-GHKTachileik text-base font-medium"
+          className="text-primary font-GHKTachileik text-lg font-medium"
           numberOfLines={1}
         >
           {transaction.title}
         </Text>
-        <Text className="text-primary/40 font-GHKTachileik text-xs mt-0.5 capitalize">
+        <Text className="text-primary/40 font-GHKTachileik text-sm mt-0.5 capitalize">
           {t(`category.${transaction.category}`)}
         </Text>
       </View>
@@ -49,13 +51,13 @@ export default function TransactionCard({
       <View className="items-end">
         <Text
           className={cn(
-            "font-GHKTachileik text-base font-semibold",
+            "font-GHKTachileik text-lg font-semibold",
             transaction.type === "income" ? "text-green" : "text-danger",
           )}
         >
-          {formatAmount(transaction.amount, transaction.type)}
+          {formatCurrency(transaction.amount, user?.currency!)}
         </Text>
-        <Text className="text-primary/30 font-GHKTachileik text-xs mt-0.5">
+        <Text className="text-primary/30 font-GHKTachileik text-sm mt-0.5">
           {formatDate(transaction.transactionDate, t)}
         </Text>
       </View>

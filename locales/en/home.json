@@ -4,6 +4,8 @@
   "greeting_evening": "Good evening",
   "current_balance": "Current Balance",
   "income": "Income",
+  "this_month_income": "This Month Income",
+  "this_month_expenses": "This Month Expenses",
   "expenses": "Expenses",
   "transactions_history": "Transactions History",
   "see_all": "See all",

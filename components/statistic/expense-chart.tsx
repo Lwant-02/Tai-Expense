@@ -63,7 +63,7 @@ export default function ExpenseChart({
                     {"$" + point.value.toLocaleString()}
                   </Text>
                 </View>
-                <Text className="text-primary/80 font-GHKTachileik text-[10px]">
+                <Text className="text-primary/80 font-GHKTachileik text-sm">
                   {label}
                 </Text>
               </View>
@@ -84,7 +84,7 @@ export default function ExpenseChart({
               size={48}
               color="rgba(255,255,255,0.15)"
             />
-            <Text className="text-primary/30 font-GHKTachileik text-xs mt-2">
+            <Text className="text-primary/30 font-GHKTachileik text-sm mt-2">
               {t("no_data")}
             </Text>
           </View>
@@ -92,7 +92,7 @@ export default function ExpenseChart({
             {chartData.map((point, i) => (
               <Text
                 key={i}
-                className="text-primary/40 font-GHKTachileik text-xs"
+                className="text-primary/40 font-GHKTachileik text-sm"
               >
                 {point.label}
               </Text>

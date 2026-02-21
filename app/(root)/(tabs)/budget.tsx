@@ -87,7 +87,7 @@ export default function BudgetPage() {
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               className="absolute right-6 top-0 w-24 flex-row items-center bg-primary/5 py-2 gap-1 justify-center rounded-full border border-primary/10"
             >
-              <Text className="text-primary/60 font-GHKTachileik text-center text-xs">
+              <Text className="text-primary/60 font-GHKTachileik text-center text-sm">
                 {t("set_bill")}
               </Text>
               <Ionicons
@@ -101,7 +101,7 @@ export default function BudgetPage() {
           {/* Month pill */}
           <View className="items-center mb-5">
             <View className="flex-row items-center bg-foreground px-4 py-2 rounded-full border border-primary/5">
-              <Text className="text-primary/60 font-GHKTachileik text-xs mx-3">
+              <Text className="text-primary/60 font-GHKTachileik text-sm mx-3">
                 {new Date().toLocaleDateString("en-US", {
                   month: "long",
                   year: "numeric",
