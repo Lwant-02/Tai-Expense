@@ -4,14 +4,14 @@ import {
   scheduleWeeklySummary,
   setupNotificationHandler,
 } from "./scheduler";
-import type { NotificationSettings } from "./types";
+import type { NotificationSettingsType } from "./types";
 
 /**
  * Apply all schedules based on the provided settings.
  * This should be called on app launch and whenever settings change.
  */
 export async function applyNotificationSchedules(
-  settings: NotificationSettings,
+  settings: NotificationSettingsType,
 ) {
   // Ensure handler is set up
   setupNotificationHandler();

@@ -1,6 +1,10 @@
+import { getTransactionSummary, getTransactions, getUser } from "@/actions";
+import { useTransactionStore } from "@/store/transaction.store";
+import { useUserStore } from "@/store/user.store";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { Tabs } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Keyboard, Platform, Text, View } from "react-native";
@@ -35,7 +39,10 @@ const TabIcon = ({
 export default function Layout() {
   const { t } = useTranslation("common");
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const { setUser } = useUserStore();
+  const db = useSQLiteContext();
 
+  //State for keyboard visibility
   useEffect(() => {
     if (Platform.OS !== "android") return;
 
@@ -52,6 +59,23 @@ export default function Layout() {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
     };
+  }, []);
+
+  //State for user data and transaction data
+  const { setSummary, setTransactions } = useTransactionStore();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const [user, summary, transactions] = await Promise.all([
+        getUser(db),
+        getTransactionSummary(db),
+        getTransactions(db), // Fetch all transactions for global state
+      ]);
+      setUser(user);
+      setSummary(summary);
+      setTransactions(transactions);
+    };
+    fetchUserData();
   }, []);
 
   return (

@@ -26,7 +26,7 @@
   "select_currency": "လိူၵ်ႈငိုၼ်းတွင်း",
   "select_language": "လိူၵ်ႈၽႃႇသႃႇ",
   "about_description": "TAI Expense ၸွႆႈၵုမ်းၵမ်ငိုၼ်းၸၢႆႇၸဝ်ႈၵဝ်ႇယူႇၵူႈဝၼ်း တင်ႈငိုၼ်းတမ်း လႄႈ ၵုမ်းၵမ်ငိုၼ်းၵွင်ၸဝ်ႈၵဝ်ႇ။",
-  "greeting": "မႂ်ႇသုင်",
+  "greeting": "မႂ်ႇသုင်ၶႃႈ",
   "current_balance": "ငိုၼ်းၵိုတ်းယၢမ်းလဵဝ်",
   "new_balance": "သႂ်ႇငိုၼ်းၵိုတ်းမႂ်ႇ",
   "save": "သိမ်းဝႆႉ",
@@ -41,5 +41,6 @@
   "contact_facebook": "ၾဵတ်ႉပုၵ်ႉ",
   "contact_telegram": "တႄႇလီႇၵရႅမ်ႇ",
   "notifications": "ၶေႃႈၸႅင်ႈတိူၼ်း",
-  "notifications_subtitle": "ၵုမ်းၵမ်ၸႂ်ႉမၢႆတွင်းလႄႈၶေႃႈၽၢင်ႉ"
+  "notifications_subtitle": "ၵုမ်းၵမ်ၸႂ်ႉမၢႆတွင်းလႄႈၶေႃႈၽၢင်ႉ",
+  "joined_date": "ဝၼ်းတႄႇၸႂ်ႉ"
 }

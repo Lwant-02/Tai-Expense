@@ -1,14 +1,19 @@
+import { deleteUser, updateUserBalance } from "@/actions";
 import Header from "@/components/header";
 import BalanceAdjustForm from "@/components/settings/balance-adjust-form";
 import SettingItem from "@/components/settings/setting-item";
-import { loadCurrency, loadUsername } from "@/utils/storage";
+import { APP_ICON, CURRENCIES } from "@/constants";
+import { useUserStore as useActualUserStore } from "@/store/user.store";
+import { formatCurrency, formatJoinDate } from "@/utils/common";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -18,19 +23,34 @@ import {
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const CURRENCY_LABELS: Record<string, string> = {
-  THB: "฿ (THB)",
-  MMK: "Ks (MMK)",
-  USD: "$ (USD)",
+const convertCurrencyLabels = (currency: string) => {
+  const symbol = CURRENCIES.find((c) => c.code === currency)?.symbol;
+  return `${symbol} (${currency})`;
 };
 
 export default function SettingPage() {
   const { t, i18n } = useTranslation("settings");
+  const { t: tHome } = useTranslation("home");
   const router = useRouter();
+  const { user, setUserBalance } = useActualUserStore();
+  const [balance, setBalance] = useState(user?.startingBalance!);
+  const db = useSQLiteContext();
 
-  const [currency, setCurrency] = useState("THB");
-  const [username, setUsername] = useState("User");
-  const [balance, setBalance] = useState(0);
+  const currentLang = i18n.language === "en" ? "English" : "Shan (တႆး)";
+
+  const handleClearData = useCallback(() => {
+    Alert.alert(t("clear_data"), t("clear_data_confirm"), [
+      { text: t("clear_data_cancel"), style: "cancel" },
+      {
+        text: t("clear_data_yes"),
+        style: "destructive",
+        onPress: async () => {
+          await AsyncStorage.clear();
+          await deleteUser(db);
+        },
+      },
+    ]);
+  }, [t]);
 
   // Bottom sheet
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -47,35 +67,22 @@ export default function SettingPage() {
     bottomSheetRef.current?.close();
   }, []);
 
-  // Load persisted settings
+  const handleSaveBalance = async (newBalance: number) => {
+    try {
+      if (user?.id) {
+        await updateUserBalance(db, user.id, newBalance);
+        setUserBalance(newBalance);
+        setBalance(newBalance);
+      }
+    } catch (error) {
+      console.error("Failed to adjust balance:", error);
+    }
+  };
+
+  //State for balance
   useEffect(() => {
-    (async () => {
-      const savedCurrency = await loadCurrency();
-      if (savedCurrency) setCurrency(savedCurrency);
-      const savedName = await loadUsername();
-      if (savedName) setUsername(savedName);
-    })();
-  }, []);
-
-  const currentLang = i18n.language === "en" ? "English" : "Shan (တႆး)";
-
-  const handleClearData = useCallback(() => {
-    Alert.alert(t("clear_data"), t("clear_data_confirm"), [
-      { text: t("clear_data_cancel"), style: "cancel" },
-      {
-        text: t("clear_data_yes"),
-        style: "destructive",
-        onPress: async () => {
-          await AsyncStorage.clear();
-        },
-      },
-    ]);
-  }, [t]);
-
-  const handleBalanceSave = useCallback((amount: number) => {
-    setBalance(amount);
-    // TODO: persist balance to AsyncStorage
-  }, []);
+    setBalance(user?.startingBalance!);
+  }, [user?.startingBalance]);
 
   return (
     <GestureHandlerRootView className="flex-1">
@@ -89,15 +96,23 @@ export default function SettingPage() {
           {/* Profile Card */}
           <View className="bg-foreground rounded-3xl p-5 mb-8 border border-primary/5">
             <View className="flex-row items-center">
-              <View className="size-14 rounded-2xl bg-blue/10 items-center justify-center mr-4">
-                <Text className="text-2xl">👤</Text>
+              <View className="size-20 rounded-full overflow-hidden bg-blue/10 items-center justify-center mr-4">
+                <Image
+                  source={APP_ICON}
+                  className="size-full"
+                  resizeMode="contain"
+                />
               </View>
-              <View className="flex-1">
+              <View className="flex-1 gap-1">
                 <Text className="text-primary/40  font-GHKTachileik text-xs">
                   {t("greeting")} 👋
                 </Text>
                 <Text className="text-primary font-GHKTachileik text-lg font-semibold mt-0.5">
-                  {username}
+                  {user?.name}
+                </Text>
+                <Text className="text-primary/40 font-GHKTachileik text-sm">
+                  {t("joined_date")} :{" "}
+                  {formatJoinDate(new Date(user?.createdAt!), tHome)}
                 </Text>
               </View>
             </View>
@@ -114,7 +129,7 @@ export default function SettingPage() {
             iconBg="bg-green/10"
             title={t("currency")}
             subtitle={t("currency_subtitle")}
-            value={CURRENCY_LABELS[currency] || currency}
+            value={convertCurrencyLabels(user?.currency!)}
             onPress={() => router.push("/settings/currency")}
           />
 
@@ -143,7 +158,8 @@ export default function SettingPage() {
             iconBg="bg-[#F59E0B]/10"
             title={t("balance_adjustment")}
             subtitle={t("balance_subtitle")}
-            value={`$${balance.toLocaleString()}`}
+            showArrow={true}
+            value={`${formatCurrency(balance, user?.currency!)}`}
             onPress={openBalanceSheet}
           />
 
@@ -199,7 +215,7 @@ export default function SettingPage() {
         snapPoints={snapPoints}
         enableDynamicSizing={false}
         enablePanDownToClose
-        onClose={() => setShowSheet(false)}
+        onClose={closeSheet}
         backgroundStyle={{ backgroundColor: "#1A1A1F" }}
         handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
         keyboardBehavior="interactive"
@@ -218,7 +234,7 @@ export default function SettingPage() {
             {showSheet && (
               <BalanceAdjustForm
                 currentBalance={balance}
-                onSave={handleBalanceSave}
+                onSave={handleSaveBalance}
                 onClose={closeSheet}
               />
             )}

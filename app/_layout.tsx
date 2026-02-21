@@ -1,9 +1,11 @@
+import { initDatabase } from "@/db";
 import {
   applyNotificationSchedules,
   loadNotificationSettings,
 } from "@/notification";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
+import { SQLiteProvider } from "expo-sqlite";
 import { useEffect } from "react";
 import { StatusBar } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -36,11 +38,13 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar barStyle="default" />
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(root)" options={{ headerShown: false }} />
-        <Stack.Screen name="(welcome)" options={{ headerShown: false }} />
-      </Stack>
+      <SQLiteProvider databaseName="expense.db" onInit={initDatabase}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(root)" options={{ headerShown: false }} />
+          <Stack.Screen name="(welcome)" options={{ headerShown: false }} />
+        </Stack>
+      </SQLiteProvider>
     </GestureHandlerRootView>
   );
 }

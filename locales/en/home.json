@@ -1,7 +1,7 @@
 {
-  "greeting_morning": "Good morning,",
-  "greeting_afternoon": "Good afternoon,",
-  "greeting_evening": "Good evening,",
+  "greeting_morning": "Good morning",
+  "greeting_afternoon": "Good afternoon",
+  "greeting_evening": "Good evening",
   "current_balance": "Current Balance",
   "income": "Income",
   "expenses": "Expenses",

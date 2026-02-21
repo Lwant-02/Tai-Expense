@@ -1,5 +1,6 @@
 import Header from "@/components/header";
 import { CURRENCIES } from "@/constants";
+import { useUserStore } from "@/store/user.store";
 import { loadCurrency, saveCurrency } from "@/utils/storage";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
@@ -12,8 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function CurrencyPage() {
   const { t } = useTranslation("settings");
   const router = useRouter();
+  const { user } = useUserStore();
 
-  const [selected, setSelected] = useState("THB");
+  const [selected, setSelected] = useState(user?.currency!);
 
   useEffect(() => {
     (async () => {

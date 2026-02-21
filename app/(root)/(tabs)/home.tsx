@@ -7,27 +7,23 @@ import EmptyState from "@/components/empty-state";
 import BalanceCard from "@/components/home/balance-card";
 import BannerCarousel from "@/components/home/banner-carousel";
 import GreetingHeader from "@/components/home/greeting-header";
-import { SAMPLE_TRANSACTIONS } from "@/components/home/sample-data";
 import TransactionCard from "@/components/home/transaction-card";
+import { useTransactionStore } from "@/store/transaction.store";
 
 export default function Home() {
   const { t } = useTranslation("home");
   const router = useRouter();
+  const { transactions } = useTransactionStore();
 
   return (
     <SafeAreaView className="flex-1 bg-background">
       <FlatList
-        data={SAMPLE_TRANSACTIONS.slice(0, 5)}
+        data={transactions.slice(0, 5)}
         keyExtractor={(item) => item.id}
         contentContainerClassName="pb-32"
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <>
-            <TouchableOpacity onPress={() => router.push("/(root)/test")}>
-              <Text className="text-primary font-GHKTachileik text-lg font-semibold px-6">
-                Test
-              </Text>
-            </TouchableOpacity>
             <GreetingHeader />
             <BalanceCard />
 

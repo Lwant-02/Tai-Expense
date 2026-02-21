@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import CustomBtn from "../custom-btn";
 
 interface AddBillFormProps {
   onClose: () => void;
@@ -124,15 +125,13 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
           )}
         </View>
 
-        <TouchableOpacity
+        <CustomBtn
+          disabled={!title || !amount || !date}
           onPress={handleSave}
-          activeOpacity={0.8}
-          className="bg-blue py-4 rounded-xl items-center mt-2"
-        >
-          <Text className="text-white font-GHKTachileik text-base font-semibold">
-            {t("save_bill", "Save Bill")}
-          </Text>
-        </TouchableOpacity>
+          title={t("save_bill", "Save Bill")}
+          bgVariant="dark"
+          textVariant="light"
+        />
       </View>
     </View>
   );

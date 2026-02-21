@@ -1,7 +1,7 @@
 {
-  "greeting_morning": "မႂ်ႇသုင် ၵၢင်ၼႂ်,",
-  "greeting_afternoon": "မႂ်ႇသုင် ၵၢင်ဝၼ်း,",
-  "greeting_evening": "မႂ်ႇသုင် ၵၢင်ၶမ်ႈ,",
+  "greeting_morning": "မႂ်ႇသုင် ၵၢင်ၼႂ်",
+  "greeting_afternoon": "မႂ်ႇသုင် ၵၢင်ဝၼ်း",
+  "greeting_evening": "မႂ်ႇသုင် ၵၢင်ၶမ်ႈ",
   "current_balance": "ငိုၼ်းမီးယၢမ်းလဵဝ်",
   "income": "ငိုၼ်းၶဝ်ႈ",
   "expenses": "ငိုၼ်းၸၢႆႇ",

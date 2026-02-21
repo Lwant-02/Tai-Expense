@@ -5,15 +5,12 @@ import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "@/components/header";
-import {
-  CHART_DATA,
-  TOP_EXPENSE,
-  TOP_INCOME,
-} from "@/components/statistic/chart-data";
+import { CHART_DATA } from "@/components/statistic/chart-data";
 import ExpenseChart from "@/components/statistic/expense-chart";
 import FilterToggle from "@/components/statistic/filter-toggle";
 import PeriodTabs from "@/components/statistic/period-tabs";
 import WeeklySummaryCard from "@/components/statistic/weekly-summary-card";
+import { useTransactionStore } from "@/store/transaction.store";
 import { FilterType, Period } from "@/type";
 
 export default function StatisticPage() {
@@ -21,12 +18,14 @@ export default function StatisticPage() {
   const router = useRouter();
   const [activePeriod, setActivePeriod] = useState<Period>("week");
   const [activeFilter, setActiveFilter] = useState<FilterType>("expense");
+  const { transactions } = useTransactionStore();
 
   const chartData = CHART_DATA[activeFilter][activePeriod];
+
   // Calculate transactions for the card based on filter
-  // In a real app, this would be filtered by activePeriod (week)
-  const summaryTransactions =
-    activeFilter === "expense" ? TOP_EXPENSE : TOP_INCOME;
+  const summaryTransactions = transactions
+    .filter((t) => t.type === activeFilter)
+    .slice(0, 5);
 
   return (
     <SafeAreaView className="flex-1 bg-background">

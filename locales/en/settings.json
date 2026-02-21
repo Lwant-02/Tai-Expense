@@ -7,7 +7,7 @@
   "language": "Language",
   "language_subtitle": "Choose your preferred language",
   "balance_adjustment": "Balance Adjustment",
-  "balance_subtitle": "Manually adjust your balance",
+  "balance_subtitle": "Manually adjust your starting balance",
   "app_info": "App Info",
   "about": "About",
   "about_subtitle": "Learn more about TAI Expense",
@@ -41,5 +41,6 @@
   "contact_facebook": "Facebook",
   "contact_telegram": "Telegram",
   "notifications": "Notifications",
-  "notifications_subtitle": "Manage reminders and alerts"
+  "notifications_subtitle": "Manage reminders and alerts",
+  "joined_date": "Joined Date"
 }

@@ -56,7 +56,7 @@ export default function TransactionCard({
           {formatAmount(transaction.amount, transaction.type)}
         </Text>
         <Text className="text-primary/30 font-GHKTachileik text-xs mt-0.5">
-          {formatDate(transaction.date, t)}
+          {formatDate(transaction.transactionDate, t)}
         </Text>
       </View>
     </TouchableOpacity>

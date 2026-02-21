@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
+import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,8 +11,17 @@ import {
   View,
 } from "react-native";
 
+import {
+  createTransaction,
+  getTransactions,
+  getTransactionSummary,
+} from "@/actions";
 import { CATEGORIES, CATEGORY_CONFIG } from "@/constants";
+import { useTransactionStore } from "@/store/transaction.store";
+import { useUserStore } from "@/store/user.store";
 import { TransactionCategory, TransactionType } from "@/type";
+import { getCurrencySymbol } from "@/utils/common";
+import CustomBtn from "../custom-btn";
 
 interface TransactionFormProps {
   type: TransactionType;
@@ -34,14 +44,42 @@ export default function TransactionForm({
   const isExpense = type === "expense";
   const accentColor = isExpense ? "#2563EB" : "#22C55E";
 
-  const handleSubmit = () => {
+  const db = useSQLiteContext();
+  const { setTransactions, setSummary } = useTransactionStore();
+  const { user } = useUserStore();
+
+  const handleSubmit = async () => {
     Keyboard.dismiss();
-    // TODO: Save transaction
-    onClose();
-    setAmount("");
-    setTitle("");
-    setSelectedCategory(null);
-    setNote("");
+
+    try {
+      if (!isValid) return;
+
+      await createTransaction(db, {
+        title: title.trim(),
+        type,
+        amount: parseFloat(amount),
+        category: selectedCategory as string,
+        transactionDate: new Date().toISOString(),
+        note: note.trim(),
+      });
+
+      // Instantly refresh global stores so all screens reflect new balance/transactions automatically
+      const [updatedTransactions, updatedSummary] = await Promise.all([
+        getTransactions(db),
+        getTransactionSummary(db),
+      ]);
+
+      setTransactions(updatedTransactions);
+      setSummary(updatedSummary);
+
+      onClose();
+      setAmount("");
+      setTitle("");
+      setSelectedCategory(null);
+      setNote("");
+    } catch (error) {
+      console.error("Failed to save transaction", error);
+    }
   };
 
   const isValid = title.trim() && amount.trim() && selectedCategory;
@@ -72,7 +110,7 @@ export default function TransactionForm({
               className="font-GHKTachileik text-lg font-semibold text-center"
               style={{ color: accentColor }}
             >
-              $
+              {getCurrencySymbol(user?.currency!)}
             </Text>
           </View>
           <TextInput
@@ -183,20 +221,15 @@ export default function TransactionForm({
       </View>
 
       {/* Submit */}
-      <TouchableOpacity
+
+      <CustomBtn
         onPress={handleSubmit}
-        disabled={!isValid}
         activeOpacity={0.8}
-        className={cn(
-          "rounded-2xl py-4 items-center",
-          isValid ? "" : "opacity-40",
-        )}
-        style={{ backgroundColor: accentColor }}
-      >
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
-          {isExpense ? t("create_expense") : t("create_income")}
-        </Text>
-      </TouchableOpacity>
+        disabled={!isValid}
+        bgVariant="dark"
+        textVariant="light"
+        title={isExpense ? t("create_expense") : t("create_income")}
+      />
     </View>
   );
 }

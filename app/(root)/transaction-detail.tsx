@@ -22,7 +22,7 @@ export default function TransactionDetail() {
     category: params.category as TransactionCategory,
     amount: Number(params.amount),
     type: params.type as "income" | "expense",
-    date: params.date as string,
+    transactionDate: params.transactionDate as string,
     note: params.note as string | undefined,
   };
 
@@ -30,7 +30,7 @@ export default function TransactionDetail() {
   const isIncome = transaction.type === "income";
   const accentColor = isIncome ? "#22C55E" : "#2563EB";
 
-  const fullDate = new Date(transaction.date);
+  const fullDate = new Date(transaction.transactionDate);
   const formattedFullDate = fullDate.toLocaleDateString([], {
     weekday: "long",
     year: "numeric",
@@ -168,7 +168,7 @@ export default function TransactionDetail() {
               <Text className="text-primary/50 font-GHKTachileik text-base mb-2">
                 {t("note_label")}
               </Text>
-              <Text className="text-primary/80 font-GHKTachileik text-base leading-5">
+              <Text className="text-primary/80 py-1 font-GHKTachileik text-base leading-5">
                 {transaction.note}
               </Text>
             </View>

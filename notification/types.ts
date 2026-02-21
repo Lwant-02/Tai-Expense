@@ -4,7 +4,7 @@ export type NotificationId =
   | "weekly-summary"
   | "budget-warning";
 
-export interface NotificationSettings {
+export interface NotificationSettingsType {
   dailyReminder: {
     enabled: boolean;
     hour: number; // 0-23
@@ -27,7 +27,7 @@ export interface NotificationSettings {
   };
 }
 
-export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
+export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettingsType = {
   dailyReminder: {
     enabled: true,
     hour: 20, // 8 PM

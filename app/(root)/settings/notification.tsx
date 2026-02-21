@@ -1,10 +1,10 @@
 import Header from "@/components/header";
-import type { NotificationSettings } from "@/notification";
 import {
   applyNotificationSchedules,
   loadNotificationSettings,
   saveNotificationSettings,
 } from "@/notification";
+import type { NotificationSettingsType } from "@/notification/types";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -17,13 +17,15 @@ const WEEKDAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function NotificationSettings() {
   const { t } = useTranslation("notification");
   const router = useRouter();
-  const [settings, setSettings] = useState<NotificationSettings | null>(null);
+  const [settings, setSettings] = useState<NotificationSettingsType | null>(
+    null,
+  );
 
   useEffect(() => {
     loadNotificationSettings().then(setSettings);
   }, []);
 
-  const save = async (updated: NotificationSettings) => {
+  const save = async (updated: NotificationSettingsType) => {
     setSettings(updated);
     await saveNotificationSettings(updated);
     await applyNotificationSchedules(updated);

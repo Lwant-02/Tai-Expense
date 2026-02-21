@@ -1,3 +1,5 @@
+import { useUserStore } from "@/store/user.store";
+import { getCurrencySymbol } from "@/utils/common";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -8,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import CustomBtn from "../custom-btn";
 
 interface BalanceAdjustFormProps {
   currentBalance: number;
@@ -21,9 +24,8 @@ export default function BalanceAdjustForm({
   onClose,
 }: BalanceAdjustFormProps) {
   const { t } = useTranslation("settings");
-  const [amount, setAmount] = useState(
-    currentBalance > 0 ? currentBalance.toString() : "",
-  );
+  const { user } = useUserStore();
+  const [amount, setAmount] = useState(currentBalance.toString());
 
   const handleSave = () => {
     const parsed = parseFloat(amount);
@@ -54,7 +56,7 @@ export default function BalanceAdjustForm({
           {t("current_balance")}
         </Text>
         <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-          $ {currentBalance.toLocaleString()}
+          {getCurrencySymbol(user?.currency!)} {currentBalance.toLocaleString()}
         </Text>
       </View>
 
@@ -75,15 +77,13 @@ export default function BalanceAdjustForm({
       </View>
 
       {/* Save */}
-      <TouchableOpacity
+      <CustomBtn
         onPress={handleSave}
         activeOpacity={0.8}
-        className="bg-blue rounded-2xl py-4 items-center"
-      >
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
-          {t("save")}
-        </Text>
-      </TouchableOpacity>
+        bgVariant="dark"
+        textVariant="light"
+        title={t("save")}
+      />
     </View>
   );
 }

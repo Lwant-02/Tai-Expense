@@ -25,7 +25,7 @@ export default function BudgetRing({
   // We show ~75% of the circle (270 degrees arc)
   const arcLength = circumference * 0.75;
   const filledLength = arcLength * (clampedPercent / 100);
-  const emptyLength = arcLength - filledLength;
+  // const emptyLength = arcLength - filledLength;
 
   // Color based on percentage
   const getColor = () => {

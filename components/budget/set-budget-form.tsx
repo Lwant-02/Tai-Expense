@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Keyboard,
@@ -7,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import CustomBtn from "../custom-btn";
 
 interface SetBudgetFormProps {
   currentBudget: number;
@@ -20,7 +22,7 @@ export default function SetBudgetForm({
   onClose,
 }: SetBudgetFormProps) {
   const { t } = useTranslation("budget");
-  const [amount, setAmount] = require("react").useState(
+  const [amount, setAmount] = useState(
     currentBudget > 0 ? currentBudget.toString() : "",
   );
 
@@ -64,15 +66,14 @@ export default function SetBudgetForm({
       </View>
 
       {/* Save */}
-      <TouchableOpacity
+
+      <CustomBtn
         onPress={handleSave}
-        activeOpacity={0.8}
-        className="bg-blue rounded-2xl py-4 items-center"
-      >
-        <Text className="text-primary font-GHKTachileik text-base font-semibold">
-          {t("save")}
-        </Text>
-      </TouchableOpacity>
+        title={t("save")}
+        disabled={!amount}
+        bgVariant="dark"
+        textVariant="light"
+      />
     </View>
   );
 }

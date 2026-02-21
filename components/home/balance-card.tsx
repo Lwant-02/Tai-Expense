@@ -1,28 +1,35 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
 
-import { formatHeaderDate } from "@/utils/common";
+import { useTransactionStore } from "@/store/transaction.store";
+import { useUserStore } from "@/store/user.store";
+import { convertWord, formatCurrency } from "@/utils/common";
+import { useRouter } from "expo-router";
 
 export default function BalanceCard() {
-  const { t } = useTranslation("home");
+  const { t, i18n } = useTranslation("home");
+  const { user } = useUserStore();
+  const { summary } = useTransactionStore();
   const router = useRouter();
+
+  const currentBalance =
+    (user?.startingBalance || 0) + summary.totalIncome - summary.totalExpense;
 
   return (
     <View className="mx-6 bg-foreground rounded-3xl p-6 mt-4 border border-primary/10 shadow">
       <View className="flex-row justify-between items-start mb-4">
         <View>
-          <Text className="text-primary/60 font-GHKTachileik text-xs font-medium uppercase mb-1">
-            {formatHeaderDate(new Date(), t)}
-          </Text>
           <View className="flex-row items-center gap-1 mb-1">
             <Text className="text-primary font-GHKTachileik font-medium">
               {t("current_balance")}
             </Text>
           </View>
-          <Text className="text-primary font-GHKTachileik text-4xl font-semibold py-2">
-            $ 2,548.00
+          <Text className="text-primary font-GHKTachileik text-4xl font-semibold pt-2">
+            {formatCurrency(currentBalance, user?.currency!)}
+          </Text>
+          <Text className="text-primary/60 capitalize font-GHKTachileik text-sm font-semibold">
+            {convertWord(currentBalance, i18n.language)}
           </Text>
         </View>
         <TouchableOpacity onPress={() => router.push("/(root)/(tabs)/setting")}>
@@ -42,7 +49,10 @@ export default function BalanceCard() {
             </Text>
           </View>
           <Text className="text-green font-GHKTachileik text-xl font-semibold">
-            $ 1,840.00
+            {formatCurrency(summary.totalIncome, user?.currency!).replace(
+              user?.currency!,
+              "",
+            )}
           </Text>
         </View>
 
@@ -57,7 +67,10 @@ export default function BalanceCard() {
             </Text>
           </View>
           <Text className="text-danger font-GHKTachileik text-xl font-semibold">
-            $ 284.00
+            {formatCurrency(summary.totalExpense, user?.currency!).replace(
+              user?.currency!,
+              "",
+            )}
           </Text>
         </View>
       </View>

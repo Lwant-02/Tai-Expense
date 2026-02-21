@@ -14,17 +14,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
-import { SAMPLE_TRANSACTIONS } from "@/components/home/sample-data";
 import TransactionCard from "@/components/home/transaction-card";
 import { CATEGORIES, CATEGORY_CONFIG } from "@/constants";
+import { useTransactionStore } from "@/store/transaction.store";
 import { TransactionCategory } from "@/type";
 
 const PAGE_SIZE = 10;
 
 export default function AllTransactions() {
   const { t: tHome } = useTranslation("home");
-  const { t } = useTranslation("create");
   const router = useRouter();
+  const { transactions } = useTransactionStore();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<
@@ -32,9 +32,12 @@ export default function AllTransactions() {
   >("all");
 
   const filteredData = useMemo(() => {
-    if (selectedCategory === "all") return SAMPLE_TRANSACTIONS;
-    return SAMPLE_TRANSACTIONS.filter((t) => t.category === selectedCategory);
-  }, [selectedCategory]);
+    let result = transactions;
+    if (selectedCategory !== "all") {
+      result = result.filter((t) => t.category === selectedCategory);
+    }
+    return result;
+  }, [transactions, selectedCategory]);
 
   const totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
 

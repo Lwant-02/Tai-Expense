@@ -6,12 +6,11 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import ActionButtons from "@/components/create/action-buttons";
-import CategoryForm from "@/components/create/category-form";
 import CategoryList from "@/components/create/category-list";
 import RecentList from "@/components/create/recent-list";
 import TransactionForm from "@/components/create/transaction-form";
 import Header from "@/components/header";
-import { SAMPLE_TRANSACTIONS } from "@/components/home/sample-data";
+import { useTransactionStore } from "@/store/transaction.store";
 import { TransactionType } from "@/type";
 
 export default function CreatePage() {
@@ -20,11 +19,10 @@ export default function CreatePage() {
   const sheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["95%"], []);
   const [formType, setFormType] = useState<TransactionType>("expense");
-  const [sheetContent, setSheetContent] = useState<String>("transaction");
+  const { transactions } = useTransactionStore();
 
   const openTransactionForm = useCallback((type: TransactionType) => {
     setFormType(type);
-    setSheetContent("transaction");
     sheetRef.current?.snapToIndex(0);
   }, []);
 
@@ -47,7 +45,7 @@ export default function CreatePage() {
           />
 
           <RecentList
-            transactions={SAMPLE_TRANSACTIONS}
+            transactions={transactions.slice(0, 5)}
             onSeeAll={() => router.push("/(root)/all-transactions")}
             onTransactionPress={(item) =>
               router.push({
@@ -83,11 +81,7 @@ export default function CreatePage() {
               showsVerticalScrollIndicator={false}
               keyboardShouldPersistTaps="handled"
             >
-              {sheetContent === "transaction" ? (
-                <TransactionForm type={formType} onClose={closeSheet} />
-              ) : (
-                <CategoryForm onClose={closeSheet} />
-              )}
+              <TransactionForm type={formType} onClose={closeSheet} />
             </BottomSheetScrollView>
           </KeyboardAvoidingView>
         ) : (
@@ -96,11 +90,7 @@ export default function CreatePage() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            {sheetContent === "transaction" ? (
-              <TransactionForm type={formType} onClose={closeSheet} />
-            ) : (
-              <CategoryForm onClose={closeSheet} />
-            )}
+            <TransactionForm type={formType} onClose={closeSheet} />
           </BottomSheetScrollView>
         )}
       </BottomSheet>

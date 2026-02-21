@@ -1,6 +1,16 @@
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacityProps } from "react-native";
 
+//User Type
+interface User {
+  id: number;
+  name: string;
+  currency: string;
+  startingBalance: number;
+  createdAt: string;
+}
+
+//Button Type
 declare interface ButtonProps extends TouchableOpacityProps {
   title: string;
   bgVariant?: "danger" | "outline" | "success" | "light" | "dark";
@@ -50,7 +60,7 @@ interface Transaction {
   category: TransactionCategory;
   amount: number;
   type: TransactionType;
-  date: string;
+  transactionDate: string;
   note?: string;
 }
 
@@ -71,5 +81,5 @@ declare interface Bill {
   amount: number;
   dueDate: string; // ISO date string
   remindMe: boolean;
-  frequency?: "monthly" | "one-time";
+  isRecurring?: boolean;
 }

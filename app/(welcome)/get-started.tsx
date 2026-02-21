@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -18,12 +19,14 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { createUser } from "@/actions";
 import CustomBtn from "@/components/custom-btn";
 import LanguageToggle from "@/components/language-toggle";
 import { APP_ICON, CURRENCIES } from "@/constants";
 import { saveSetup } from "@/utils/storage";
 
 export default function GetStarted() {
+  const db = useSQLiteContext();
   const router = useRouter();
   const { t } = useTranslation("getstarted");
   const [name, setName] = useState("");
@@ -53,8 +56,17 @@ export default function GetStarted() {
 
     setIsLoading(true);
     try {
-      await saveSetup(true);
+      await Promise.all([
+        saveSetup(true),
+        createUser(db, {
+          name: name.trim(),
+          currency: currency.code,
+          startingBalance: Number(balance),
+        }),
+      ]);
       router.replace("/(root)/(tabs)/home");
+    } catch (error) {
+      console.error("Error creating user:", error);
     } finally {
       setIsLoading(false);
     }

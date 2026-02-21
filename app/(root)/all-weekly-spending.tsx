@@ -1,3 +1,4 @@
+import { endOfWeek, format, startOfWeek } from "date-fns";
 import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,34 +7,40 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
-import { TOP_EXPENSE, TOP_INCOME } from "@/components/statistic/chart-data";
 import FilterToggle from "@/components/statistic/filter-toggle";
 import WeeklySummaryCard from "@/components/statistic/weekly-summary-card";
-import { FilterType } from "@/type";
+import { useTransactionStore } from "@/store/transaction.store";
+import { FilterType, Transaction } from "@/type";
 
 export default function AllWeeklySpending() {
   const { t } = useTranslation("statistic");
+  const { t: tHome } = useTranslation("home");
   const router = useRouter();
   const [activeFilter, setActiveFilter] = useState<FilterType>("expense");
+  const { transactions } = useTransactionStore();
 
-  // In a real app, this data would come from a backend or grouped transactions
-  // For now, we'll simulate 'past weeks' by duplicating the sample transactions
-  // and giving them different ID/Totals to look unique clearly.
   const weeklyData = useMemo(() => {
-    const baseTransactions =
-      activeFilter === "expense" ? TOP_EXPENSE : TOP_INCOME;
+    const filtered = transactions.filter((t) => t.type === activeFilter);
+    const groups = new Map<string, Transaction[]>();
 
-    // Generate 4 weeks of fake data
-    return Array.from({ length: 4 }).map((_, i) => ({
-      id: `week-${i}`,
-      weekLabel: `Week ${4 - i} of ${new Date().toLocaleString("default", { month: "long" })}`,
-      transactions: baseTransactions.map((t) => ({
-        ...t,
-        id: `${t.id}-${i}`,
-        amount: t.amount * (1 + i * 0.1), // Vary amount slightly
-      })),
+    filtered.forEach((t) => {
+      const date = new Date(t.transactionDate);
+      const start = startOfWeek(date, { weekStartsOn: 1 });
+      const end = endOfWeek(date, { weekStartsOn: 1 });
+      const label = `${format(start, "MMM d")} - ${format(end, "MMM d, yyyy")}`;
+
+      if (!groups.has(label)) {
+        groups.set(label, []);
+      }
+      groups.get(label)!.push(t);
+    });
+
+    return Array.from(groups.entries()).map(([label, trans], index) => ({
+      id: `week-${index}`,
+      weekLabel: label,
+      transactions: trans,
     }));
-  }, [activeFilter]);
+  }, [activeFilter, transactions]);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -70,8 +77,8 @@ export default function AllWeeklySpending() {
         ListEmptyComponent={
           <EmptyState
             icon="receipt-outline"
-            title={t("no_transactions")}
-            subtitle={t("start_tracking")}
+            title={tHome("no_transactions")}
+            subtitle={tHome("start_tracking")}
           />
         }
         ItemSeparatorComponent={() => (
