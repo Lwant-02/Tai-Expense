@@ -102,6 +102,7 @@ export default function TransactionDetail() {
               className="font-GHKTachileik text-4xl font-semibold py-2 mb-2"
               style={{ color: isIncome ? "#22C55E" : "#EF4444" }}
             >
+              {isIncome ? "+" : "-"}
               {formatCurrency(transaction.amount, user?.currency!)}
             </Text>
 
@@ -191,6 +192,7 @@ export default function TransactionDetail() {
                 className="font-GHKTachileik text-lg font-semibold"
                 style={{ color: isIncome ? "#22C55E" : "#EF4444" }}
               >
+                {isIncome ? "+" : "-"}
                 {getCurrencySymbol(user?.currency!)}{" "}
                 {transaction.amount.toFixed(2)}
               </Text>

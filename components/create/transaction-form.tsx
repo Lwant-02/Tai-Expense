@@ -21,7 +21,7 @@ import { CATEGORIES, CATEGORY_CONFIG } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore } from "@/store/user.store";
 import { Transaction, TransactionCategory, TransactionType } from "@/type";
-import { getCurrencySymbol } from "@/utils/common";
+import { getCurrencySymbol, toLocalISOString } from "@/utils/common";
 import CustomBtn from "../custom-btn";
 
 interface TransactionFormProps {
@@ -50,8 +50,9 @@ export default function TransactionForm({
   const db = useSQLiteContext();
   const { setTransactions, setSummary } = useTransactionStore();
   const { user } = useUserStore();
-  const isUpdate = initialData !== null;
-  const isExpenseUpdate = initialData !== null && type === "expense";
+
+  // `initialData` defaults to undefined. Make sure isUpdate strictly checks if it exists and has an id.
+  const isUpdate = !!initialData?.id;
 
   const handleSubmit = async () => {
     Keyboard.dismiss();
@@ -65,7 +66,7 @@ export default function TransactionForm({
           type,
           amount: parseFloat(amount),
           category: selectedCategory as string,
-          transactionDate: new Date().toISOString(),
+          transactionDate: toLocalISOString(),
           note: note.trim(),
         });
       } else {
@@ -74,7 +75,7 @@ export default function TransactionForm({
           type,
           amount: parseFloat(amount),
           category: selectedCategory as string,
-          transactionDate: new Date().toISOString(),
+          transactionDate: toLocalISOString(),
           note: note.trim(),
         });
       }

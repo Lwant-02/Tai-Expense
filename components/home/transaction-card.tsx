@@ -55,6 +55,7 @@ export default function TransactionCard({
             transaction.type === "income" ? "text-green" : "text-danger",
           )}
         >
+          {transaction.type === "income" ? "+" : "-"}
           {formatCurrency(transaction.amount, user?.currency!)}
         </Text>
         <Text className="text-primary/30 font-GHKTachileik text-sm mt-0.5">

@@ -1,31 +1,14 @@
-import { useRouter } from "expo-router";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Header from "@/components/header";
-import { CHART_DATA } from "@/components/statistic/chart-data";
-import ExpenseChart from "@/components/statistic/expense-chart";
-import FilterToggle from "@/components/statistic/filter-toggle";
-import PeriodTabs from "@/components/statistic/period-tabs";
-import WeeklySummaryCard from "@/components/statistic/weekly-summary-card";
-import { useTransactionStore } from "@/store/transaction.store";
-import { FilterType, Period } from "@/type";
+import CategoryPieChart from "@/components/statistic/category-pie-chart";
+import MonthlySummary from "@/components/statistic/monthly-summary";
+import WeeklyTrendChart from "@/components/statistic/weekly-trend-chart";
 
 export default function StatisticPage() {
   const { t } = useTranslation("statistic");
-  const router = useRouter();
-  const [activePeriod, setActivePeriod] = useState<Period>("week");
-  const [activeFilter, setActiveFilter] = useState<FilterType>("expense");
-  const { transactions } = useTransactionStore();
-
-  const chartData = CHART_DATA[activeFilter][activePeriod];
-
-  // Calculate transactions for the card based on filter
-  const summaryTransactions = transactions
-    .filter((t) => t.type === activeFilter)
-    .slice(0, 5);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -35,23 +18,9 @@ export default function StatisticPage() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-36"
       >
-        <PeriodTabs
-          activePeriod={activePeriod}
-          onPeriodChange={setActivePeriod}
-        />
-
-        <FilterToggle
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
-
-        <ExpenseChart chartData={chartData} activeFilter={activeFilter} />
-
-        <WeeklySummaryCard
-          transactions={summaryTransactions}
-          activeFilter={activeFilter}
-          onSeeAll={() => router.push("/(root)/all-weekly-spending")}
-        />
+        <MonthlySummary />
+        <CategoryPieChart />
+        <WeeklyTrendChart />
       </ScrollView>
     </SafeAreaView>
   );

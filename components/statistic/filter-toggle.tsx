@@ -19,7 +19,7 @@ export default function FilterToggle({
   const { t } = useTranslation("statistic");
 
   return (
-    <View className="flex-row justify-end mx-6 mt-4">
+    <View className="flex-row justify-end mt-4">
       <View className="flex-row bg-foreground rounded-xl overflow-hidden">
         {FILTERS.map((filter) => (
           <TouchableOpacity

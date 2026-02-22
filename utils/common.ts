@@ -15,12 +15,37 @@ const SHAN_DIGITS = [
   "ၵဝ်ႈ",
 ];
 
+// Returns datetime string in LOCAL time as "YYYY-MM-DDTHH:MM:SS"
+// Use this instead of new Date().toISOString() to:
+// 1. Avoid cross-date timezone bugs (toISOString uses UTC)
+// 2. Ensure SQLite's strftime() can parse the date correctly
+export const toLocalISOString = (date: Date = new Date()): string => {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return (
+    `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}` +
+    `T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+  );
+};
+
 // format date with i18next for transaction card
 export const formatDate = (dateString: string, t?: any): string => {
   const date = new Date(dateString);
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  // Calculate difference in calendar days
+  const dateMidnight = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+  );
+  const nowMidnight = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+  );
+
+  const diffMs = nowMidnight.getTime() - dateMidnight.getTime();
+  const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
 
   if (!t) {
     // Fallback if t is not provided

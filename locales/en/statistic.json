@@ -1,7 +1,6 @@
 {
   "title": "Statistics",
   "period": {
-    "day": "Day",
     "week": "Week",
     "month": "Month",
     "year": "Year"
@@ -10,17 +9,21 @@
     "expense": "Expense",
     "income": "Income"
   },
-  "top_spending": "Top Spending",
-  "top_income": "Top Income",
-  "most_expense": "Most Spending",
-  "most_income": "Most Income",
+  "monthly_summary": "Monthly Summary",
+  "monthly_chart": "This Month",
+  "income": "Income",
+  "expense": "Expense",
+  "net_balance_income": "Net Income",
+  "net_balance_expense": "Net Expense",
+  "total_transactions": "Total Transactions",
+  "category_breakdown": "Category Breakdown",
+  "total": "Total",
+  "weekly_trend": "Weekly Trend",
+  "daily_expense_trend": "Daily Expense Trend",
+  "income_vs_expense": "Income vs Expense",
   "no_data": "No data available",
   "no_data_subtitle": "Start adding transactions to see your spending insights here.",
-  "weekly_expense": "Weekly Spending",
-  "weekly_income": "Weekly Income",
   "see_all": "See All",
-  "total_amount": "Total Amount",
-  "daily_average": "Daily Avg",
   "top_category": "Top Category",
-  "transactions": "Transactions"
+  "weekly_spending": "Weekly Spending"
 }

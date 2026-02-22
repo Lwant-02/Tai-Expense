@@ -1,7 +1,6 @@
 {
   "title": "သၢႆမၢႆငိုၼ်း",
   "period": {
-    "day": "ဝၼ်း",
     "week": "ဝူင်ႈ",
     "month": "လိူၼ်",
     "year": "ပီႊ"
@@ -10,17 +9,21 @@
     "expense": "ငိုၼ်းၸၢႆႇ",
     "income": "ငိုၼ်းၶဝ်ႈ"
   },
-  "top_spending": "ၸၢႆႇၼမ်သုတ်း",
-  "top_income": "ငိုၼ်းၶဝ်ႈ ၼမ်သုတ်း",
-  "most_expense": "ငိုၼ်းၸၢႆႇ ၼမ်သုတ်း",
-  "most_income": "ငိုၼ်းၶဝ်ႈ ၼမ်သုတ်း",
+  "monthly_summary": "သဵၼ်ႈမၢႆ လိူၼ်ၼႆႉ",
+  "monthly_chart": "လိူၼ်ၼႆႉ",
+  "income": "ငိုၼ်းၶဝ်ႈ",
+  "expense": "ငိုၼ်းၸၢႆႇ",
+  "net_balance_income": "လိူဝ်",
+  "net_balance_expense": "ယွမ်း",
+  "total_transactions": "သဵၼ်ႈမၢႆ တင်းသဵင်ႈ",
+  "category_breakdown": "ၸွမ်းၼင်ႇ ပိူင်ထၢၼ်ႈ",
+  "total": "တင်းသဵင်ႈ",
+  "weekly_trend": "သၢႆငၢႆ ၼႂ်းဝူင်ႈၼႆႉ",
+  "daily_expense_trend": "သၢႆငၢႆ ငိုၼ်းၸၢႆႇၵူႈဝၼ်း",
+  "income_vs_expense": "ငိုၼ်းၶဝ်ႈ vs ငိုၼ်းၸၢႆႇ",
   "no_data": "ပႆႇမီႇၶေႃႈမုၼ်း",
   "no_data_subtitle": "တႄႇသႂ်ႇသဵၼ်ႈမၢႆ ငိုၼ်းၸႂ်ႉၸၢႆႇ ႀႂ်ႇပေႃႈႀၼ် သၢႆငၢႆတီႈၼႅႈ。",
-  "weekly_expense": "ငိုၼ်းၸၢႆႇၵူႊဝူင်ႈ",
-  "weekly_income": "ငိုၼ်းၶေႃႈၵူႊဝူင်ႈ",
   "see_all": "တူၺ်ႈတင်ႈမူတ်း",
-  "total_amount": "ငိုၼ်းတင်းသဵင်ႈ",
-  "daily_average": "ၽတ်ႉၽဵင်ႇတေႃႇဝၼ်း",
   "top_category": "ပိူင်ထၢၼ်ႈယႂ်ႇသုတ်း",
-  "transactions": "လွင်ႈၸႂ်ႉၸၢႆႇ"
+  "weekly_spending": "ငိုၼ်းၸၢႆႇၵူႊဝူင်ႈ"
 }

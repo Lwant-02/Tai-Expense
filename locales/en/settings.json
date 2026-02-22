@@ -18,6 +18,9 @@
   "clear_data_confirm": "Are you sure? This will delete all your data.",
   "clear_data_yes": "Yes, Clear",
   "clear_data_cancel": "Cancel",
+  "delete_transactions": "Delete All Transactions",
+  "delete_transactions_subtitle": "Remove all transaction history",
+  "delete_transactions_confirm": "Are you sure? This will permanently delete all your transactions.",
   "thb": "Thai Baht (฿)",
   "mmk": "Myanmar Kyat (Ks)",
   "usd": "US Dollar ($)",
@@ -42,5 +45,8 @@
   "contact_telegram": "Telegram",
   "notifications": "Notifications",
   "notifications_subtitle": "Manage reminders and alerts",
+  "edit_name": "Edit Name",
+  "edit_name_placeholder": "Enter your name",
+  "edit_name_save": "Save",
   "joined_date": "Joined Date"
 }

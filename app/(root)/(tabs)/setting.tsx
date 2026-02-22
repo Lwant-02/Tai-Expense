@@ -1,10 +1,18 @@
-import { deleteUser, updateUserBalance } from "@/actions";
+import {
+  deleteAllTransactions,
+  deleteUser,
+  updateUserBalance,
+  updateUserName,
+} from "@/actions";
 import Header from "@/components/header";
 import BalanceAdjustForm from "@/components/settings/balance-adjust-form";
+import ProfileCard from "@/components/settings/profile-card";
 import SettingItem from "@/components/settings/setting-item";
-import { APP_ICON, CURRENCIES } from "@/constants";
+import UpdateNameForm from "@/components/settings/update-name-form";
+import { CURRENCIES } from "@/constants";
+import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore as useActualUserStore } from "@/store/user.store";
-import { formatCurrency, formatJoinDate } from "@/utils/common";
+import { formatCurrency } from "@/utils/common";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
@@ -13,7 +21,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Alert,
-  Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -30,9 +38,9 @@ const convertCurrencyLabels = (currency: string) => {
 
 export default function SettingPage() {
   const { t, i18n } = useTranslation("settings");
-  const { t: tHome } = useTranslation("home");
   const router = useRouter();
-  const { user, setUserBalance } = useActualUserStore();
+  const { user, setUserBalance, setUserName } = useActualUserStore();
+  const { setTransactions, setSummary } = useTransactionStore();
   const [balance, setBalance] = useState(user?.startingBalance!);
   const db = useSQLiteContext();
 
@@ -52,18 +60,70 @@ export default function SettingPage() {
     ]);
   }, [t]);
 
-  // Bottom sheet
+  const handleDeleteAllTransactions = useCallback(() => {
+    Alert.alert(t("delete_transactions"), t("delete_transactions_confirm"), [
+      { text: t("clear_data_cancel"), style: "cancel" },
+      {
+        text: t("clear_data_yes"),
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await deleteAllTransactions(db);
+            setTransactions([]);
+            setSummary({
+              totalIncome: 0,
+              totalExpense: 0,
+              pastIncome: 0,
+              pastExpense: 0,
+            });
+          } catch (e) {
+            console.error("Failed to delete transactions:", e);
+          }
+        },
+      },
+    ]);
+  }, [t, db]);
+
+  // Bottom sheet — balance
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ["90%"], []);
-  const [showSheet, setShowSheet] = useState(false);
+  const [showSheet, setShowSheet] = useState<"balance" | "name" | null>(null);
+
+  // Bottom sheet — edit name
+  const nameSheetRef = useRef<BottomSheet>(null);
+  const [nameInput, setNameInput] = useState(user?.name || "");
+
+  const openNameSheet = useCallback(() => {
+    setNameInput(user?.name || "");
+    setShowSheet("name");
+    nameSheetRef.current?.snapToIndex(0);
+  }, [user?.name]);
+
+  const closeNameSheet = useCallback(() => {
+    Keyboard.dismiss();
+    setShowSheet(null);
+    nameSheetRef.current?.close();
+  }, []);
+
+  const handleSaveName = async () => {
+    const trimmed = nameInput.trim();
+    if (!trimmed || !user?.id) return;
+    try {
+      await updateUserName(db, user.id, trimmed);
+      setUserName(trimmed);
+      closeNameSheet();
+    } catch (e) {
+      console.error("Failed to update name:", e);
+    }
+  };
 
   const openBalanceSheet = useCallback(() => {
-    setShowSheet(true);
+    setShowSheet("balance");
     bottomSheetRef.current?.snapToIndex(0);
   }, []);
 
   const closeSheet = useCallback(() => {
-    setShowSheet(false);
+    setShowSheet(null);
     bottomSheetRef.current?.close();
   }, []);
 
@@ -94,29 +154,7 @@ export default function SettingPage() {
           contentContainerClassName="pb-32 px-6"
         >
           {/* Profile Card */}
-          <View className="bg-foreground rounded-3xl p-5 mb-8 border border-primary/5">
-            <View className="flex-row items-center">
-              <View className="size-20 rounded-full overflow-hidden bg-blue/10 items-center justify-center mr-4">
-                <Image
-                  source={APP_ICON}
-                  className="size-full"
-                  resizeMode="contain"
-                />
-              </View>
-              <View className="flex-1 gap-1">
-                <Text className="text-primary/40  font-GHKTachileik text-sm">
-                  {t("greeting")} 👋
-                </Text>
-                <Text className="text-primary font-GHKTachileik text-xl font-semibold mt-0.5">
-                  {user?.name}
-                </Text>
-                <Text className="text-primary/40 font-GHKTachileik text-base">
-                  {t("joined_date")} :{" "}
-                  {formatJoinDate(new Date(user?.createdAt!), tHome)}
-                </Text>
-              </View>
-            </View>
-          </View>
+          <ProfileCard user={user} openNameSheet={openNameSheet} />
 
           {/* General Section */}
           <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
@@ -181,6 +219,17 @@ export default function SettingPage() {
             onPress={handleClearData}
           />
 
+          <SettingItem
+            icon="close-circle-outline"
+            iconColor="#F97316"
+            iconBg="bg-[#F97316]/10"
+            title={t("delete_transactions")}
+            subtitle={t("delete_transactions_subtitle")}
+            isDestructive
+            showArrow={false}
+            onPress={handleDeleteAllTransactions}
+          />
+
           <View className="mb-5" />
 
           {/* App Info Section */}
@@ -231,11 +280,46 @@ export default function SettingPage() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            {showSheet && (
+            {showSheet === "balance" && (
               <BalanceAdjustForm
                 currentBalance={balance}
                 onSave={handleSaveBalance}
                 onClose={closeSheet}
+              />
+            )}
+          </BottomSheetScrollView>
+        </KeyboardAvoidingView>
+      </BottomSheet>
+
+      {/* Bottom Sheet for Edit Name */}
+      <BottomSheet
+        ref={nameSheetRef}
+        index={-1}
+        snapPoints={snapPoints}
+        enableDynamicSizing={false}
+        enablePanDownToClose
+        onClose={closeNameSheet}
+        backgroundStyle={{ backgroundColor: "#1A1A1F" }}
+        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
+        keyboardBehavior="interactive"
+        keyboardBlurBehavior="restore"
+        android_keyboardInputMode="adjustResize"
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          style={{ flex: 1 }}
+        >
+          <BottomSheetScrollView
+            contentContainerStyle={{ paddingBottom: 40 }}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+          >
+            {showSheet === "name" && (
+              <UpdateNameForm
+                onClose={closeNameSheet}
+                nameInput={nameInput}
+                setNameInput={setNameInput}
+                handleSaveName={handleSaveName}
               />
             )}
           </BottomSheetScrollView>

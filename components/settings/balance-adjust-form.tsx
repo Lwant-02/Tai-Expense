@@ -80,8 +80,8 @@ export default function BalanceAdjustForm({
       <CustomBtn
         onPress={handleSave}
         activeOpacity={0.8}
-        bgVariant="dark"
-        textVariant="light"
+        bgVariant="light"
+        textVariant="dark"
         title={t("save")}
       />
     </View>

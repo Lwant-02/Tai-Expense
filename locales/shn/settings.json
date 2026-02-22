@@ -18,6 +18,9 @@
   "clear_data_confirm": "ၸဝ်ႈၵဝ်ႇမၼ်ႈၸႂ်ႁႃႉ? ၼႆႉတေလၢင်ႉၶေႃႈမုၼ်းတင်းသဵင်ႈ။",
   "clear_data_yes": "ဢေႃႈ، လၢင်ႉ",
   "clear_data_cancel": "ပႅတ်ႈ",
+  "delete_transactions": "လၢင်ႉသဵၼ်ႈမၢႆတင်းသဵင်ႈ",
+  "delete_transactions_subtitle": "ဢဝ်သဵၼ်ႈမၢႆငိုၼ်းတင်းသဵင်ႈပႅတ်ႈ",
+  "delete_transactions_confirm": "ၸဝ်ႈၵဝ်ႇမၼ်ႈၸႂ်ႁႃႉ? ၼႆႉတေလၢင်ႉသဵၼ်ႈမၢႆငိုၼ်းတင်းသဵင်ႈ",
   "thb": "ငိုၼ်းထႆး (฿)",
   "mmk": "ငိုၼ်းမၢၼ်ႈ (Ks)",
   "usd": "ငိုၼ်းတေႃႇလႃႇ ($)",
@@ -42,5 +45,8 @@
   "contact_telegram": "တႄႇလီႇၵရႅမ်ႇ",
   "notifications": "ၶေႃႈၸႅင်ႈတိူၼ်း",
   "notifications_subtitle": "ၵုမ်းၵမ်ၸႂ်ႉမၢႆတွင်းလႄႈၶေႃႈၽၢင်ႉ",
+  "edit_name": "မႄးၸိုဝ်ႈ",
+  "edit_name_placeholder": "သႂ်ႇၸိုဝ်ႈၸဝ်ႈၵဝ်ႇ",
+  "edit_name_save": "သိမ်းဝႆႉ",
   "joined_date": "ဝၼ်းတႄႇၸႂ်ႉ"
 }

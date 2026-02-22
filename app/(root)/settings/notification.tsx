@@ -12,8 +12,6 @@ import { useTranslation } from "react-i18next";
 import { ScrollView, Switch, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const WEEKDAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
 export default function NotificationSettings() {
   const { t } = useTranslation("notification");
   const router = useRouter();
@@ -90,24 +88,6 @@ export default function NotificationSettings() {
         </Text>
 
         <SettingToggle
-          icon="bar-chart-outline"
-          iconColor="#2563EB"
-          iconBg="bg-blue/10"
-          title={t("weekly_summary_title")}
-          subtitle={t("weekly_setting_subtitle", {
-            day: WEEKDAY_LABELS[(settings.weeklySummary.dayOfWeek - 1) % 7],
-            time: `${String(settings.weeklySummary.hour).padStart(2, "0")}:${String(settings.weeklySummary.minute).padStart(2, "0")}`,
-          })}
-          value={settings.weeklySummary.enabled}
-          onToggle={(val) =>
-            save({
-              ...settings,
-              weeklySummary: { ...settings.weeklySummary, enabled: val },
-            })
-          }
-        />
-
-        <SettingToggle
           icon="warning"
           iconColor="#EF4444"
           iconBg="bg-red-500/10"
@@ -132,7 +112,7 @@ export default function NotificationSettings() {
               {t("notification_info_title")}
             </Text>
           </View>
-          <Text className="text-primary/40 font-GHKTachileik text-base leading-5">
+          <Text className="text-primary/40 font-GHKTachileik text-base leading-5 py-1">
             {t("notification_info_body")}
           </Text>
         </View>

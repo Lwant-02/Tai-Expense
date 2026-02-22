@@ -5,6 +5,7 @@ interface UserState {
   user: User | null;
   setUser: (user: User | null) => void;
   setUserBalance: (balance: number) => void;
+  setUserName: (name: string) => void;
 }
 
 export const useUserStore = create<UserState>((set) => ({
@@ -13,5 +14,9 @@ export const useUserStore = create<UserState>((set) => ({
   setUserBalance: (balance: number) =>
     set((state) => ({
       user: state.user ? { ...state.user, startingBalance: balance } : null,
+    })),
+  setUserName: (name: string) =>
+    set((state) => ({
+      user: state.user ? { ...state.user, name } : null,
     })),
 }));

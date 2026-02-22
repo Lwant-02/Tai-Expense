@@ -16,6 +16,21 @@ export default function BalanceCard() {
   const currentBalance =
     (user?.startingBalance || 0) + summary.totalIncome - summary.totalExpense;
 
+  // Helper to calculate percentage change
+  const getPercentChange = (current: number, past: number) => {
+    if (past === 0) return current > 0 ? 100 : 0;
+    return Math.round(((current - past) / past) * 100);
+  };
+
+  const incomeChange = getPercentChange(
+    summary.totalIncome,
+    summary.pastIncome,
+  );
+  const expenseChange = getPercentChange(
+    summary.totalExpense,
+    summary.pastExpense,
+  );
+
   return (
     <View className="mx-6 bg-foreground rounded-3xl p-6 mt-4 border border-primary/10 shadow">
       <View className="flex-row justify-between items-start mb-4">
@@ -54,6 +69,22 @@ export default function BalanceCard() {
               "",
             )}
           </Text>
+          {summary.pastIncome > 0 || incomeChange > 0 ? (
+            <View className="flex-row items-center gap-1 mt-1">
+              <Ionicons
+                name={incomeChange >= 0 ? "arrow-up" : "arrow-down"}
+                size={12}
+                color={incomeChange >= 0 ? "#10B981" : "#EF4444"}
+              />
+              <Text
+                className={`font-GHKTachileik text-xs ${
+                  incomeChange >= 0 ? "text-green" : "text-danger"
+                }`}
+              >
+                {Math.abs(incomeChange)}% vs {t("last_month")}
+              </Text>
+            </View>
+          ) : null}
         </View>
 
         {/* Expenses */}
@@ -72,6 +103,22 @@ export default function BalanceCard() {
               "",
             )}
           </Text>
+          {summary.pastExpense > 0 || expenseChange > 0 ? (
+            <View className="flex-row items-center gap-1 mt-1">
+              <Ionicons
+                name={expenseChange <= 0 ? "arrow-down" : "arrow-up"}
+                size={12}
+                color={expenseChange <= 0 ? "#10B981" : "#EF4444"}
+              />
+              <Text
+                className={`font-GHKTachileik text-xs ${
+                  expenseChange <= 0 ? "text-green" : "text-danger"
+                }`}
+              >
+                {Math.abs(expenseChange)}% vs {t("last_month")}
+              </Text>
+            </View>
+          ) : null}
         </View>
       </View>
     </View>

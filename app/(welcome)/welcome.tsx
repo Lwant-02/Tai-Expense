@@ -26,24 +26,24 @@ export default function WelcomePage() {
         loop={false}
         dot={<View className="w-[32px] h-[4px] mx-1 bg-primary rounded-full" />}
         activeDot={
-          <View className="w-[32px] h-[4px] mx-1 bg-blue rounded-full" />
+          <View className="w-[32px] h-[4px] mx-1 bg-background rounded-full" />
         }
         onIndexChanged={(index) => setIndex(index)}
-        paginationStyle={{ bottom: "40.5%" }}
+        paginationStyle={{ bottom: "34%" }}
       >
         {ONBOARDING_SCREEN.map((item) => (
           <View key={item.id} className="flex-1">
             <Image
               source={item.image}
               className="absolute w-full h-full"
-              resizeMode="cover"
+              resizeMode="contain"
             />
           </View>
         ))}
       </Swiper>
 
       {/* Bottom Sheet Overlay */}
-      <View className="absolute bottom-0 w-full bg-background rounded-t-[50px] p-8 pb-16 items-center justify-end h-[40%]">
+      <View className="absolute bottom-0 w-full bg-background rounded-t-[50px] p-8 pb-5 items-center justify-end h-[33%]">
         <Text className="text-primary text-3xl text-center py-3 font-GHKKengtung">
           {t(ONBOARDING_SCREEN[index].title)}
         </Text>

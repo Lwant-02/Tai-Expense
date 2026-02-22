@@ -10,6 +10,13 @@ export interface CreateTransactionParams {
   note?: string;
 }
 
+export interface TransactionSummary {
+  totalIncome: number;
+  totalExpense: number;
+  pastIncome: number;
+  pastExpense: number;
+}
+
 // Create transaction
 export const createTransaction = async (
   db: SQLiteDatabase,
@@ -37,29 +44,52 @@ export const createTransaction = async (
   }
 };
 
-export interface TransactionSummary {
-  totalIncome: number;
-  totalExpense: number;
-}
-
 // Get transaction summary (total income and expense)
 export const getTransactionSummary = async (
   db: SQLiteDatabase,
 ): Promise<TransactionSummary> => {
   try {
+    const now = new Date();
+    const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+
+    let pastYear = now.getFullYear();
+    let pastMonth = now.getMonth();
+    if (pastMonth === 0) {
+      pastMonth = 12;
+      pastYear -= 1;
+    }
+    const previousMonth = `${pastYear}-${String(pastMonth).padStart(2, "0")}`;
+
     const result = await db.getFirstAsync<{
       totalIncome: number;
       totalExpense: number;
-    }>(`
+      pastIncome: number;
+      pastExpense: number;
+    }>(
+      `
       SELECT 
-        COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) as totalIncome,
-        COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) as totalExpense
+        COALESCE(SUM(CASE WHEN type = 'income' AND strftime('%Y-%m', transactionDate) = ? THEN amount ELSE 0 END), 0) as totalIncome,
+        COALESCE(SUM(CASE WHEN type = 'expense' AND strftime('%Y-%m', transactionDate) = ? THEN amount ELSE 0 END), 0) as totalExpense,
+        COALESCE(SUM(CASE WHEN type = 'income' AND strftime('%Y-%m', transactionDate) = ? THEN amount ELSE 0 END), 0) as pastIncome,
+        COALESCE(SUM(CASE WHEN type = 'expense' AND strftime('%Y-%m', transactionDate) = ? THEN amount ELSE 0 END), 0) as pastExpense
       FROM transactions
-    `);
+      WHERE strftime('%Y-%m', transactionDate) IN (?, ?)
+    `,
+      [
+        currentMonth,
+        currentMonth,
+        previousMonth,
+        previousMonth,
+        currentMonth,
+        previousMonth,
+      ],
+    );
 
     return {
       totalIncome: result?.totalIncome || 0,
       totalExpense: result?.totalExpense || 0,
+      pastIncome: result?.pastIncome || 0,
+      pastExpense: result?.pastExpense || 0,
     };
   } catch (error) {
     console.error("Error getting transaction summary:", error);
@@ -103,6 +133,18 @@ export const updateTransaction = async (
     );
   } catch (error) {
     console.error("Error updating transaction:", error);
+    throw error;
+  }
+};
+
+// Delete all transactions
+export const deleteAllTransactions = async (
+  db: SQLiteDatabase,
+): Promise<void> => {
+  try {
+    await db.runAsync("DELETE FROM transactions;");
+  } catch (error) {
+    console.error("Error deleting all transactions:", error);
     throw error;
   }
 };

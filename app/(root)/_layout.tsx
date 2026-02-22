@@ -22,10 +22,6 @@ export default function Layout() {
       <Stack.Screen name="due-bill" options={{ headerShown: false }} />
       <Stack.Screen name="all-budget" options={{ headerShown: false }} />
       <Stack.Screen name="all-due-bill" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="all-weekly-spending"
-        options={{ headerShown: false }}
-      />
       <Stack.Screen name="test" options={{ headerShown: false }} />
     </Stack>
   );
