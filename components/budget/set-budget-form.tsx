@@ -1,14 +1,11 @@
+import { useUserStore } from "@/store/user.store";
 import { Ionicons } from "@expo/vector-icons";
+import cn from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Keyboard,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Keyboard, Text, TouchableOpacity, View } from "react-native";
 import CustomBtn from "../custom-btn";
+import CustomInput from "../custom-input";
 
 interface SetBudgetFormProps {
   currentBudget: number;
@@ -22,6 +19,7 @@ export default function SetBudgetForm({
   onClose,
 }: SetBudgetFormProps) {
   const { t } = useTranslation("budget");
+  const { user } = useUserStore();
   const [amount, setAmount] = useState(
     currentBudget > 0 ? currentBudget.toString() : "",
   );
@@ -50,28 +48,23 @@ export default function SetBudgetForm({
       </View>
 
       {/* Amount input */}
-      <View className="flex-row items-center bg-foreground rounded-2xl border border-primary/10 px-4 py-3.5 mb-6">
-        <View className="size-10 rounded-xl bg-blue/10 items-center justify-center mr-3">
-          <Ionicons name="cash-outline" size={20} color="#2563EB" />
-        </View>
-        <TextInput
-          value={amount}
-          onChangeText={setAmount}
-          placeholder={t("budget_amount")}
-          placeholderTextColor="rgba(255,255,255,0.3)"
-          keyboardType="numeric"
-          className="flex-1 text-primary font-GHKTachileik text-lg"
-          autoFocus
-        />
-      </View>
+      <CustomInput
+        type="number"
+        value={amount}
+        onChangeText={setAmount}
+        placeholder={t("budget_amount")}
+        autoFocus
+        currency={user?.currency!}
+        textColor="white"
+      />
 
       {/* Save */}
-
       <CustomBtn
         onPress={handleSave}
         title={t("save")}
         disabled={!amount}
         bgVariant="light"
+        className={cn(!amount && "opacity-50", "mt-4")}
         textVariant="dark"
       />
     </View>

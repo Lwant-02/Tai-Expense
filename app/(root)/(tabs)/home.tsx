@@ -7,6 +7,7 @@ import EmptyState from "@/components/empty-state";
 import BalanceCard from "@/components/home/balance-card";
 import BannerCarousel from "@/components/home/banner-carousel";
 import GreetingHeader from "@/components/home/greeting-header";
+import SavingGoalList from "@/components/home/saving-goal-list";
 import TransactionCard from "@/components/home/transaction-card";
 import { useTransactionStore } from "@/store/transaction.store";
 
@@ -33,6 +34,23 @@ export default function Home() {
                 {t("banner.section_title")}
               </Text>
               <BannerCarousel />
+            </View>
+
+            {/* Saving Goal */}
+            <View className="my-6">
+              <View className="flex-row justify-between items-center px-6 mb-4">
+                <Text className="text-primary font-GHKTachileik text-lg font-semibold">
+                  {t("saving_goal")}
+                </Text>
+                <TouchableOpacity
+                  onPress={() => router.push("/(root)/all-saving-goal")}
+                >
+                  <Text className="font-GHKTachileik text-base text-blue">
+                    {t("see_all")}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <SavingGoalList />
             </View>
 
             {/* Transactions Header */}

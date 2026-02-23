@@ -25,7 +25,7 @@ import { CategoryBudget } from "@/type";
 
 type FormType = "budget" | null;
 
-export default function BudgetPage() {
+export default function GeneralPage() {
   const { t } = useTranslation("budget");
   const router = useRouter();
 

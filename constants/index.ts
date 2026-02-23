@@ -5,6 +5,8 @@ import onboardingTwo from "@/assets/images/onboarding-two.png";
 import { TransactionCategory } from "@/type";
 import { Ionicons } from "@expo/vector-icons";
 
+export const APP_ICON = appIcon;
+
 export const ONBOARDING_SCREEN = [
   {
     id: 1,
@@ -25,8 +27,6 @@ export const ONBOARDING_SCREEN = [
     description: "description_3",
   },
 ];
-
-export const APP_ICON = appIcon;
 
 export const CATEGORY_CONFIG: Record<
   TransactionCategory,
@@ -149,4 +149,48 @@ export const CURRENCIES = [
   { symbol: "฿", code: "THB", name: "Thai Baht", flag: "🇹🇭" },
   { symbol: "$", code: "SGD", name: "Singapore Dollar", flag: "🇸🇬" },
   { symbol: "¥", code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
+];
+
+export const SAVING_GOAL_COLORS = [
+  "#EF4444", // Red
+  "#F97316", // Orange
+  "#F59E0B", // Amber
+  "#EAB308", // Yellow
+  "#84CC16", // Lime
+  "#22C55E", // Green
+  "#10B981", // Emerald
+  "#14B8A6", // Teal
+  "#06B6D4", // Cyan
+  "#0EA5E9", // Light Blue
+  "#3B82F6", // Blue
+  "#6366F1", // Indigo
+  "#8B5CF6", // Violet
+  "#A855F7", // Purple
+  "#D946EF", // Fuchsia
+  "#EC4899", // Pink
+  "#F43F5E", // Rose
+  "#64748B", // Slate
+];
+
+export const SAVING_GOAL_ICONS: Array<keyof typeof Ionicons.glyphMap> = [
+  "car-outline",
+  "home-outline",
+  "airplane-outline",
+  "laptop-outline",
+  "book-outline",
+  "heart-outline",
+  "briefcase-outline",
+  "gift-outline",
+  "game-controller-outline",
+  "restaurant-outline",
+  "medical-outline",
+  "bicycle-outline",
+  "camera-outline",
+  "paw-outline",
+  "fitness-outline",
+  "happy-outline",
+  "cafe-outline",
+  "diamond-outline",
+  "barbell-outline",
+  "headset-outline",
 ];

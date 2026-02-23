@@ -154,14 +154,14 @@ export default function Layout() {
         }}
       />
       <Tabs.Screen
-        name="budget"
+        name="general"
         options={{
-          title: t("navigation.budget"),
+          title: t("navigation.general"),
           tabBarIcon: ({ focused, color }) => (
             <TabIcon
               focused={focused}
-              icon={<Ionicons name="wallet-outline" size={25} color={color} />}
-              title={t("navigation.budget")}
+              icon={<Ionicons name="layers-outline" size={25} color={color} />}
+              title={t("navigation.general")}
             />
           ),
         }}

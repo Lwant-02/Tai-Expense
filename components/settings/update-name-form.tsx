@@ -1,8 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
+import cn from "clsx";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import CustomBtn from "../custom-btn";
+import CustomInput from "../custom-input";
 
 interface UpdateNameFormProps {
   nameInput: string;
@@ -31,20 +33,21 @@ export default function UpdateNameForm({
           <Ionicons name="close" size={18} color="white" />
         </TouchableOpacity>
       </View>
-      <TextInput
+
+      <CustomInput
+        type="text"
         value={nameInput}
         onChangeText={setNameInput}
         placeholder={t("edit_name_placeholder")}
-        placeholderTextColor="rgba(255,255,255,0.3)"
-        className="bg-background rounded-2xl px-4 py-4 text-primary font-GHKTachileik text-lg border border-primary/10 mb-4"
-        autoFocus
-        returnKeyType="done"
-        onSubmitEditing={handleSaveName}
+        icon="person-outline"
+        iconColor="rgba(255,255,255,0.4)"
+        autoFocus={true}
       />
       <CustomBtn
         title={t("edit_name_save")}
         onPress={handleSaveName}
         disabled={!nameInput.trim()}
+        className={cn("mt-4", !nameInput.trim() && "opacity-50")}
       />
     </View>
   );

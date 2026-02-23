@@ -90,14 +90,6 @@ export default function TransactionDetail() {
               <Ionicons name={config.icon} size={36} color={config.color} />
             </View>
 
-            <TouchableOpacity
-              onPress={() => openTransactionForm()}
-              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-              className="absolute right-0 top-5 bg-primary/5 p-2.5 rounded-full border border-primary/10"
-            >
-              <Ionicons name="pencil" size={18} color="#2563EB" />
-            </TouchableOpacity>
-
             <Text
               className="font-GHKTachileik text-4xl font-semibold py-2 mb-2"
               style={{ color: isIncome ? "#22C55E" : "#EF4444" }}
@@ -200,7 +192,7 @@ export default function TransactionDetail() {
 
             {/* Note (if available) */}
             {transaction.note && (
-              <View className="py-3.5">
+              <View className="py-3.5 border-b border-primary/5">
                 <Text className="text-primary/50 font-GHKTachileik text-lg mb-2">
                   {t("note_label")}
                 </Text>
@@ -209,6 +201,18 @@ export default function TransactionDetail() {
                 </Text>
               </View>
             )}
+            <TouchableOpacity
+              className="flex-row items-center justify-between py-3.5"
+              activeOpacity={0.7}
+              onPress={() => openTransactionForm()}
+            >
+              <View className="flex-row items-center justify-between">
+                <Text className="text-primary font-GHKTachileik text-lg font-medium">
+                  Edit Transaction
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#8E8E93" />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </SafeAreaView>

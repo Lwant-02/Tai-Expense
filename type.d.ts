@@ -90,3 +90,13 @@ declare interface Bill {
   remindMe: boolean;
   isRecurring?: boolean;
 }
+
+export interface SavingGoal {
+  id: string;
+  title: string;
+  targetAmount: number;
+  currentAmount: number;
+  color: string;
+  icon: string;
+  createdAt: string;
+}

@@ -21,8 +21,9 @@ import { CATEGORIES, CATEGORY_CONFIG } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore } from "@/store/user.store";
 import { Transaction, TransactionCategory, TransactionType } from "@/type";
-import { getCurrencySymbol, toLocalISOString } from "@/utils/common";
+import { toLocalISOString } from "@/utils/common";
 import CustomBtn from "../custom-btn";
+import CustomInput from "../custom-input";
 
 interface TransactionFormProps {
   type: TransactionType;
@@ -133,58 +134,26 @@ export default function TransactionForm({
       </View>
 
       {/* Amount */}
-      <View className="mb-4">
-        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
-          {t("amount")}
-        </Text>
-        <View className="flex-row items-center bg-foreground rounded-2xl px-4 py-1 border border-primary/10">
-          <View className="p-1.5 flex justify-center items-center">
-            <Text
-              className="font-GHKTachileik text-lg font-semibold text-center"
-              style={{ color: accentColor }}
-            >
-              {getCurrencySymbol(user?.currency!)}
-            </Text>
-          </View>
-          <TextInput
-            value={amount}
-            onChangeText={(text) => {
-              const cleaned = text.replace(/[^0-9.]/g, "");
-              const parts = cleaned.split(".");
-              const formatted =
-                parts.length > 2
-                  ? parts[0] + "." + parts.slice(1).join("")
-                  : cleaned;
-              setAmount(formatted);
-            }}
-            placeholder="0.00"
-            placeholderTextColor="rgba(255,255,255,0.25)"
-            keyboardType="decimal-pad"
-            className="flex-1 text-primary font-GHKTachileik text-base ml-3 py-3.5"
-          />
-        </View>
-      </View>
+
+      <CustomInput
+        type="number"
+        label={t("amount")}
+        value={amount}
+        onChangeText={setAmount}
+        currency={user?.currency!}
+        textColor={accentColor}
+      />
 
       {/* Title */}
-      <View className="mb-4">
-        <Text className="text-primary/80 text-base font-GHKTachileik mb-2 ml-1">
-          {t("title_label")}
-        </Text>
-        <View className="flex-row items-center bg-foreground rounded-2xl px-4 py-1 border border-primary/10">
-          <Ionicons
-            name="create-outline"
-            size={20}
-            color="rgba(255,255,255,0.4)"
-          />
-          <TextInput
-            value={title}
-            onChangeText={setTitle}
-            placeholder={t("title_placeholder")}
-            placeholderTextColor="rgba(255,255,255,0.25)"
-            className="flex-1 text-primary font-GHKTachileik text-base ml-3 py-3.5"
-          />
-        </View>
-      </View>
+      <CustomInput
+        type="text"
+        label={t("title_label")}
+        value={title}
+        onChangeText={setTitle}
+        placeholder={t("title_placeholder")}
+        icon="create-outline"
+        iconColor="rgba(255,255,255,0.4)"
+      />
 
       {/* Category */}
       <View className="mb-4">
@@ -260,6 +229,7 @@ export default function TransactionForm({
         disabled={!isValid}
         bgVariant="light"
         textVariant="dark"
+        className={cn(!isValid && "opacity-50")}
         title={
           isUpdate
             ? isExpense

@@ -55,5 +55,8 @@
         "description": "Log daily spending to identify leaks and optimize your budget."
       }
     }
-  }
+  },
+  "saving_goal": "Saving Goal",
+  "no_saving_goal_yet": "No saving goal yet",
+  "create_new_goal": "Create new saving goal"
 }

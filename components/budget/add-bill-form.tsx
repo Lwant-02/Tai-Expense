@@ -1,15 +1,12 @@
+import { useUserStore } from "@/store/user.store";
 import { Ionicons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import cn from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Platform,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import CustomBtn from "../custom-btn";
+import CustomInput from "../custom-input";
 
 interface AddBillFormProps {
   onClose: () => void;
@@ -18,6 +15,7 @@ interface AddBillFormProps {
 
 export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
   const { t } = useTranslation("budget");
+  const { user } = useUserStore();
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(new Date());
@@ -37,7 +35,12 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
           {t("add_bill", "Add Bill")}
         </Text>
         <TouchableOpacity
-          onPress={onClose}
+          onPress={() => {
+            onClose();
+            setTitle("");
+            setAmount("");
+            setDate(new Date());
+          }}
           className="bg-white/10 p-2 rounded-full"
         >
           <Ionicons name="close" size={20} color="white" />
@@ -46,38 +49,26 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
 
       <View className="gap-5">
         {/* Title Input */}
-        <View>
-          <Text className="text-white/60 font-GHKTachileik text-base mb-2">
-            {t("bill_title", "Bill Title")}
-          </Text>
-          <TextInput
-            value={title}
-            onChangeText={setTitle}
-            placeholder="e.g. Electricity, Rent"
-            placeholderTextColor="rgba(255,255,255,0.2)"
-            className="bg-white/5 text-white font-GHKTachileik text-base px-4 py-3.5 rounded-xl border border-white/10"
-          />
-        </View>
+        <CustomInput
+          type="text"
+          label={t("bill_title")}
+          value={title}
+          onChangeText={setTitle}
+          placeholder={t("bill_title")}
+          icon="pencil"
+          iconColor="white"
+        />
 
         {/* Amount Input */}
-        <View>
-          <Text className="text-white/60 font-GHKTachileik text-base mb-2">
-            {t("amount", "Amount")}
-          </Text>
-          <View className="relative">
-            <Text className="absolute left-4 top-3.5 text-white/40 font-GHKTachileik text-base">
-              $
-            </Text>
-            <TextInput
-              value={amount}
-              onChangeText={setAmount}
-              keyboardType="numeric"
-              placeholder="0.00"
-              placeholderTextColor="rgba(255,255,255,0.2)"
-              className="bg-white/5 text-white font-GHKTachileik text-base pl-8 pr-4 py-3.5 rounded-xl border border-white/10"
-            />
-          </View>
-        </View>
+        <CustomInput
+          type="number"
+          label={t("amount")}
+          value={amount}
+          onChangeText={setAmount}
+          placeholder={t("amount")}
+          currency={user?.currency!}
+          textColor="white"
+        />
 
         {/* Due Date */}
         <View>
@@ -131,6 +122,7 @@ export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
           title={t("save_bill", "Save Bill")}
           bgVariant="light"
           textVariant="dark"
+          className={cn("mt-3", (!title || !amount || !date) && "opacity-50")}
         />
       </View>
     </View>
