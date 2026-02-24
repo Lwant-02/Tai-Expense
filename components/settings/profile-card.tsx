@@ -1,17 +1,15 @@
 import { APP_ICON } from "@/constants";
 import { User } from "@/type";
 import { formatJoinDate } from "@/utils/common";
-import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 interface ProfileCardProps {
   user: User | null;
-  openNameSheet: () => void;
 }
 
-export default function ProfileCard({ user, openNameSheet }: ProfileCardProps) {
+export default function ProfileCard({ user }: ProfileCardProps) {
   const { t } = useTranslation("settings");
   const { t: tHome } = useTranslation("home");
   return (
@@ -32,13 +30,6 @@ export default function ProfileCard({ user, openNameSheet }: ProfileCardProps) {
             {formatJoinDate(new Date(user?.createdAt!), tHome)}
           </Text>
         </View>
-        {/* Edit name button */}
-        <TouchableOpacity
-          onPress={openNameSheet}
-          className="bg-primary/5 p-2.5 rounded-full border border-primary/10"
-        >
-          <Ionicons name="pencil" size={16} color="#2563EB" />
-        </TouchableOpacity>
       </View>
     </View>
   );

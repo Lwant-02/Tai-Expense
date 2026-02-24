@@ -3,22 +3,16 @@ import cn from "clsx";
 import { useRouter } from "expo-router";
 import { useCallback, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  FlatList,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
 import { MOCK_GOALS } from "@/components/home/sample-data";
 import SavingGoalCard from "@/components/home/saving-goal-card";
 import SavingGoalForm from "@/components/home/saving-goal-form";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const PAGE_SIZE = 5;
@@ -28,8 +22,6 @@ export default function AllSavingGoal() {
   const router = useRouter();
 
   const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const snapPoints = ["95%"];
 
   const data = MOCK_GOALS;
 
@@ -166,31 +158,9 @@ export default function AllSavingGoal() {
       </SafeAreaView>
 
       {/* Bottom sheet — must be outside SafeAreaView */}
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false}
-        enablePanDownToClose
-        backgroundStyle={{ backgroundColor: "#1A1A1F" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={{ flex: 1 }}
-        >
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 120 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            <SavingGoalForm onClose={closeForm} />
-          </BottomSheetScrollView>
-        </KeyboardAvoidingView>
-      </BottomSheet>
+      <CustomBottomSheet sheetRef={bottomSheetRef}>
+        <SavingGoalForm onClose={closeForm} />
+      </CustomBottomSheet>
     </GestureHandlerRootView>
   );
 }

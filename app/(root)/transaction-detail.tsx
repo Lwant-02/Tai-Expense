@@ -2,18 +2,12 @@ import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import TransactionForm from "@/components/create/transaction-form";
+import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import Header from "@/components/header";
 import { CATEGORY_CONFIG } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
@@ -25,8 +19,8 @@ import {
   formatHeaderDate,
   getCurrencySymbol,
 } from "@/utils/common";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { useCallback, useMemo, useRef } from "react";
+import BottomSheet from "@gorhom/bottom-sheet";
+import { useCallback, useRef } from "react";
 
 export default function TransactionDetail() {
   const { t: tHome } = useTranslation("home");
@@ -36,7 +30,6 @@ export default function TransactionDetail() {
   const { user } = useUserStore();
   const { transactions } = useTransactionStore();
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["95%"], []);
 
   const initialTransaction: Transaction = {
     id: params.id as string,
@@ -218,47 +211,13 @@ export default function TransactionDetail() {
       </SafeAreaView>
 
       {/* Bottom sheet — must be outside SafeAreaView */}
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        index={-1}
-        enablePanDownToClose
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-        backgroundStyle={{ backgroundColor: "#1a1a1a" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.3)" }}
-      >
-        {Platform.OS === "ios" ? (
-          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-            <BottomSheetScrollView
-              contentContainerStyle={{
-                paddingBottom: Platform.OS === "ios" ? 70 : 0,
-              }}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-            >
-              <TransactionForm
-                type={formType}
-                onClose={closeSheet}
-                initialData={transaction}
-              />
-            </BottomSheetScrollView>
-          </KeyboardAvoidingView>
-        ) : (
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 200 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            <TransactionForm
-              type={formType}
-              onClose={closeSheet}
-              initialData={transaction}
-            />
-          </BottomSheetScrollView>
-        )}
-      </BottomSheet>
+      <CustomBottomSheet sheetRef={sheetRef}>
+        <TransactionForm
+          type={formType}
+          onClose={closeSheet}
+          initialData={transaction}
+        />
+      </CustomBottomSheet>
     </GestureHandlerRootView>
   );
 }

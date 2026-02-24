@@ -4,6 +4,7 @@ import {
   updateUserBalance,
   updateUserName,
 } from "@/actions";
+import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import Header from "@/components/header";
 import BalanceAdjustForm from "@/components/settings/balance-adjust-form";
 import ProfileCard from "@/components/settings/profile-card";
@@ -13,21 +14,13 @@ import { CURRENCIES } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore as useActualUserStore } from "@/store/user.store";
 import { formatCurrency } from "@/utils/common";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Alert,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Alert, Keyboard, ScrollView, Text, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -86,24 +79,10 @@ export default function SettingPage() {
 
   // Bottom sheet — balance
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["90%"], []);
-  const [showSheet, setShowSheet] = useState<"balance" | "name" | null>(null);
 
   // Bottom sheet — edit name
   const nameSheetRef = useRef<BottomSheet>(null);
   const [nameInput, setNameInput] = useState(user?.name || "");
-
-  const openNameSheet = useCallback(() => {
-    setNameInput(user?.name || "");
-    setShowSheet("name");
-    nameSheetRef.current?.snapToIndex(0);
-  }, [user?.name]);
-
-  const closeNameSheet = useCallback(() => {
-    Keyboard.dismiss();
-    setShowSheet(null);
-    nameSheetRef.current?.close();
-  }, []);
 
   const handleSaveName = async () => {
     const trimmed = nameInput.trim();
@@ -117,13 +96,20 @@ export default function SettingPage() {
     }
   };
 
+  const openNameSheet = useCallback(() => {
+    nameSheetRef.current?.snapToIndex(0);
+  }, []);
+
+  const closeNameSheet = useCallback(() => {
+    Keyboard.dismiss();
+    nameSheetRef.current?.close();
+  }, []);
+
   const openBalanceSheet = useCallback(() => {
-    setShowSheet("balance");
     bottomSheetRef.current?.snapToIndex(0);
   }, []);
 
   const closeSheet = useCallback(() => {
-    setShowSheet(null);
     bottomSheetRef.current?.close();
   }, []);
 
@@ -142,19 +128,24 @@ export default function SettingPage() {
   //State for balance
   useEffect(() => {
     setBalance(user?.startingBalance!);
-  }, [user?.startingBalance]);
+    setNameInput(user?.name || "");
+  }, [user?.startingBalance, user?.name]);
 
   return (
     <GestureHandlerRootView className="flex-1">
       <SafeAreaView className="flex-1 bg-background">
-        <Header title={t("title")} />
+        <Header
+          title={t("title")}
+          rightIcon="pencil"
+          onRightPress={openNameSheet}
+        />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerClassName="pb-32 px-6"
         >
           {/* Profile Card */}
-          <ProfileCard user={user} openNameSheet={openNameSheet} />
+          <ProfileCard user={user} />
 
           {/* General Section */}
           <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
@@ -257,74 +248,23 @@ export default function SettingPage() {
         </ScrollView>
       </SafeAreaView>
 
-      {/* Bottom Sheet for Balance Adjustment */}
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false}
-        enablePanDownToClose
-        onClose={closeSheet}
-        backgroundStyle={{ backgroundColor: "#1A1A1F" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={{ flex: 1 }}
-        >
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 100 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            {showSheet === "balance" && (
-              <BalanceAdjustForm
-                currentBalance={balance}
-                onSave={handleSaveBalance}
-                onClose={closeSheet}
-              />
-            )}
-          </BottomSheetScrollView>
-        </KeyboardAvoidingView>
-      </BottomSheet>
+      {/* Bottom Sheets*/}
+      <CustomBottomSheet sheetRef={bottomSheetRef}>
+        <BalanceAdjustForm
+          currentBalance={balance}
+          onSave={handleSaveBalance}
+          onClose={closeSheet}
+        />
+      </CustomBottomSheet>
 
-      {/* Bottom Sheet for Edit Name */}
-      <BottomSheet
-        ref={nameSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false}
-        enablePanDownToClose
-        onClose={closeNameSheet}
-        backgroundStyle={{ backgroundColor: "#1A1A1F" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={{ flex: 1 }}
-        >
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 40 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            {showSheet === "name" && (
-              <UpdateNameForm
-                onClose={closeNameSheet}
-                nameInput={nameInput}
-                setNameInput={setNameInput}
-                handleSaveName={handleSaveName}
-              />
-            )}
-          </BottomSheetScrollView>
-        </KeyboardAvoidingView>
-      </BottomSheet>
+      <CustomBottomSheet sheetRef={nameSheetRef}>
+        <UpdateNameForm
+          onClose={closeNameSheet}
+          nameInput={nameInput}
+          setNameInput={setNameInput}
+          handleSaveName={handleSaveName}
+        />
+      </CustomBottomSheet>
     </GestureHandlerRootView>
   );
 }

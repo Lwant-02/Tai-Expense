@@ -1,14 +1,15 @@
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import ActionButtons from "@/components/create/action-buttons";
 import CategoryList from "@/components/create/category-list";
 import RecentList from "@/components/create/recent-list";
 import TransactionForm from "@/components/create/transaction-form";
+import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import Header from "@/components/header";
 import { useTransactionStore } from "@/store/transaction.store";
 import { TransactionType } from "@/type";
@@ -17,7 +18,6 @@ export default function CreatePage() {
   const { t } = useTranslation("create");
   const router = useRouter();
   const sheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["95%"], []);
   const [formType, setFormType] = useState<TransactionType>("expense");
   const { transactions } = useTransactionStore();
 
@@ -61,39 +61,9 @@ export default function CreatePage() {
         </ScrollView>
       </SafeAreaView>
 
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={snapPoints}
-        index={-1}
-        enablePanDownToClose
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-        backgroundStyle={{ backgroundColor: "#1a1a1a" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.3)" }}
-      >
-        {Platform.OS === "ios" ? (
-          <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-            <BottomSheetScrollView
-              contentContainerStyle={{
-                paddingBottom: Platform.OS === "ios" ? 70 : 0,
-              }}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-            >
-              <TransactionForm type={formType} onClose={closeSheet} />
-            </BottomSheetScrollView>
-          </KeyboardAvoidingView>
-        ) : (
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 200 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            <TransactionForm type={formType} onClose={closeSheet} />
-          </BottomSheetScrollView>
-        )}
-      </BottomSheet>
+      <CustomBottomSheet sheetRef={sheetRef}>
+        <TransactionForm type={formType} onClose={closeSheet} />
+      </CustomBottomSheet>
     </View>
   );
 }

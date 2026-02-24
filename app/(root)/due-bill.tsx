@@ -1,13 +1,14 @@
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import AddBillForm from "@/components/budget/add-bill-form";
 import UpcomingBills from "@/components/budget/upcoming-bills";
+import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import Header from "@/components/header";
 
 export default function DueBillPage() {
@@ -16,7 +17,6 @@ export default function DueBillPage() {
 
   // Bottom sheet
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ["95%"], []);
 
   const openForm = useCallback(() => {
     bottomSheetRef.current?.snapToIndex(0);
@@ -44,31 +44,9 @@ export default function DueBillPage() {
       </SafeAreaView>
 
       {/* Bottom sheet — must be outside SafeAreaView */}
-      <BottomSheet
-        ref={bottomSheetRef}
-        index={-1}
-        snapPoints={snapPoints}
-        enableDynamicSizing={false}
-        enablePanDownToClose
-        backgroundStyle={{ backgroundColor: "#1A1A1F" }}
-        handleIndicatorStyle={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-        keyboardBehavior="interactive"
-        keyboardBlurBehavior="restore"
-        android_keyboardInputMode="adjustResize"
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
-          style={{ flex: 1 }}
-        >
-          <BottomSheetScrollView
-            contentContainerStyle={{ paddingBottom: 100 }}
-            showsVerticalScrollIndicator={false}
-            keyboardShouldPersistTaps="handled"
-          >
-            <AddBillForm onClose={closeForm} />
-          </BottomSheetScrollView>
-        </KeyboardAvoidingView>
-      </BottomSheet>
+      <CustomBottomSheet sheetRef={bottomSheetRef}>
+        <AddBillForm onClose={closeForm} />
+      </CustomBottomSheet>
     </GestureHandlerRootView>
   );
 }
