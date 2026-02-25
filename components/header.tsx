@@ -22,7 +22,7 @@ export default function Header({
       {showBack ? (
         <TouchableOpacity
           onPress={onBackPress}
-          className="w-10 h-10 flex items-center justify-center rounded-xl bg-foreground/50"
+          className="w-10 h-10 flex items-center justify-center rounded-xl bg-foreground/90"
         >
           <Ionicons name="chevron-back" size={20} color="white" />
         </TouchableOpacity>
@@ -39,7 +39,7 @@ export default function Header({
       {rightIcon ? (
         <TouchableOpacity
           onPress={onRightPress}
-          className="w-10 h-10 flex items-center justify-center rounded-xl bg-foreground/50"
+          className="w-10 h-10 flex items-center justify-center rounded-xl bg-foreground/90"
         >
           <Ionicons name={rightIcon} size={20} color="white" />
         </TouchableOpacity>

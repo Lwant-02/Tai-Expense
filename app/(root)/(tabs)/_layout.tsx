@@ -1,4 +1,10 @@
-import { getTransactionSummary, getTransactions, getUser } from "@/actions";
+import {
+  getSavings,
+  getTransactionSummary,
+  getTransactions,
+  getUser,
+} from "@/actions";
+import { useSavingStore } from "@/store/saving.store";
 import { useTransactionStore } from "@/store/transaction.store";
 import { useUserStore } from "@/store/user.store";
 import { Ionicons } from "@expo/vector-icons";
@@ -63,17 +69,20 @@ export default function Layout() {
 
   //State for user data and transaction data
   const { setSummary, setTransactions } = useTransactionStore();
+  const { setSavings } = useSavingStore();
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const [user, summary, transactions] = await Promise.all([
+      const [user, summary, transactions, savings] = await Promise.all([
         getUser(db),
         getTransactionSummary(db),
         getTransactions(db), // Fetch all transactions for global state
+        getSavings(db),
       ]);
       setUser(user);
       setSummary(summary);
       setTransactions(transactions);
+      setSavings(savings);
     };
     fetchUserData();
   }, []);

@@ -1,9 +1,13 @@
+import { createSaving, getSavings, updateSaving } from "@/actions/saving";
 import CustomBtn from "@/components/custom-btn";
 import { SAVING_GOAL_COLORS, SAVING_GOAL_ICONS } from "@/constants/index";
+import { useSavingStore } from "@/store/saving.store";
 import { useUserStore } from "@/store/user.store";
+import { SavingGoal } from "@/type";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
-import React, { useState } from "react";
+import { useSQLiteContext } from "expo-sqlite";
+import React, { useEffect, useState } from "react";
 import {
   Keyboard,
   Text,
@@ -16,11 +20,17 @@ import CustomInput from "../custom-input";
 
 interface SavingGoalFormProps {
   onClose: () => void;
+  initialData?: SavingGoal;
 }
 
-export default function SavingGoalForm({ onClose }: SavingGoalFormProps) {
+export default function SavingGoalForm({
+  onClose,
+  initialData,
+}: SavingGoalFormProps) {
   const [title, setTitle] = useState("");
   const { user } = useUserStore();
+  const { setSavings } = useSavingStore();
+  const db = useSQLiteContext();
   const [targetAmount, setTargetAmount] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<
     keyof typeof Ionicons.glyphMap
@@ -29,9 +39,41 @@ export default function SavingGoalForm({ onClose }: SavingGoalFormProps) {
     SAVING_GOAL_COLORS[0],
   );
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (initialData) {
+      await updateSaving(db, initialData.id, {
+        title,
+        targetAmount: Number(targetAmount),
+        color: selectedColor,
+        icon: selectedIcon,
+      });
+    } else {
+      await createSaving(db, {
+        title,
+        targetAmount: Number(targetAmount),
+        color: selectedColor,
+        icon: selectedIcon,
+      });
+    }
+    const updatedSavings = await getSavings(db);
+    setSavings(updatedSavings);
+
+    // reset form fields could also go here
     onClose();
+    setTitle("");
+    setTargetAmount("");
+    setSelectedIcon(SAVING_GOAL_ICONS[0]);
+    setSelectedColor(SAVING_GOAL_COLORS[0]);
   };
+
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setTargetAmount(initialData.targetAmount.toString());
+      setSelectedIcon(initialData.icon);
+      setSelectedColor(initialData.color);
+    }
+  }, [initialData]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

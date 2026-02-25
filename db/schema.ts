@@ -90,3 +90,19 @@ export const migrateToVersion4 = async (db: any) => {
     );
   `);
 };
+
+export const migrateToVersion5 = async (db: any) => {
+  await db.execAsync(`
+    DROP TABLE IF EXISTS saving;
+
+    CREATE TABLE IF NOT EXISTS saving (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      targetAmount REAL NOT NULL,
+      currentAmount REAL DEFAULT 0,
+      color TEXT NOT NULL,
+      icon TEXT NOT NULL,
+      createdAt TEXT DEFAULT (datetime('now', 'localtime')) NOT NULL
+    );
+  `);
+};

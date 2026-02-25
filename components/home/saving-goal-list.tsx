@@ -1,27 +1,28 @@
+import { useSavingStore } from "@/store/saving.store";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 
-import { MOCK_GOALS } from "./sample-data";
 import SavingGoalCard from "./saving-goal-card";
 
 export default function SavingGoalList() {
   const { t } = useTranslation("home");
   const router = useRouter();
+  const { savings } = useSavingStore();
 
-  const data = MOCK_GOALS;
+  const data = savings;
 
   return (
     <FlatList
       horizontal
       showsHorizontalScrollIndicator={false}
       contentContainerClassName={
-        data.length === 0 ? "px-6 flex-1 w-full" : "px-6 "
+        data.length <= 1 ? "px-6 flex-1 w-full" : "px-6"
       }
       data={data}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => String(item.id)}
       ItemSeparatorComponent={() => <View className="w-4" />}
       renderItem={({ item }) => (
         <SavingGoalCard
@@ -29,9 +30,10 @@ export default function SavingGoalList() {
           onPress={() =>
             router.push({
               pathname: "/(root)/saving-goal-detail",
-              params: { id: item.id },
+              params: { id: String(item.id) },
             })
           }
+          containerClassName={data.length === 1 ? "w-full" : "w-72"}
         />
       )}
       ListEmptyComponent={

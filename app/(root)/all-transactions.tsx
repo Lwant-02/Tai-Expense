@@ -136,7 +136,7 @@ export default function AllTransactions() {
       </View>
 
       <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
-        {filteredData.length} {tHome("transactions_history")}
+        {tHome("transactions_history")} ({filteredData.length})
       </Text>
 
       <FlatList

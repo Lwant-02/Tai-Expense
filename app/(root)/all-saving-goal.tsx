@@ -9,9 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import CustomBottomSheet from "@/components/custom-bottom-sheet";
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
-import { MOCK_GOALS } from "@/components/home/sample-data";
 import SavingGoalCard from "@/components/home/saving-goal-card";
 import SavingGoalForm from "@/components/home/saving-goal-form";
+import { useSavingStore } from "@/store/saving.store";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
@@ -23,7 +23,8 @@ export default function AllSavingGoal() {
 
   const bottomSheetRef = useRef<BottomSheet>(null);
 
-  const data = MOCK_GOALS;
+  const { savings } = useSavingStore();
+  const data = savings;
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -54,12 +55,12 @@ export default function AllSavingGoal() {
         />
 
         <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
-          {data.length} {t("saving_goal")}
+          {t("saving_goal")} ({data.length})
         </Text>
 
         <FlatList
           data={paginatedData}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => String(item.id)}
           showsVerticalScrollIndicator={false}
           contentContainerClassName="px-6 pb-10"
           ItemSeparatorComponent={() => <View className="h-4" />}
@@ -70,7 +71,7 @@ export default function AllSavingGoal() {
               onPress={() =>
                 router.push({
                   pathname: "/(root)/saving-goal-detail",
-                  params: { id: item.id },
+                  params: { id: String(item.id) },
                 })
               }
             />

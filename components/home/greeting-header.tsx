@@ -25,7 +25,7 @@ export default function GreetingHeader() {
       </View>
       <TouchableOpacity
         onPress={() => router.push("/(root)/notification")}
-        className="bg-foreground/50 p-2 rounded-xl"
+        className="bg-foreground/90 p-2 rounded-xl"
       >
         <Ionicons name="notifications-outline" size={24} color="white" />
       </TouchableOpacity>

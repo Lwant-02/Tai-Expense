@@ -97,6 +97,6 @@ export interface SavingGoal {
   targetAmount: number;
   currentAmount: number;
   color: string;
-  icon: string;
+  icon: keyof typeof Ionicons.glyphMap;
   createdAt: string;
 }
