@@ -45,7 +45,7 @@ export default function BudgetRing({
             cx={size / 2}
             cy={size / 2}
             r={radius}
-            stroke="rgba(255,255,255,0.06)"
+            stroke="#1c1c1c"
             strokeWidth={strokeWidth}
             fill="none"
             strokeLinecap="round"

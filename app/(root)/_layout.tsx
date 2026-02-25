@@ -28,6 +28,7 @@ export default function Layout() {
         name="saving-goal-detail"
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="budget" options={{ headerShown: false }} />
     </Stack>
   );
 }

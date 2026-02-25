@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/header";
 import CategoryPieChart from "@/components/statistic/category-pie-chart";
 import MonthlySummary from "@/components/statistic/monthly-summary";
-import WeeklyTrendChart from "@/components/statistic/weekly-trend-chart";
 
 export default function StatisticPage() {
   const { t } = useTranslation("statistic");
@@ -20,7 +19,6 @@ export default function StatisticPage() {
       >
         <MonthlySummary />
         <CategoryPieChart />
-        <WeeklyTrendChart />
       </ScrollView>
     </SafeAreaView>
   );

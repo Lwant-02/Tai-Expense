@@ -2,7 +2,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { useRouter } from "expo-router";
 import { useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -33,13 +33,18 @@ export default function DueBillPage() {
           title={t("upcoming_bills", "Upcoming Bills")}
           showBack
           onBackPress={() => router.back()}
+          rightIcon="add"
+          onRightPress={openForm}
         />
+        <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
+          {t("upcoming_bills", "Upcoming Bills")} (10)
+        </Text>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerClassName="pb-32"
         >
-          <UpcomingBills onAddBill={openForm} />
+          <UpcomingBills />
         </ScrollView>
       </SafeAreaView>
 
