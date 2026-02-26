@@ -135,7 +135,7 @@ export default function AllTransactions() {
         </ScrollView>
       </View>
 
-      <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
+      <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-6">
         {tHome("transactions_history")} ({filteredData.length})
       </Text>
 

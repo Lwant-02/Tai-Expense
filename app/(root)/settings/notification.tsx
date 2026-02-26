@@ -41,7 +41,7 @@ export default function NotificationSettings() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerClassName="pb-32 px-6"
+        contentContainerClassName="pb-32 px-6 pt-6"
       >
         {/* Daily Reminder */}
         <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">

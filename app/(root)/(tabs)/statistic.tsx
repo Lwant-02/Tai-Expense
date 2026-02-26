@@ -15,7 +15,7 @@ export default function StatisticPage() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerClassName="pb-36"
+        contentContainerClassName="pb-36 pt-6"
       >
         <MonthlySummary />
         <CategoryPieChart />

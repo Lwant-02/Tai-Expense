@@ -142,7 +142,7 @@ export default function SettingPage() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerClassName="pb-32 px-6"
+          contentContainerClassName="pb-32 px-6 pt-6"
         >
           {/* Profile Card */}
           <ProfileCard user={user} />

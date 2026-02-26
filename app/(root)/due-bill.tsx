@@ -36,7 +36,7 @@ export default function DueBillPage() {
           rightIcon="add"
           onRightPress={openForm}
         />
-        <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
+        <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2 mt-2">
           {t("upcoming_bills", "Upcoming Bills")} (10)
         </Text>
 

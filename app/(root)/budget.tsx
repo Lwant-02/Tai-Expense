@@ -60,7 +60,7 @@ export default function BudgetPage() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerClassName="pb-32"
+          contentContainerClassName="pb-32 pt-6"
         >
           {/* Arc Ring + Edit Button */}
 

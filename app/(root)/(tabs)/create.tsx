@@ -37,7 +37,7 @@ export default function CreatePage() {
 
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerClassName="pb-36 pt-2"
+          contentContainerClassName="pb-36 pt-6"
         >
           <ActionButtons
             onCreateExpense={() => openTransactionForm("expense")}

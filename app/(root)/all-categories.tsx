@@ -21,7 +21,7 @@ export default function AllCategories() {
         onBackPress={() => router.back()}
       />
 
-      <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2">
+      <Text className="text-primary/40 font-GHKTachileik text-sm px-6 mb-2 mt-2">
         {CATEGORIES.length} {t("categories")}
       </Text>
 
