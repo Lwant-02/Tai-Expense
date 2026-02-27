@@ -6,10 +6,10 @@ import { useTranslation } from "react-i18next";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { SAMPLE_BUDGET } from "@/components/budget/budget-data";
 import CategoryBudgetCard from "@/components/budget/category-budget-card";
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
+import { useBudgetStore } from "@/store/budget.store";
 
 const PAGE_SIZE = 10;
 
@@ -19,7 +19,10 @@ export default function AllBudget() {
 
   const [currentPage, setCurrentPage] = useState(1);
 
-  const budgets = SAMPLE_BUDGET.categoryBudgets;
+  const { budgetData } = useBudgetStore();
+  const budgets = budgetData?.categoryBudgets || [];
+  const monthlyBudget = budgetData?.monthlyBudget || 0;
+
   const totalPages = Math.ceil(budgets.length / PAGE_SIZE);
 
   const paginatedData = useMemo(
@@ -46,10 +49,7 @@ export default function AllBudget() {
           showsVerticalScrollIndicator={false}
           contentContainerClassName="px-6 pb-10"
           renderItem={({ item }) => (
-            <CategoryBudgetCard
-              item={item}
-              totalBudget={SAMPLE_BUDGET.monthlyBudget}
-            />
+            <CategoryBudgetCard item={item} totalBudget={monthlyBudget} />
           )}
           ListEmptyComponent={
             <EmptyState

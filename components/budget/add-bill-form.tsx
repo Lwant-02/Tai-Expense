@@ -8,23 +8,42 @@ import { Platform, Text, TouchableOpacity, View } from "react-native";
 import CustomBtn from "../custom-btn";
 import CustomInput from "../custom-input";
 
+import { createBill } from "@/actions/bill";
+import { useSQLiteContext } from "expo-sqlite";
+
 interface AddBillFormProps {
   onClose: () => void;
-  onSave?: (bill: any) => void;
+  onSaved?: () => void;
 }
 
-export default function AddBillForm({ onClose, onSave }: AddBillFormProps) {
+export default function AddBillForm({ onClose, onSaved }: AddBillFormProps) {
   const { t } = useTranslation("budget");
   const { user } = useUserStore();
+  const db = useSQLiteContext();
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const handleSave = () => {
-    if (onSave) {
-      onSave({ title, amount: parseFloat(amount), date });
+  const handleSave = async () => {
+    const parsedAmount = parseFloat(amount);
+    if (!title || isNaN(parsedAmount) || parsedAmount <= 0) return;
+
+    try {
+      // Create bill with default values
+      await createBill(
+        db,
+        title,
+        parsedAmount,
+        date.toISOString(),
+        true,
+        false,
+      );
+      if (onSaved) onSaved();
+    } catch (error) {
+      console.error("Failed to save bill:", error);
     }
+
     onClose();
   };
 

@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Keyboard,
   Text,
@@ -27,6 +28,7 @@ export default function SavingGoalForm({
   onClose,
   initialData,
 }: SavingGoalFormProps) {
+  const { t: tHome } = useTranslation("home");
   const [title, setTitle] = useState("");
   const { user } = useUserStore();
   const { setSavings } = useSavingStore();
@@ -79,8 +81,10 @@ export default function SavingGoalForm({
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View className="px-6 flex-1">
         <View className="flex-row items-center justify-between mb-8">
-          <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
-            Create Saving Goal
+          <Text className="text-primary font-GHKTachileik text-2xl font-semibold py-1">
+            {initialData
+              ? tHome("edit_saving_goal")
+              : tHome("create_saving_goal")}
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -92,7 +96,7 @@ export default function SavingGoalForm({
         {/* Amount Input */}
         <CustomInput
           type="number"
-          label="Target Amount"
+          label={tHome("target_amount")}
           value={targetAmount}
           onChangeText={setTargetAmount}
           icon="pencil"
@@ -102,17 +106,17 @@ export default function SavingGoalForm({
         {/* Title Input */}
         <CustomInput
           type="text"
-          label="Goal Name"
+          label={tHome("goal_name")}
           value={title}
           onChangeText={setTitle}
           icon="pencil"
           iconColor="white"
-          placeholder="e.g. New Mac, Vacation..."
+          placeholder={tHome("goal_name_placeholder")}
         />
         {/* Color Selection */}
         <View className="mb-6 h-[100px]">
           <Text className="text-primary/50 font-GHKTachileik text-sm ">
-            Color
+            {tHome("color")}
           </Text>
           <ScrollView
             horizontal
@@ -154,7 +158,7 @@ export default function SavingGoalForm({
         {/* Icon Selection */}
         <View className="mb-8">
           <Text className="text-primary/50 font-GHKTachileik text-sm mb-3">
-            Icon
+            {tHome("icon")}
           </Text>
           <View className="flex-row flex-wrap gap-3">
             {SAVING_GOAL_ICONS.map((icon) => {
@@ -184,7 +188,7 @@ export default function SavingGoalForm({
 
         <View className="pb-10">
           <CustomBtn
-            title="Create Goal"
+            title={initialData ? tHome("update_goal") : tHome("create_goal")}
             bgVariant="light"
             textVariant="dark"
             onPress={handleSubmit}

@@ -1,14 +1,11 @@
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 import { useUserStore } from "@/store/user.store";
 import { formatHeaderDate, getGreetingTime } from "@/utils/common";
 
 export default function GreetingHeader() {
   const { t } = useTranslation("home");
-  const router = useRouter();
   const greeting = `greeting_${getGreetingTime()}`;
 
   const { user } = useUserStore();
@@ -23,12 +20,6 @@ export default function GreetingHeader() {
           {user?.name}
         </Text>
       </View>
-      <TouchableOpacity
-        onPress={() => router.push("/(root)/notification")}
-        className="bg-foreground/90 p-2 rounded-xl"
-      >
-        <Ionicons name="notifications-outline" size={24} color="white" />
-      </TouchableOpacity>
     </View>
   );
 }

@@ -116,8 +116,8 @@ export const getCurrencySymbol = (currency: string): string => {
 export const formatCurrency = (amount: number, currency: string): string => {
   const currencySymbol = getCurrencySymbol(currency) || "$";
   const formattedNumber = new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 1,
   }).format(amount || 0);
 
   return `${currencySymbol} ${formattedNumber}`;

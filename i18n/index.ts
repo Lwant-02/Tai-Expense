@@ -7,6 +7,7 @@ import { loadLanguage } from "../utils/storage";
 import en_budget from "../locales/en/budget.json";
 import en_common from "../locales/en/common.json";
 import en_create from "../locales/en/create.json";
+import en_general from "../locales/en/general.json";
 import en_getstarted from "../locales/en/getstarted.json";
 import en_home from "../locales/en/home.json";
 import en_notification from "../locales/en/notification.json";
@@ -16,6 +17,7 @@ import en_statistic from "../locales/en/statistic.json";
 import shn_budget from "../locales/shn/budget.json";
 import shn_common from "../locales/shn/common.json";
 import shn_create from "../locales/shn/create.json";
+import shn_general from "../locales/shn/general.json";
 import shn_getstarted from "../locales/shn/getstarted.json";
 import shn_home from "../locales/shn/home.json";
 import shn_notification from "../locales/shn/notification.json";
@@ -34,6 +36,7 @@ const resources = {
     settings: en_settings,
     notification: en_notification,
     common: en_common,
+    general: en_general,
   },
   shn: {
     onboarding: shn_onboarding,
@@ -45,6 +48,7 @@ const resources = {
     settings: shn_settings,
     notification: shn_notification,
     common: shn_common,
+    general: shn_general,
   },
 };
 
@@ -65,6 +69,7 @@ const initI18n = async () => {
       "settings",
       "notification",
       "common",
+      "general",
     ],
     defaultNS: "onboarding",
     interpolation: {

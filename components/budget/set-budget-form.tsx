@@ -7,28 +7,37 @@ import { Keyboard, Text, TouchableOpacity, View } from "react-native";
 import CustomBtn from "../custom-btn";
 import CustomInput from "../custom-input";
 
+import { setMonthlyBudget } from "@/actions/budget";
+import { useSQLiteContext } from "expo-sqlite";
+
 interface SetBudgetFormProps {
   currentBudget: number;
-  onSave: (amount: number) => void;
   onClose: () => void;
 }
 
 export default function SetBudgetForm({
   currentBudget,
-  onSave,
   onClose,
 }: SetBudgetFormProps) {
   const { t } = useTranslation("budget");
   const { user } = useUserStore();
+  const db = useSQLiteContext();
   const [amount, setAmount] = useState(
     currentBudget > 0 ? currentBudget.toString() : "",
   );
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const parsed = parseFloat(amount);
     if (!isNaN(parsed) && parsed > 0) {
       Keyboard.dismiss();
-      onSave(parsed);
+      const now = new Date();
+      const monthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+      await setMonthlyBudget(
+        db,
+        parsed,
+        monthStr,
+        now.getFullYear().toString(),
+      );
       onClose();
     }
   };

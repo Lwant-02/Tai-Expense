@@ -1,5 +1,7 @@
 import { CATEGORY_CONFIG } from "@/constants";
+import { useUserStore } from "@/store/user.store";
 import { CategoryBudget } from "@/type";
+import { formatCurrency } from "@/utils/common";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useTranslation } from "react-i18next";
@@ -15,6 +17,7 @@ export default function CategoryBudgetCard({
   totalBudget,
 }: CategoryBudgetCardProps) {
   const { t: tHome } = useTranslation("home");
+  const { user } = useUserStore();
 
   const config = CATEGORY_CONFIG[item.category];
   const percentage = totalBudget > 0 ? (item.spent / totalBudget) * 100 : 0;
@@ -47,7 +50,7 @@ export default function CategoryBudgetCard({
             {tHome(`category.${item.category}`)}
           </Text>
           <Text className="text-primary/40 font-GHKTachileik text-base mt-0.5">
-            ${item.spent.toLocaleString()}
+            {formatCurrency(item.spent, user?.currency!)}
           </Text>
         </View>
 

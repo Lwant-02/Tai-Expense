@@ -1,15 +1,16 @@
 import Header from "@/components/header";
+import { SHAN_FLAG } from "@/constants";
 import { saveLanguage } from "@/utils/storage";
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const LANGUAGES = [
-  { code: "en", label: "english", flag: "🇬🇧" },
-  { code: "shn", label: "shan", flag: "🇱🇹" },
+  { code: "en", label: "english", flag: "🇬🇧", isImage: false },
+  { code: "shn", label: "shan", flag: SHAN_FLAG, isImage: true },
 ];
 
 export default function LanguagePage() {
@@ -51,7 +52,11 @@ export default function LanguagePage() {
                   isSelected ? "bg-blue/20" : "bg-primary/5",
                 )}
               >
-                <Text className="text-2xl">{lang.flag}</Text>
+                {lang.isImage ? (
+                  <Image source={lang.flag} className="w-6 h-4" />
+                ) : (
+                  <Text className="text-2xl">{lang.flag}</Text>
+                )}
               </View>
 
               {/* Label */}

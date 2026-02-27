@@ -43,23 +43,19 @@ export default function SavingGoalDetail() {
   }, []);
 
   const handleDelete = () => {
-    Alert.alert(
-      "Delete Goal",
-      "Are you sure you want to delete this saving goal? This action cannot be undone.",
-      [
-        { text: "Cancel", style: "cancel" },
-        {
-          text: "Delete",
-          style: "destructive",
-          onPress: async () => {
-            await deleteSaving(db, id);
-            const updatedSavings = await getSavings(db);
-            setSavings(updatedSavings);
-            router.back();
-          },
+    Alert.alert(tHome("delete_goal"), tHome("delete_goal_confirm"), [
+      { text: tHome("cancel"), style: "cancel" },
+      {
+        text: tHome("delete"),
+        style: "destructive",
+        onPress: async () => {
+          await deleteSaving(db, id);
+          const updatedSavings = await getSavings(db);
+          setSavings(updatedSavings);
+          router.back();
         },
-      ],
-    );
+      },
+    ]);
   };
 
   if (!goal) {
@@ -72,14 +68,14 @@ export default function SavingGoalDetail() {
         />
         <View className="flex-1 items-center justify-center p-6">
           <Text className="text-primary font-GHKTachileik text-lg text-center">
-            Goal not found
+            {tHome("goal_not_found")}
           </Text>
           <TouchableOpacity
             onPress={() => router.back()}
             className="mt-6 bg-primary/10 px-6 py-3 rounded-xl"
           >
             <Text className="text-primary font-GHKTachileik text-base">
-              Go Back
+              {tHome("go_back")}
             </Text>
           </TouchableOpacity>
         </View>
@@ -110,13 +106,13 @@ export default function SavingGoalDetail() {
             </View>
 
             <Text className="text-primary/50 font-GHKTachileik text-lg mb-1">
-              Current Saved Amount
+              {tHome("current_saved_amount")}
             </Text>
             <Text className="text-primary font-GHKTachileik text-3xl py-2 font-semibold">
               {formatCurrency(goal.currentAmount, user?.currency ?? "USD")}
             </Text>
             <Text className="text-primary/40 font-GHKTachileik text-sm mt-1">
-              Created: {formatDate(goal.createdAt, tHome)}
+              {tHome("created")}: {formatDate(goal.createdAt, tHome)}
             </Text>
           </View>
 
@@ -124,7 +120,7 @@ export default function SavingGoalDetail() {
           <View className="bg-foreground rounded-3xl p-6 border border-primary/5 mb-6">
             <View className="flex-row items-end justify-between mb-3">
               <Text className="text-primary font-GHKTachileik text-lg font-medium">
-                Progress
+                {tHome("progress")}
               </Text>
               <Text
                 className="text-primary font-GHKTachileik text-lg font-semibold"
@@ -147,7 +143,7 @@ export default function SavingGoalDetail() {
             <View className="flex-row justify-between">
               <View>
                 <Text className="text-primary/50 font-GHKTachileik text-sm mb-1">
-                  Target
+                  {tHome("target")}
                 </Text>
                 <Text className="text-primary font-GHKTachileik text-base font-semibold">
                   {formatCurrency(goal.targetAmount, user?.currency ?? "USD")}
@@ -155,7 +151,7 @@ export default function SavingGoalDetail() {
               </View>
               <View className="items-end">
                 <Text className="text-primary/50 font-GHKTachileik text-sm mb-1">
-                  Remaining
+                  {tHome("remaining")}
                 </Text>
                 <Text className="text-primary font-GHKTachileik text-base font-semibold">
                   {isCompleted
@@ -178,7 +174,7 @@ export default function SavingGoalDetail() {
                   <Ionicons name="add" size={20} color="#22C55E" />
                 </View>
                 <Text className="text-primary font-GHKTachileik text-lg font-medium">
-                  Add Funds
+                  {tHome("add_funds")}
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color="#8E8E93" />
@@ -194,7 +190,7 @@ export default function SavingGoalDetail() {
                   <Ionicons name="pencil" size={18} color="#2563EB" />
                 </View>
                 <Text className="text-primary font-GHKTachileik text-lg font-medium">
-                  Edit Goal
+                  {tHome("edit_goal")}
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color="#8E8E93" />
@@ -210,7 +206,7 @@ export default function SavingGoalDetail() {
                   <Ionicons name="trash-outline" size={18} color="#EF4444" />
                 </View>
                 <Text className="text-danger font-GHKTachileik text-lg font-medium">
-                  Delete Goal
+                  {tHome("delete_goal")}
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color="#8E8E93" />

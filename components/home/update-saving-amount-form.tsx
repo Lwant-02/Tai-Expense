@@ -5,6 +5,7 @@ import { useUserStore } from "@/store/user.store";
 import { Ionicons } from "@expo/vector-icons";
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Keyboard,
   Text,
@@ -23,6 +24,7 @@ export default function UpdateSavingAmountForm({
   onClose,
   goalId,
 }: UpdateSavingAmountFormProps) {
+  const { t: tHome } = useTranslation("home");
   const [amountToAdd, setAmountToAdd] = useState("");
   const { user } = useUserStore();
   const { setSavings } = useSavingStore();
@@ -40,7 +42,7 @@ export default function UpdateSavingAmountForm({
       <View className="px-6 flex-1">
         <View className="flex-row items-center justify-between mb-8">
           <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
-            Add Funds
+            {tHome("add_funds")}
           </Text>
           <TouchableOpacity
             onPress={onClose}
@@ -52,7 +54,7 @@ export default function UpdateSavingAmountForm({
 
         <CustomInput
           type="number"
-          label="Amount to Add"
+          label={tHome("amount_to_add")}
           value={amountToAdd}
           onChangeText={setAmountToAdd}
           icon="add"
@@ -63,7 +65,7 @@ export default function UpdateSavingAmountForm({
 
         <View className="pb-10 mt-4">
           <CustomBtn
-            title="Add Funds"
+            title={tHome("add_funds")}
             bgVariant="light"
             textVariant="dark"
             onPress={handleSubmit}

@@ -1,31 +1,69 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { SAMPLE_BUDGET } from "@/components/budget/budget-data";
+import { getBills } from "@/actions/bill";
+import { getBudgetData } from "@/actions/budget";
 import Header from "@/components/header";
+import { useBillStore } from "@/store/bill.store";
+import { useBudgetStore } from "@/store/budget.store";
 import { useSavingStore } from "@/store/saving.store";
 import { useUserStore } from "@/store/user.store";
 import { formatCurrency } from "@/utils/common";
+import { differenceInDays, parseISO } from "date-fns";
 
 export default function GeneralPage() {
   const { t } = useTranslation("home");
   const { t: tCommon } = useTranslation("common");
+  const { t: tGeneral } = useTranslation("general");
   const router = useRouter();
+  const db = useSQLiteContext();
   const { user } = useUserStore();
   const { savings } = useSavingStore();
+  const { budgetData, setBudgetData } = useBudgetStore();
+  const { bills, setBills } = useBillStore();
+
+  useFocusEffect(
+    useCallback(() => {
+      const loadData = async () => {
+        try {
+          const now = new Date();
+          const month = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+          const year = now.getFullYear().toString();
+
+          const [bData, bList] = await Promise.all([
+            getBudgetData(db, month, year),
+            getBills(db),
+          ]);
+
+          setBudgetData(bData);
+          setBills(bList);
+        } catch (error) {
+          console.error("Failed to load dashboard data:", error);
+        }
+      };
+      loadData();
+    }, [db, setBudgetData, setBills]),
+  );
 
   // Metrics calculation
   const totalSaved = savings.reduce((acc, curr) => acc + curr.currentAmount, 0);
   const totalTarget = savings.reduce((acc, curr) => acc + curr.targetAmount, 0);
   const savingProgress = totalTarget > 0 ? (totalSaved / totalTarget) * 100 : 0;
 
-  const budgetSpent = SAMPLE_BUDGET.totalSpent;
-  const budgetTotal = SAMPLE_BUDGET.monthlyBudget;
+  const budgetSpent = budgetData?.totalSpent || 0;
+  const budgetTotal = budgetData?.monthlyBudget || 0;
   const budgetProgress =
     budgetTotal > 0 ? (budgetSpent / budgetTotal) * 100 : 0;
+
+  const billsDueThisWeek = bills.filter((bill) => {
+    const daysLeft = differenceInDays(parseISO(bill.dueDate), new Date());
+    return daysLeft >= 0 && daysLeft <= 7;
+  }).length;
 
   return (
     <SafeAreaView className="flex-1 bg-background">
@@ -38,7 +76,7 @@ export default function GeneralPage() {
         {/* Saving Goals Card */}
         <View className="gap-3">
           <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-            Saving Goals
+            {tGeneral("saving_goals")}
           </Text>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -55,7 +93,7 @@ export default function GeneralPage() {
                     {t("saving_goal")}
                   </Text>
                   <Text className="text-primary/50 font-GHKTachileik text-xs mt-0.5">
-                    {savings.length} Active Goals
+                    {tGeneral("active_goals", { count: savings.length })}
                   </Text>
                 </View>
               </View>
@@ -69,7 +107,8 @@ export default function GeneralPage() {
                 {formatCurrency(totalSaved, user?.currency ?? "USD")}
               </Text>
               <Text className="text-primary/50 font-GHKTachileik text-sm mb-1">
-                of {formatCurrency(totalTarget, user?.currency ?? "USD")}
+                {tGeneral("of")}{" "}
+                {formatCurrency(totalTarget, user?.currency ?? "USD")}
               </Text>
             </View>
 
@@ -85,7 +124,7 @@ export default function GeneralPage() {
         {/* Budget Card */}
         <View className="gap-3">
           <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-            Budget
+            {tGeneral("budget")}
           </Text>
 
           <TouchableOpacity
@@ -100,10 +139,10 @@ export default function GeneralPage() {
                 </View>
                 <View>
                   <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-                    Monthly Budget
+                    {tGeneral("monthly_budget")}
                   </Text>
                   <Text className="text-primary/50 font-GHKTachileik text-xs mt-0.5">
-                    Track your spending
+                    {tGeneral("track_spending")}
                   </Text>
                 </View>
               </View>
@@ -115,12 +154,12 @@ export default function GeneralPage() {
             <View className="flex-row items-end justify-between mb-2 mt-2">
               <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
                 {formatCurrency(
-                  budgetTotal - budgetSpent,
+                  budgetTotal > 0 ? budgetTotal - budgetSpent : 0,
                   user?.currency ?? "USD",
                 )}
               </Text>
               <Text className="text-primary/50 font-GHKTachileik text-sm mb-1">
-                Remaining
+                {tGeneral("remaining")}
               </Text>
             </View>
 
@@ -136,7 +175,7 @@ export default function GeneralPage() {
         {/* Upcoming Bills Card */}
         <View className="gap-3">
           <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-            Upcoming Bills
+            {tGeneral("upcoming_bills")}
           </Text>
           <TouchableOpacity
             activeOpacity={0.7}
@@ -150,10 +189,13 @@ export default function GeneralPage() {
                 </View>
                 <View>
                   <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-                    Upcoming Bills
+                    {tGeneral("upcoming_bills")}
                   </Text>
                   <Text className="text-danger font-GHKTachileik text-xs mt-0.5">
-                    2 due this week
+                    {tGeneral("due_this_week").replace(
+                      "2",
+                      billsDueThisWeek.toString(),
+                    )}
                   </Text>
                 </View>
               </View>

@@ -30,5 +30,8 @@
   "spending_breakdown": "Spending Breakdown",
   "no_spending": "No Spending Yet",
   "no_spending_subtitle": "Your spending breakdown will appear here.",
-  "day": "Day"
+  "day": "Day",
+  "repeat_monthly": "Repeat every month",
+  "delete_bill": "Delete Bill",
+  "no_spending_title": "No Spending Yet"
 }

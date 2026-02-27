@@ -1,3 +1,5 @@
+import { useUserStore } from "@/store/user.store";
+import { formatCurrency } from "@/utils/common";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
@@ -12,6 +14,7 @@ export default function BudgetStats({
   remaining,
 }: BudgetStatsProps) {
   const { t } = useTranslation("budget");
+  const { user } = useUserStore();
 
   // Calculate days left in the month
   const now = new Date();
@@ -25,14 +28,14 @@ export default function BudgetStats({
   const stats = [
     {
       label: t("spent"),
-      value: `$${totalSpent.toLocaleString()}`,
-      color: "#FFFFFF",
+      value: `${formatCurrency(totalSpent, user?.currency!)}`,
+      color: "#ef4444",
       icon: "trending-up-outline" as const,
       iconColor: "#EF4444",
     },
     {
       label: t("remaining"),
-      value: `$${remaining.toLocaleString()}`,
+      value: `${formatCurrency(remaining, user?.currency!)}`,
       color: "#22C55E",
       icon: "wallet-outline" as const,
       iconColor: "#22C55E",

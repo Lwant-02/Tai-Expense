@@ -1,4 +1,5 @@
 import appIcon from "@/assets/icons/ios-light.png";
+import shanFlag from "@/assets/icons/shan-flag.png";
 import onboardingOne from "@/assets/images/onboarding-one.png";
 import onboardingThree from "@/assets/images/onboarding-three.png";
 import onboardingTwo from "@/assets/images/onboarding-two.png";
@@ -6,6 +7,7 @@ import { TransactionCategory } from "@/type";
 import { Ionicons } from "@expo/vector-icons";
 
 export const APP_ICON = appIcon;
+export const SHAN_FLAG = shanFlag;
 
 export const ONBOARDING_SCREEN = [
   {

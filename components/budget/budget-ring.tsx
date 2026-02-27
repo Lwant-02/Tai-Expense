@@ -1,3 +1,5 @@
+import { useUserStore } from "@/store/user.store";
+import { formatCurrency } from "@/utils/common";
 import { useTranslation } from "react-i18next";
 import { Text, View } from "react-native";
 import Svg, { Circle } from "react-native-svg";
@@ -12,12 +14,13 @@ export default function BudgetRing({
   totalSpent,
 }: BudgetRingProps) {
   const { t } = useTranslation("budget");
+  const { user } = useUserStore();
 
   const percentage = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
   const clampedPercent = Math.min(percentage, 100);
 
   // Ring config
-  const size = 240;
+  const size = 300;
   const strokeWidth = 14;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -25,7 +28,6 @@ export default function BudgetRing({
   // We show ~75% of the circle (270 degrees arc)
   const arcLength = circumference * 0.75;
   const filledLength = arcLength * (clampedPercent / 100);
-  // const emptyLength = arcLength - filledLength;
 
   // Color based on percentage
   const getColor = () => {
@@ -69,16 +71,16 @@ export default function BudgetRing({
         </Svg>
 
         {/* Center text overlay */}
-        <View className="absolute items-center" style={{ top: 30 }}>
+        <View className="absolute items-center  justify-center bottom-20">
           <Text
             className="font-GHKTachileik text-3xl font-semibold p-2 text-primary"
             style={{ letterSpacing: -1 }}
           >
-            $ {totalBudget.toLocaleString()}
+            {formatCurrency(totalBudget, user?.currency!)}
           </Text>
           <Text className="text-primary/40 font-GHKTachileik text-base mt-1">
-            {t("spent")} ${totalSpent.toLocaleString()} / $
-            {totalBudget.toLocaleString()}
+            {t("spent")} {formatCurrency(totalSpent, user?.currency!)} /{" "}
+            {formatCurrency(totalBudget, user?.currency!)}
           </Text>
         </View>
       </View>

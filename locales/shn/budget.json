@@ -30,5 +30,8 @@
   "spending_breakdown": "သဵၼ်ႈမၢႆၸၢႆႇငိုၼ်း",
   "no_spending": "ပႆႇမီးသဵၼ်ႈမၢႆၸၢႆႇ",
   "no_spending_subtitle": "သဵၼ်ႈမၢႆၸၢႆႇငိုၼ်းတေၼႄတီႈၼႆႈ။",
-  "day": "ဝၼ်း"
+  "day": "ဝၼ်း",
+  "repeat_monthly": "တိုၵ်းသူၼ်းၵူႈလိူၼ်",
+  "delete_bill": "မွတ်ႇပႅတ်ႈ",
+  "no_spending_title": "သဵၼ်ႈမၢႆပႆႇမီး"
 }

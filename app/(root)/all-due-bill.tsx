@@ -1,33 +1,76 @@
 import { Ionicons } from "@expo/vector-icons";
 import cn from "clsx";
-import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { useFocusEffect, useRouter } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import {
+  deleteBill,
+  getBills,
+  updateBillRecurring,
+  updateBillReminder,
+} from "@/actions/bill";
 import BillCard from "@/components/budget/bill-card";
-import { SAMPLE_BILLS } from "@/components/budget/budget-data";
 import EmptyState from "@/components/empty-state";
 import Header from "@/components/header";
-import { Bill } from "@/type";
+import { useBillStore } from "@/store/bill.store";
 
 const PAGE_SIZE = 10;
 
 export default function AllDueBill() {
   const { t } = useTranslation("budget");
   const router = useRouter();
+  const db = useSQLiteContext();
+  const { bills, setBills } = useBillStore();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [bills, setBills] = useState<Bill[]>(
-    SAMPLE_BILLS.sort(
-      (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime(),
-    ),
+
+  const loadBills = useCallback(async () => {
+    try {
+      const data = await getBills(db);
+      setBills(data);
+    } catch (error) {
+      console.error("Failed to load bills:", error);
+    }
+  }, [db, setBills]);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadBills();
+    }, [loadBills]),
   );
 
-  const toggleReminder = (id: string, value: boolean) => {
-    setBills((prev) =>
-      prev.map((b) => (b.id === id ? { ...b, remindMe: value } : b)),
+  const handleToggleReminder = async (id: string, value: boolean) => {
+    await updateBillReminder(db, id, value);
+    loadBills();
+  };
+
+  const handleToggleRecurring = async (id: string, value: boolean) => {
+    await updateBillRecurring(db, id, value);
+    loadBills();
+  };
+
+  const handleDelete = async (id: string) => {
+    Alert.alert(
+      t("delete_bill", "Delete Bill"),
+      t("are_you_sure", "Are you sure you want to delete this bill?"),
+      [
+        {
+          text: t("cancel", "Cancel"),
+          style: "cancel",
+        },
+        {
+          text: t("delete", "Delete"),
+          style: "destructive",
+          onPress: async () => {
+            await deleteBill(db, id);
+            loadBills();
+          },
+        },
+      ],
     );
   };
 
@@ -57,7 +100,12 @@ export default function AllDueBill() {
           showsVerticalScrollIndicator={false}
           contentContainerClassName="px-6 pb-10"
           renderItem={({ item }) => (
-            <BillCard bill={item} onToggleReminder={toggleReminder} />
+            <BillCard
+              bill={item}
+              onToggleReminder={handleToggleReminder}
+              onToggleRecurring={handleToggleRecurring}
+              onDelete={handleDelete}
+            />
           )}
           ListEmptyComponent={
             <EmptyState
