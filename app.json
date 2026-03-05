@@ -21,7 +21,6 @@
         "backgroundColor": "#000000",
         "foregroundImage": "./assets/icons/adaptive-icon.png"
       },
-      "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "package": "com.sai_naw_main.taiexpense"
     },
