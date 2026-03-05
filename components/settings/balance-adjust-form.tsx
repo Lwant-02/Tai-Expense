@@ -21,7 +21,7 @@ export default function BalanceAdjustForm({
 }: BalanceAdjustFormProps) {
   const { t } = useTranslation("settings");
   const { user } = useUserStore();
-  const [amount, setAmount] = useState(currentBalance.toString());
+  const [amount, setAmount] = useState(currentBalance?.toString() || "0");
 
   const handleSave = () => {
     const parsed = parseFloat(amount);
@@ -52,7 +52,8 @@ export default function BalanceAdjustForm({
           {t("current_balance")}
         </Text>
         <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-          {getCurrencySymbol(user?.currency!)} {currentBalance.toLocaleString()}
+          {getCurrencySymbol(user?.currency!)}{" "}
+          {(currentBalance || 0).toLocaleString()}
         </Text>
       </View>
 

@@ -12,7 +12,7 @@ import SettingItem from "@/components/settings/setting-item";
 import UpdateNameForm from "@/components/settings/update-name-form";
 import { CURRENCIES } from "@/constants";
 import { useTransactionStore } from "@/store/transaction.store";
-import { useUserStore as useActualUserStore } from "@/store/user.store";
+import { useUserStore } from "@/store/user.store";
 import { formatCurrency } from "@/utils/common";
 import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -32,9 +32,9 @@ const convertCurrencyLabels = (currency: string) => {
 export default function SettingPage() {
   const { t, i18n } = useTranslation("settings");
   const router = useRouter();
-  const { user, setUserBalance, setUserName } = useActualUserStore();
+  const { user, setUserBalance, setUserName } = useUserStore();
   const { setTransactions, setSummary } = useTransactionStore();
-  const [balance, setBalance] = useState(user?.startingBalance!);
+  const [balance, setBalance] = useState(user?.startingBalance || 0);
   const db = useSQLiteContext();
 
   const currentLang = i18n.language === "en" ? "English" : "Shan (တႆး)";
@@ -127,7 +127,7 @@ export default function SettingPage() {
 
   //State for balance
   useEffect(() => {
-    setBalance(user?.startingBalance!);
+    setBalance(user?.startingBalance || 0);
     setNameInput(user?.name || "");
   }, [user?.startingBalance, user?.name]);
 

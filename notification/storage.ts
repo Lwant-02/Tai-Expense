@@ -2,13 +2,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   DEFAULT_NOTIFICATION_SETTINGS,
-  type NotificationSettings,
+  type NotificationSettingsType,
 } from "./types";
 
 const NOTIFICATION_SETTINGS_KEY = "notification-settings";
 
 export const saveNotificationSettings = async (
-  settings: NotificationSettings,
+  settings: NotificationSettingsType,
 ): Promise<void> => {
   await AsyncStorage.setItem(
     NOTIFICATION_SETTINGS_KEY,
@@ -17,7 +17,7 @@ export const saveNotificationSettings = async (
 };
 
 export const loadNotificationSettings =
-  async (): Promise<NotificationSettings> => {
+  async (): Promise<NotificationSettingsType> => {
     const raw = await AsyncStorage.getItem(NOTIFICATION_SETTINGS_KEY);
     if (!raw) return DEFAULT_NOTIFICATION_SETTINGS;
     try {

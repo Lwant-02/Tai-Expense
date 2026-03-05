@@ -89,6 +89,7 @@ declare interface Bill {
   dueDate: string; // ISO date string
   remindMe: boolean;
   isRecurring?: boolean;
+  frequency?: "monthly" | "weekly" | "yearly" | string;
 }
 
 export interface SavingGoal {
