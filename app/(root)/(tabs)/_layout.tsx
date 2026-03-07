@@ -27,7 +27,7 @@ export default function Layout() {
       const [user, summary, transactions, savings] = await Promise.all([
         getUser(db),
         getTransactionSummary(db),
-        getTransactions(db), // Fetch all transactions for global state
+        getTransactions(db),
         getSavings(db),
       ]);
       setUser(user);

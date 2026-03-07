@@ -109,6 +109,7 @@ export default function AddBillForm({ onClose, onSaved }: AddBillFormProps) {
                   value={date}
                   mode="date"
                   display="default"
+                  locale="en-GB"
                   onChange={(event, selectedDate) => {
                     setShowDatePicker(false);
                     if (selectedDate) {
@@ -124,6 +125,7 @@ export default function AddBillForm({ onClose, onSaved }: AddBillFormProps) {
                 value={date}
                 mode="date"
                 display="spinner"
+                locale="en-GB"
                 onChange={(event, selectedDate) => {
                   const currentDate = selectedDate || date;
                   setDate(currentDate);

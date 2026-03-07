@@ -1,10 +1,8 @@
 import Header from "@/components/header";
-import { APP_ICON } from "@/constants";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import {
-  Image,
   Linking,
   ScrollView,
   Text,
@@ -52,45 +50,6 @@ export default function AboutPage() {
         showsVerticalScrollIndicator={false}
         contentContainerClassName="pb-32 px-6"
       >
-        {/* App Icon + Name */}
-        <View className="items-center mb-8 mt-4">
-          <View className="size-24 rounded-full overflow-hidden bg-blue/10 items-center justify-center mb-4">
-            <Image
-              source={APP_ICON}
-              className="size-full"
-              resizeMode="contain"
-            />
-          </View>
-          <Text className="text-primary font-GHKTachileik text-2xl font-semibold">
-            TAI Expense
-          </Text>
-          <Text className="text-primary/40 font-GHKTachileik text-base mt-1">
-            v1.0.0
-          </Text>
-        </View>
-
-        {/* App Description */}
-        <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-4">
-          <Text className="text-primary/60 font-GHKTachileik text-base leading-6">
-            {t("about_description")}
-          </Text>
-        </View>
-
-        {/* Mission */}
-        <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-6">
-          <View className="flex-row items-center mb-3">
-            <View className="size-9 rounded-xl bg-green/10 items-center justify-center mr-3">
-              <Ionicons name="heart" size={18} color="#22C55E" />
-            </View>
-            <Text className="text-primary font-GHKTachileik text-lg font-semibold">
-              {t("our_mission")}
-            </Text>
-          </View>
-          <Text className="text-primary/50 font-GHKTachileik text-base leading-6">
-            {t("mission_description")}
-          </Text>
-        </View>
-
         {/* Developer */}
         <Text className="text-primary/40 font-GHKTachileik text-sm uppercase tracking-widest mb-3 ml-1">
           {t("developer")}
