@@ -143,14 +143,14 @@ export const BANNERS = [
 ];
 
 export const CURRENCIES = [
-  { symbol: "$", code: "USD", name: "US Dollar", flag: "🇺🇸" },
-  { symbol: "€", code: "EUR", name: "Euro", flag: "🇪🇺" },
-  { symbol: "¥", code: "JPY", name: "Japanese Yen", flag: "🇯🇵" },
-  { symbol: "$", code: "AUD", name: "Australian Dollar", flag: "🇦🇺" },
-  { symbol: "Ks", code: "MMK", name: "Myanmar Kyat", flag: "🇲🇲" },
-  { symbol: "฿", code: "THB", name: "Thai Baht", flag: "🇹🇭" },
-  { symbol: "$", code: "SGD", name: "Singapore Dollar", flag: "🇸🇬" },
-  { symbol: "¥", code: "CNY", name: "Chinese Yuan", flag: "🇨🇳" },
+  { symbol: "$", code: "USD", name: "US Dollar", flag: "🇺🇸", flagCode: "US" },
+  { symbol: "€", code: "EUR", name: "Euro", flag: "🇪🇺", flagCode: "EU" },
+  { symbol: "¥", code: "JPY", name: "Japanese Yen", flag: "🇯🇵", flagCode: "JP" },
+  { symbol: "$", code: "AUD", name: "Australian Dollar", flag: "🇦🇺", flagCode: "AU" },
+  { symbol: "Ks", code: "MMK", name: "Myanmar Kyat", flag: "🇲🇲", flagCode: "MM" },
+  { symbol: "฿", code: "THB", name: "Thai Baht", flag: "🇹🇭", flagCode: "TH" },
+  { symbol: "$", code: "SGD", name: "Singapore Dollar", flag: "🇸🇬", flagCode: "SG" },
+  { symbol: "¥", code: "CNY", name: "Chinese Yuan", flag: "🇨🇳", flagCode: "CN" },
 ];
 
 export const SAVING_GOAL_COLORS = [

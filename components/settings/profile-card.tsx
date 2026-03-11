@@ -20,7 +20,7 @@ export default function ProfileCard({ user }: ProfileCardProps) {
         </View>
         <View className="flex-1 gap-1">
           <Text className="text-primary/40  font-GHKTachileik text-sm">
-            {t("greeting")} 👋
+            {t("greeting")}
           </Text>
           <Text className="text-primary font-GHKTachileik text-xl font-semibold mt-0.5">
             {user?.name}

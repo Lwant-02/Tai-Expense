@@ -9,6 +9,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Text, TouchableOpacity, View } from "react-native";
+import CountryFlag from "react-native-country-flag";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CurrencyPage() {
@@ -55,7 +56,7 @@ export default function CurrencyPage() {
                   isSelected ? "bg-blue/20" : "bg-primary/5",
                 )}
               >
-                <Text className="text-2xl">{curr.flag}</Text>
+                <CountryFlag isoCode={curr.flagCode} size={13} />
               </View>
 
               {/* Label */}

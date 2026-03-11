@@ -17,6 +17,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import CountryFlag from "react-native-country-flag";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { createUser } from "@/actions";
@@ -159,9 +160,7 @@ export default function GetStarted() {
                       className="flex-row items-center bg-foreground rounded-2xl px-4 py-3.5 border border-primary/10 justify-between"
                     >
                       <View className="flex-row items-center gap-3">
-                        <View className="size-8 rounded-full bg-background items-center justify-center">
-                          <Text className="text-lg">{currency.flag}</Text>
-                        </View>
+                        <CountryFlag isoCode={currency.flagCode} size={10} />
                         <Text className="text-primary font-GHKTachileik text-base">
                           {currency.name} ({currency.code})
                         </Text>
@@ -269,7 +268,7 @@ export default function GetStarted() {
                   }`}
                 >
                   <View className="size-10 rounded-full bg-background items-center justify-center mr-4">
-                    <Text className="text-xl">{item.flag}</Text>
+                    <CountryFlag isoCode={item.flagCode} size={13} />
                   </View>
                   <View>
                     <Text className="text-primary font-GHKTachileik text-base font-semibold">

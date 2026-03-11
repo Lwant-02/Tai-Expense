@@ -6,7 +6,7 @@
   "balance_label": "Initial Balance",
   "balance_placeholder": "0.00",
   "currency_symbol": "$",
-  "button": "Let's Go! 🚀",
+  "button": "Let's Go!",
   "error_name": "Please enter your name",
   "error_balance": "Please enter a valid amount"
 }
