@@ -1,4 +1,4 @@
-# 💰 Tai Expense
+# 💰 Tai Expense (For Shan Community)
 
 A personal expense tracker mobile app built with **Expo 55** and **React Native 0.83**. Track income & expenses, manage budgets, set saving goals, schedule bill reminders — all offline with a local SQLite database. Supports **English** and **Shan** languages.
 
