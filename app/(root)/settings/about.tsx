@@ -17,24 +17,24 @@ const CONTACTS = [
     icon: "mail-outline" as const,
     color: "#2563EB",
     bg: "bg-blue/10",
-    value: "lwant.dev@gmail.com",
-    onPress: () => Linking.openURL("mailto:lwant.dev@gmail.com"),
+    value: "jaimain671@gmail.com",
+    onPress: () => Linking.openURL("mailto:jaimain671@gmail.com"),
   },
   {
     key: "contact_facebook",
     icon: "logo-facebook" as const,
     color: "#1877F2",
     bg: "bg-[#1877F2]/10",
-    value: "Lwant",
-    onPress: () => Linking.openURL("https://facebook.com/lwant"),
+    value: "Naw Main",
+    onPress: () => Linking.openURL("https://www.facebook.com/nawmong02"),
   },
   {
     key: "contact_telegram",
     icon: "paper-plane-outline" as const,
     color: "#26A5E4",
     bg: "bg-[#26A5E4]/10",
-    value: "@lwant",
-    onPress: () => Linking.openURL("https://t.me/lwant"),
+    value: "Lwant",
+    onPress: () => Linking.openURL("https://t.me/Nawmong"),
   },
 ];
 
@@ -56,10 +56,7 @@ export default function AboutPage() {
         </Text>
         <View className="bg-foreground rounded-2xl p-5 border border-primary/5 mb-6">
           <View className="flex-row items-center">
-            <View className="size-14 rounded-2xl bg-[#A78BFA]/10 items-center justify-center mr-4">
-              <Text className="text-2xl">👨‍💻</Text>
-            </View>
-            <View className="flex-1">
+            <View className="flex-1 justify-center items-center">
               <Text className="text-primary font-GHKTachileik text-lg font-semibold">
                 {t("developer_name")}
               </Text>

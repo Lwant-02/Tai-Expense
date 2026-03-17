@@ -92,32 +92,93 @@ export async function scheduleDailyReminder(hour: number, minute: number) {
 }
 
 /**
- * Schedule a **bill due reminder** — fires once, 1 day before the due date.
+ * Schedule a **bill due reminder**.
+ * If `isRecurring` is true, it repeats monthly on the reminder date.
+ * If false, it fires once, 1 day before the due date.
+ * @param billId - ID of the bill, to cancel easily if needed
  * @param billName - Name of the bill
- * @param dueDate  - The bill's due date
+ * @param dueDate - The bill's due date
+ * @param isRecurring - Whether it repeats monthly
  */
-export async function scheduleBillDueReminder(billName: string, dueDate: Date) {
+export async function scheduleBillDueReminder(
+  billId: string,
+  billName: string,
+  dueDate: Date,
+  isRecurring: boolean = false
+) {
   const reminderDate = new Date(dueDate);
   reminderDate.setDate(reminderDate.getDate() - 1);
   reminderDate.setHours(9, 0, 0, 0); // Remind at 9 AM the day before
 
-  // Don't schedule if the reminder date is in the past
-  if (reminderDate.getTime() <= Date.now()) return;
+  const identifier = `bill-due-reminder-${billId}`;
+  await cancelNotification(identifier as NotificationId);
 
-  const secondsUntil = Math.floor((reminderDate.getTime() - Date.now()) / 1000);
+  // For a one-time bill, if the reminder date is in the past, don't schedule
+  if (!isRecurring && reminderDate.getTime() <= Date.now()) return;
+
+  const trigger = isRecurring
+    ? Platform.OS === "ios"
+      ? {
+          type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
+          day: reminderDate.getDate(),
+          hour: reminderDate.getHours(),
+          minute: reminderDate.getMinutes(),
+          repeats: true,
+        }
+      : {
+          type: Notifications.SchedulableTriggerInputTypes.MONTHLY,
+          day: reminderDate.getDate(),
+          hour: reminderDate.getHours(),
+          minute: reminderDate.getMinutes(),
+        }
+    : {
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
+        date: reminderDate,
+      };
 
   await Notifications.scheduleNotificationAsync({
-    identifier: `bill-due-reminder-${billName}`,
+    identifier,
     content: {
       title: "📋 Bill Due Tomorrow",
       body: `Your bill "${billName}" is due tomorrow. Don't forget to pay!`,
       sound: "default",
     },
-    trigger: {
-      type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-      seconds: secondsUntil,
-      repeats: false,
+    trigger: trigger as Notifications.NotificationTriggerInput,
+  });
+}
+
+/**
+ * Schedule a **monthly reminder** at the given date/hour/minute.
+ * This repeats every month.
+ */
+export async function scheduleMonthlyReminder(
+  day: number,
+  hour: number,
+  minute: number,
+) {
+  await cancelNotification("monthly-reminder");
+
+  await Notifications.scheduleNotificationAsync({
+    identifier: "monthly-reminder",
+    content: {
+      title: "📅 Monthly Review",
+      body: "It's a new month! Review your expenses and set up a new budget if needed.",
+      sound: "default",
     },
+    trigger: Platform.OS === "ios" 
+      ? {
+          type: Notifications.SchedulableTriggerInputTypes.CALENDAR,
+          day,
+          hour,
+          minute,
+          repeats: true,
+        }
+      : {
+          type: Notifications.SchedulableTriggerInputTypes.MONTHLY,
+          day,
+          hour,
+          minute,
+        },
   });
 }
 

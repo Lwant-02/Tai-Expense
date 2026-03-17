@@ -1,10 +1,11 @@
-import { useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert, View } from "react-native";
 
 import {
+  autoRolloverRecurringBills,
   deleteBill,
   getBills,
   updateBillRecurring,
@@ -16,12 +17,14 @@ import { useBillStore } from "@/store/bill.store";
 
 export default function UpcomingBills() {
   const { t } = useTranslation("budget");
-  const router = useRouter();
   const db = useSQLiteContext();
   const { bills, setBills } = useBillStore();
 
   const loadBills = useCallback(async () => {
     try {
+      // First, automatically bump any overdue recurring bills to the next month
+      await autoRolloverRecurringBills(db);
+
       const data = await getBills(db);
       setBills(data);
     } catch (error) {

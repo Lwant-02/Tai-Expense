@@ -8,6 +8,7 @@ export {
   scheduleDailyReminder,
   scheduleTestNotification,
   scheduleWeeklySummary,
+  scheduleMonthlyReminder,
   sendBudgetWarning,
   setupNotificationHandler,
 } from "./scheduler";

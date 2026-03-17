@@ -2,6 +2,7 @@ import {
   cancelNotification,
   scheduleDailyReminder,
   scheduleWeeklySummary,
+  scheduleMonthlyReminder,
   setupNotificationHandler,
 } from "./scheduler";
 import type { NotificationSettingsType } from "./types";
@@ -35,6 +36,17 @@ export async function applyNotificationSchedules(
     );
   } else {
     await cancelNotification("weekly-summary");
+  }
+
+  // Monthly reminder
+  if (settings.monthlyReminder.enabled) {
+    await scheduleMonthlyReminder(
+      settings.monthlyReminder.dayOfMonth,
+      settings.monthlyReminder.hour,
+      settings.monthlyReminder.minute,
+    );
+  } else {
+    await cancelNotification("monthly-reminder");
   }
 
   // Note: Bill due reminders are scheduled dynamically when bills are created/updated

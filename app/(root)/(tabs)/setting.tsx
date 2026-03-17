@@ -173,15 +173,6 @@ export default function SettingPage() {
           />
 
           <SettingItem
-            icon="notifications-outline"
-            iconColor="#F59E0B"
-            iconBg="bg-[#F59E0B]/10"
-            title={t("notifications")}
-            subtitle={t("notifications_subtitle")}
-            onPress={() => router.push("/settings/notification")}
-          />
-
-          <SettingItem
             icon="wallet-outline"
             iconColor="#F59E0B"
             iconBg="bg-[#F59E0B]/10"

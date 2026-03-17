@@ -1,5 +1,6 @@
 import { Transaction, TransactionType } from "@/type";
 import { SQLiteDatabase } from "expo-sqlite";
+import { checkAndTriggerBudgetWarning } from "@/utils/notification-helpers";
 
 export interface CreateTransactionParams {
   title: string;
@@ -38,6 +39,9 @@ export const createTransaction = async (
       "Transaction created successfully with ID:",
       result.lastInsertRowId,
     );
+    if (params.type === "expense") {
+      await checkAndTriggerBudgetWarning(db);
+    }
   } catch (error) {
     console.error("Error creating transaction:", error);
     throw error;

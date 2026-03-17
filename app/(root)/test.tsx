@@ -76,7 +76,7 @@ export default function NotificationTest() {
       onPress: async () => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
-        await scheduleBillDueReminder("Electricity Bill", tomorrow);
+        await scheduleBillDueReminder("test-bill-id", "Electricity Bill", tomorrow, false);
         Alert.alert(
           "✅ Scheduled",
           "Bill due reminder scheduled for 9 AM today (1 day before tomorrow)",

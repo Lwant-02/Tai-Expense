@@ -36,7 +36,7 @@ export default function BillCard({
             <Ionicons name="receipt-outline" size={20} color="#F97316" />
           </View>
           <View>
-            <Text className="text-primary font-GHKTachileik text-lg font-bold">
+            <Text className="text-primary font-GHKTachileik text-lg font-semibold">
               {bill.title}
             </Text>
             <Text
@@ -75,6 +75,9 @@ export default function BillCard({
             )}
           >
             {format(parseISO(bill.dueDate), "MMM dd, yyyy")}
+            {bill.isRecurring && (
+              <Text className="text-green text-xs">{"  "}(Every Month)</Text>
+            )}
           </Text>
         </View>
 

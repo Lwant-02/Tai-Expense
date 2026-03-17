@@ -2,7 +2,8 @@ export type NotificationId =
   | "daily-reminder"
   | "bill-due-reminder"
   | "weekly-summary"
-  | "budget-warning";
+  | "budget-warning"
+  | "monthly-reminder";
 
 export interface NotificationSettingsType {
   dailyReminder: {
@@ -20,9 +21,15 @@ export interface NotificationSettingsType {
     hour: number;
     minute: number;
   };
+  monthlyReminder: {
+    enabled: boolean;
+    dayOfMonth: number;
+    hour: number;
+    minute: number;
+  };
   budgetWarning: {
     enabled: boolean;
-    /** Threshold percentage (e.g. 80 means 80%) */
+    /** Threshold percentage (e.g. 75 means 75%) */
     threshold: number;
   };
 }
@@ -30,7 +37,7 @@ export interface NotificationSettingsType {
 export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettingsType = {
   dailyReminder: {
     enabled: true,
-    hour: 20, // 8 PM
+    hour: 9, // 9 AM
     minute: 0,
   },
   billDueReminder: {
@@ -42,8 +49,14 @@ export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettingsType = {
     hour: 10,
     minute: 0,
   },
+  monthlyReminder: {
+    enabled: true,
+    dayOfMonth: 1, // 1st of the month
+    hour: 9,
+    minute: 0,
+  },
   budgetWarning: {
     enabled: true,
-    threshold: 80,
+    threshold: 75,
   },
 };
